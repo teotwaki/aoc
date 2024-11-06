@@ -69,6 +69,7 @@ dependencies = [
  "y2023-d1",
  "y2023-d2",
  "y2023-d3",
+ "y2023-d4",
 ]
 
 [[package]]
@@ -337,4 +338,11 @@ version = "0.1.0"
 dependencies = [
  "common",
  "itertools",
+]
+
+[[package]]
+name = "y2023-d4"
+version = "0.1.0"
+dependencies = [
+ "common",
 ]
