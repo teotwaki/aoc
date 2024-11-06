@@ -22,7 +22,7 @@ fn main() -> Result<()> {
                 registry.add(
                     aoc_workbench::Year::new($y)?,
                     aoc_workbench::Day::new($d)?,
-                    aoc_workbench::Solution::both([< y $y _d $d >]::part1, [< y $y _d $d >]::part2));
+                    aoc_workbench::Solution::both([< y $y _d $d >]::step1, [< y $y _d $d >]::step2));
             }
         };
         ($y:literal, $d:literal, $($days:literal),+) => {
@@ -36,6 +36,8 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
     let year = cli.year.unwrap_or_else(|| registry.latest_year());
     let day = cli.day.unwrap_or_else(|| registry.latest_day(year));
+
+    println!("Running solution for {year}-{day}");
 
     let answer = registry.run_step1(year, day)?;
     println!("Step 1 answer: {answer}");

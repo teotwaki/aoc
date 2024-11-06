@@ -17,3 +17,45 @@ impl Display for Answer {
         }
     }
 }
+
+impl From<usize> for Answer {
+    fn from(value: usize) -> Self {
+        Answer::Unsigned(value as u64)
+    }
+}
+
+impl From<u32> for Answer {
+    fn from(value: u32) -> Self {
+        Answer::Unsigned(value as u64)
+    }
+}
+
+impl From<u16> for Answer {
+    fn from(value: u16) -> Self {
+        Answer::Unsigned(value as u64)
+    }
+}
+
+impl From<u8> for Answer {
+    fn from(value: u8) -> Self {
+        Answer::Unsigned(value as u64)
+    }
+}
+
+impl From<i32> for Answer {
+    fn from(value: i32) -> Self {
+        Answer::Signed(value as i64)
+    }
+}
+
+impl From<i16> for Answer {
+    fn from(value: i16) -> Self {
+        Answer::Signed(value as i64)
+    }
+}
+
+impl From<i8> for Answer {
+    fn from(value: i8) -> Self {
+        Answer::Signed(value as i64)
+    }
+}
