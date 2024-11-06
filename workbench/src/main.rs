@@ -1,14 +1,47 @@
 use anyhow::Result;
-use aoc_workbench::{Day, Registry, Solution, Year};
+use aoc_workbench::{Day, Registry, Year};
+
+use clap::Parser;
+
+#[derive(Parser)]
+#[command(version, about, long_about = None)]
+struct Cli {
+    #[arg(value_parser = clap::value_parser!(Year))]
+    year: Option<Year>,
+
+    #[arg(value_parser = clap::value_parser!(Day))]
+    day: Option<Day>,
+}
 
 fn main() -> Result<()> {
     let mut registry = Registry::new();
 
-    registry.add(
-        Year::new(2023)?,
-        Day::new(1)?,
-        Solution::both(y2023_d01::part1, y2023_d01::part2),
-    );
+    macro_rules! add {
+        ($y:literal, $d:literal) => {
+            paste::paste! {
+                registry.add(
+                    aoc_workbench::Year::new($y)?,
+                    aoc_workbench::Day::new($d)?,
+                    aoc_workbench::Solution::both([< y $y _d $d >]::part1, [< y $y _d $d >]::part2));
+            }
+        };
+        ($y:literal, $d:literal, $($days:literal),+) => {
+            add!($y, $d);
+            add!($y, $($days),+);
+        };
+    }
+
+    add!(2023, 1);
+
+    let cli = Cli::parse();
+    let year = cli.year.unwrap_or_else(|| registry.latest_year());
+    let day = cli.day.unwrap_or_else(|| registry.latest_day(year));
+
+    let answer = registry.run_step1(year, day)?;
+    println!("Step 1 answer: {answer}");
+
+    let answer = registry.run_step2(year, day)?;
+    println!("Step 2 answer: {answer}");
 
     Ok(())
 }

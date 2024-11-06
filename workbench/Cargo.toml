@@ -8,6 +8,8 @@ doctest = false
 
 [dependencies]
 anyhow = "1.0"
+clap = { version = "4.5.20", features = ["derive"] }
 common = { path = "../common" }
+paste = "1.0"
 thiserror = "2.0"
-y2023-d01 = { path = "../2023/01" }
+y2023-d1 = { path = "../2023/01" }

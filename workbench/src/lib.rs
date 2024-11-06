@@ -1,72 +1,129 @@
 use common::Answer;
-use std::collections::HashMap;
+use std::{
+    collections::HashMap, fmt::Display, fs::read_to_string, num::ParseIntError, str::FromStr,
+};
 use thiserror::Error;
 
 pub type Solver = fn(&str) -> Answer;
 
-#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Year(u16);
 
 #[derive(Error, Debug)]
-#[error("invalid year number: {0}")]
-pub struct InvalidYear(u16);
+#[error("expected year between 2015 and 2030")]
+pub struct InvalidYear;
 
 impl Year {
     pub fn new(y: u16) -> Result<Self, InvalidYear> {
         match y {
             2015..=2030 => Ok(Self(y)),
-            _ => Err(InvalidYear(y)),
+            _ => Err(InvalidYear {}),
         }
     }
 }
 
-#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
+impl Display for Year {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+#[derive(Error, Debug)]
+pub enum YearFromStrError {
+    #[error("invalid year: {0}")]
+    InvalidYear(#[from] InvalidYear),
+
+    #[error("invalid integer: {0}")]
+    ParseInt(#[from] ParseIntError),
+}
+
+impl FromStr for Year {
+    type Err = YearFromStrError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(Self::new(s.parse()?)?)
+    }
+}
+
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Day(u8);
 
 #[derive(Error, Debug)]
-#[error("invalid day number: {0}")]
-pub struct InvalidDay(u8);
+#[error("expected day between 1 and 25")]
+pub struct InvalidDay;
 
 impl Day {
     pub fn new(d: u8) -> Result<Self, InvalidDay> {
         match d {
             1..=25 => Ok(Self(d)),
-            _ => Err(InvalidDay(d)),
+            _ => Err(InvalidDay {}),
         }
+    }
+}
+
+impl Display for Day {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+#[derive(Error, Debug)]
+pub enum DayFromStrError {
+    #[error("invalid day: {0}")]
+    InvalidYear(#[from] InvalidDay),
+
+    #[error("invalid integer: {0}")]
+    ParseInt(#[from] ParseIntError),
+}
+
+impl FromStr for Day {
+    type Err = DayFromStrError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(Self::new(s.parse()?)?)
     }
 }
 
 #[derive(Debug, Clone, Copy, Hash)]
 pub struct Solution {
-    part1: Option<Solver>,
-    part2: Option<Solver>,
+    step1: Option<Solver>,
+    step2: Option<Solver>,
 }
 
 impl Solution {
     pub fn first(s: Solver) -> Self {
         Solution {
-            part1: Some(s),
-            part2: None,
+            step1: Some(s),
+            step2: None,
         }
     }
 
     pub fn second(s: Solver) -> Self {
         Solution {
-            part1: None,
-            part2: Some(s),
+            step1: None,
+            step2: Some(s),
         }
     }
 
     pub fn both(first: Solver, second: Solver) -> Self {
         Solution {
-            part1: Some(first),
-            part2: Some(second),
+            step1: Some(first),
+            step2: Some(second),
         }
     }
 }
 
 #[derive(Debug, Clone, Default)]
 pub struct Registry(HashMap<Year, HashMap<Day, Solution>>);
+
+#[derive(Error, Debug)]
+pub enum RunError {
+    #[error("there is no solution implemented for this day")]
+    MissingSolution,
+
+    #[error("unable to open input: {0}")]
+    InputError(#[from] std::io::Error),
+}
 
 impl Registry {
     pub fn new() -> Self {
@@ -75,6 +132,48 @@ impl Registry {
 
     pub fn add(&mut self, y: Year, d: Day, s: Solution) {
         self.0.entry(y).or_default().entry(d).or_insert(s);
+    }
+
+    pub fn latest_year(&self) -> Year {
+        let mut keys: Vec<_> = self.0.keys().collect();
+        keys.sort();
+        **keys.last().unwrap()
+    }
+
+    pub fn latest_day(&self, y: Year) -> Day {
+        let mut keys: Vec<_> = self.0.get(&y).unwrap().keys().collect();
+        keys.sort();
+        **keys.last().unwrap()
+    }
+
+    fn get_input(&self, y: Year, d: Day) -> Result<String, std::io::Error> {
+        read_to_string(format!("../{y}/{:02}/input.txt", d))
+    }
+
+    pub fn run_step1(&self, y: Year, d: Day) -> Result<Answer, RunError> {
+        let input = self.get_input(y, d)?;
+
+        Ok(self
+            .0
+            .get(&y)
+            .ok_or(RunError::MissingSolution)?
+            .get(&d)
+            .ok_or(RunError::MissingSolution)?
+            .step1
+            .unwrap()(&input))
+    }
+
+    pub fn run_step2(&self, y: Year, d: Day) -> Result<Answer, RunError> {
+        let input = self.get_input(y, d)?;
+
+        Ok(self
+            .0
+            .get(&y)
+            .ok_or(RunError::MissingSolution)?
+            .get(&d)
+            .ok_or(RunError::MissingSolution)?
+            .step2
+            .unwrap()(&input))
     }
 }
 
