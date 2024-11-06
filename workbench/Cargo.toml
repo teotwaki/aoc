@@ -3,6 +3,11 @@ name = "aoc-workbench"
 version.workspace = true
 edition.workspace = true
 
+[lib]
+doctest = false
+
 [dependencies]
+anyhow = "1.0"
 common = { path = "../common" }
+thiserror = "2.0"
 y2023-d01 = { path = "../2023/01" }
