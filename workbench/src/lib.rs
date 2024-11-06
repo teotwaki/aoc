@@ -151,8 +151,6 @@ impl Registry {
     }
 
     pub fn run_step1(&self, y: Year, d: Day) -> Result<Answer, RunError> {
-        let input = self.get_input(y, d)?;
-
         Ok(self
             .0
             .get(&y)
@@ -160,12 +158,10 @@ impl Registry {
             .get(&d)
             .ok_or(RunError::MissingSolution)?
             .step1
-            .unwrap()(&input))
+            .unwrap()(&self.get_input(y, d)?))
     }
 
     pub fn run_step2(&self, y: Year, d: Day) -> Result<Answer, RunError> {
-        let input = self.get_input(y, d)?;
-
         Ok(self
             .0
             .get(&y)
@@ -173,7 +169,7 @@ impl Registry {
             .get(&d)
             .ok_or(RunError::MissingSolution)?
             .step2
-            .unwrap()(&input))
+            .unwrap()(&self.get_input(y, d)?))
     }
 }
 
