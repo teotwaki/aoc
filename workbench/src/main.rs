@@ -31,7 +31,7 @@ fn main() -> Result<()> {
         };
     }
 
-    add!(2023, 1, 2);
+    add!(2023, 1, 2, 3);
 
     let cli = Cli::parse();
     let year = cli.year.unwrap_or_else(|| registry.latest_year());

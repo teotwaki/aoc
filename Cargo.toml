@@ -4,4 +4,4 @@ edition = "2021"
 
 [workspace]
 resolver = "2"
-members = ["workbench", "common", "2023/01", "2023/02"]
+members = ["workbench", "common", "2023/01", "2023/02", "2023/03"]
