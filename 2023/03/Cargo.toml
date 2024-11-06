@@ -1,0 +1,11 @@
+[package]
+name = "y2023-d3"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+itertools = "0.13"
