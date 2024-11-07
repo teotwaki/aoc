@@ -68,6 +68,7 @@ dependencies = [
  "thiserror",
  "y2022-d1",
  "y2022-d2",
+ "y2022-d3",
  "y2023-d1",
  "y2023-d10",
  "y2023-d11",
@@ -418,6 +419,13 @@ dependencies = [
 
 [[package]]
 name = "y2022-d2"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "y2022-d3"
 version = "0.1.0"
 dependencies = [
  "common",
