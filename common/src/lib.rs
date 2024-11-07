@@ -59,3 +59,15 @@ impl From<i8> for Answer {
         Answer::Signed(value as i64)
     }
 }
+
+impl From<&str> for Answer {
+    fn from(value: &str) -> Self {
+        Answer::Text(value.to_owned())
+    }
+}
+
+impl From<String> for Answer {
+    fn from(value: String) -> Self {
+        Answer::Text(value)
+    }
+}
