@@ -98,22 +98,14 @@ fn find_reflection(values: &[u32]) -> (usize, usize) {
         })
 }
 
-pub fn step1(s: &str) -> Answer {
-    let patterns: Vec<_> = s.split("\n\n").map(Pattern::from).collect();
+fn sum_summary(s: &str, f: fn(&Pattern) -> usize) -> usize {
+    s.split("\n\n").map(|s| f(&Pattern::from(s))).sum()
+}
 
-    patterns
-        .iter()
-        .map(Pattern::summarize)
-        .sum::<usize>()
-        .into()
+pub fn step1(s: &str) -> Answer {
+    sum_summary(s, |p| p.summarize()).into()
 }
 
 pub fn step2(s: &str) -> Answer {
-    let patterns: Vec<_> = s.split("\n\n").map(Pattern::from).collect();
-
-    patterns
-        .iter()
-        .map(Pattern::summarize_smudges)
-        .sum::<usize>()
-        .into()
+    sum_summary(s, |p| p.summarize_smudges()).into()
 }
