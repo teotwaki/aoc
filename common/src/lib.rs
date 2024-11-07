@@ -24,6 +24,12 @@ impl From<usize> for Answer {
     }
 }
 
+impl From<u64> for Answer {
+    fn from(value: u64) -> Self {
+        Answer::Unsigned(value)
+    }
+}
+
 impl From<u32> for Answer {
     fn from(value: u32) -> Self {
         Answer::Unsigned(value as u64)
@@ -39,6 +45,12 @@ impl From<u16> for Answer {
 impl From<u8> for Answer {
     fn from(value: u8) -> Self {
         Answer::Unsigned(value as u64)
+    }
+}
+
+impl From<i64> for Answer {
+    fn from(value: i64) -> Self {
+        Answer::Signed(value)
     }
 }
 
