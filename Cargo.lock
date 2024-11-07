@@ -72,6 +72,7 @@ dependencies = [
  "y2022-d4",
  "y2022-d5",
  "y2022-d6",
+ "y2022-d7",
  "y2023-d1",
  "y2023-d10",
  "y2023-d11",
@@ -454,6 +455,14 @@ name = "y2022-d6"
 version = "0.1.0"
 dependencies = [
  "common",
+]
+
+[[package]]
+name = "y2022-d7"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "nom",
 ]
 
 [[package]]
