@@ -1,0 +1,11 @@
+[package]
+name = "y2022-d14"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+nom = "7.1"
