@@ -1,5 +1,6 @@
 use std::fmt::Display;
 
+#[derive(Debug, PartialEq, Eq)]
 pub enum Answer {
     Signed(i64),
     Unsigned(u64),
