@@ -148,12 +148,16 @@ pub fn step1(s: &str) -> Answer {
     map.unavailable_locations_in_row(2_000_000).into()
 }
 
+fn frequency(x: i64, y: i64) -> i64 {
+    x * 4_000_000 + y
+}
+
 pub fn step2(s: &str) -> Answer {
     let map = Map::new(s);
 
     let pos = map.beacon_location(4_000_000);
 
-    (pos.x * 4_000_000 + pos.y).into()
+    frequency(pos.x, pos.y).into()
 }
 
 #[cfg(test)]
@@ -176,25 +180,26 @@ Sensor at x=14, y=3: closest beacon is at x=15, y=3
 Sensor at x=20, y=1: closest beacon is at x=15, y=3"#;
 
     #[test]
-    fn step1_small_input() {
+    fn step1() {
         let map = Map::new(SMALL_INPUT);
 
         assert_eq!(map.unavailable_locations_in_row(10), 26)
     }
 
     #[test]
-    fn beacon_location_small_input() {
+    fn beacon_location() {
         let map = Map::new(SMALL_INPUT);
         let pos = map.beacon_location(20);
 
         assert_eq!(pos, Position::new(14, 11));
-        assert_eq!(pos.x * 4_000_000 + pos.y, 56000011);
     }
 
     #[test]
-    fn step2_small_input() {
-        let result = step2(SMALL_INPUT);
+    fn test_step2() {
+        let map = Map::new(SMALL_INPUT);
+        let pos = map.beacon_location(20);
+        let freq = frequency(pos.x, pos.y);
 
-        assert_eq!(result, Answer::Signed(56000011));
+        assert_eq!(freq, 56000011);
     }
 }
