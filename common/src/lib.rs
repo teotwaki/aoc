@@ -5,6 +5,7 @@ pub enum Answer {
     Signed(i64),
     Unsigned(u64),
     Text(String),
+    Unimplemented,
 }
 
 impl Display for Answer {
@@ -15,6 +16,7 @@ impl Display for Answer {
             Signed(i) => i.fmt(f),
             Unsigned(u) => u.fmt(f),
             Text(s) => s.fmt(f),
+            Unimplemented => "Not implemented yet".fmt(f),
         }
     }
 }
@@ -82,5 +84,11 @@ impl From<&str> for Answer {
 impl From<String> for Answer {
     fn from(value: String) -> Self {
         Answer::Text(value)
+    }
+}
+
+impl From<()> for Answer {
+    fn from(_: ()) -> Self {
+        Answer::Unimplemented
     }
 }
