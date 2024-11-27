@@ -1,29 +1,20 @@
-use common::Answer;
+use common::{Answer, Position};
 use itertools::Itertools;
 use lazy_static::lazy_static;
 use regex::Regex;
 
-#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
-struct Position {
-    x: i64,
-    y: i64,
-}
-
-impl Position {
-    fn new(x: i64, y: i64) -> Self {
-        Self { x, y }
-    }
-}
+type IntType = i64;
+type Pos = Position<IntType>;
 
 #[derive(Debug, Copy, Clone)]
 struct SensorReadout {
-    sensor: Position,
-    beacon: Position,
-    distance: i64,
+    sensor: Pos,
+    beacon: Pos,
+    distance: IntType,
 }
 
 impl SensorReadout {
-    fn new(s: Position, b: Position) -> Self {
+    fn new(s: Pos, b: Pos) -> Self {
         Self {
             sensor: s,
             beacon: b,
@@ -31,17 +22,17 @@ impl SensorReadout {
         }
     }
 
-    fn in_range(&self, pos: Position) -> bool {
+    fn in_range(&self, pos: Pos) -> bool {
         distance(self.sensor, pos) <= self.distance
     }
 
-    fn in_range_in_row(&self, y: i64) -> Vec<Position> {
-        let y_diff = (self.sensor.y - y).abs();
+    fn in_range_in_row(&self, y: IntType) -> Vec<Pos> {
+        let y_diff = (self.sensor.y() - y).abs();
 
         if y_diff <= self.distance {
             let x_range = self.distance - y_diff;
-            let min_x = self.sensor.x - x_range;
-            let max_x = self.sensor.x + x_range;
+            let min_x = self.sensor.x() - x_range;
+            let max_x = self.sensor.x() + x_range;
 
             (min_x..=max_x).map(|x| Position::new(x, y)).collect()
         } else {
@@ -49,10 +40,10 @@ impl SensorReadout {
         }
     }
 
-    fn perimeter(&self) -> impl Iterator<Item = Position> {
+    fn perimeter(&self) -> impl Iterator<Item = Pos> {
         let distance = self.distance + 1;
-        let sx = self.sensor.x;
-        let sy = self.sensor.y;
+        let sx = self.sensor.x();
+        let sy = self.sensor.y();
 
         let mut points = Vec::new();
 
@@ -76,7 +67,7 @@ impl SensorReadout {
         // Deduplicate and filter points within bounds
         points
             .into_iter()
-            .filter(|p| p.x >= 0 && p.x < 4_000_000 && p.y >= 0 && p.y < 4_000_000)
+            .filter(|p| p.x() >= 0 && p.x() < 4_000_000 && p.y() >= 0 && p.y() < 4_000_000)
             .unique() // Ensure unique points
     }
 }
@@ -84,7 +75,7 @@ impl SensorReadout {
 #[derive(Debug, Clone)]
 struct Map {
     readouts: Vec<SensorReadout>,
-    beacons: Vec<Position>,
+    beacons: Vec<Pos>,
 }
 
 impl Map {
@@ -95,7 +86,7 @@ impl Map {
         Self { readouts, beacons }
     }
 
-    fn unavailable_locations_in_row(&self, row: i64) -> usize {
+    fn unavailable_locations_in_row(&self, row: IntType) -> usize {
         let unavailable_positions = self
             .readouts
             .iter()
@@ -107,12 +98,12 @@ impl Map {
         unavailable_positions
     }
 
-    fn beacon_location(&self, limit: i64) -> Position {
+    fn beacon_location(&self, limit: IntType) -> Pos {
         self.readouts
             .iter()
             .flat_map(|s| s.perimeter())
             .unique()
-            .filter(|p| p.x >= 0 && p.x < limit && p.y >= 0 && p.y < limit)
+            .filter(|p| p.x() >= 0 && p.x() < limit && p.y() >= 0 && p.y() < limit)
             .find(|&p| self.readouts.iter().all(|s| !s.in_range(p)))
             .unwrap()
     }
@@ -138,8 +129,8 @@ fn extract_data(s: &str) -> SensorReadout {
         .unwrap()
 }
 
-fn distance(left: Position, right: Position) -> i64 {
-    (left.x - right.x).abs() + (left.y - right.y).abs()
+fn distance(left: Pos, right: Pos) -> IntType {
+    (left.x() - right.x()).abs() + (left.y() - right.y()).abs()
 }
 
 pub fn step1(s: &str) -> Answer {
@@ -148,7 +139,7 @@ pub fn step1(s: &str) -> Answer {
     map.unavailable_locations_in_row(2_000_000).into()
 }
 
-fn frequency(x: i64, y: i64) -> i64 {
+fn frequency(x: IntType, y: IntType) -> IntType {
     x * 4_000_000 + y
 }
 
@@ -157,7 +148,7 @@ pub fn step2(s: &str) -> Answer {
 
     let pos = map.beacon_location(4_000_000);
 
-    frequency(pos.x, pos.y).into()
+    frequency(pos.x(), pos.y()).into()
 }
 
 #[cfg(test)]
@@ -198,7 +189,7 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3"#;
     fn test_step2() {
         let map = Map::new(SMALL_INPUT);
         let pos = map.beacon_location(20);
-        let freq = frequency(pos.x, pos.y);
+        let freq = frequency(pos.x(), pos.y());
 
         assert_eq!(freq, 56000011);
     }
