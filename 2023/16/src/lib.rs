@@ -1,12 +1,4 @@
-use common::Answer;
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-}
+use common::{Answer, Direction};
 
 #[derive(Debug, Clone)]
 struct Tile {
