@@ -48,10 +48,7 @@ impl Map {
     }
 
     fn insert(&mut self, loc: Point, item: Item) {
-        self.columns
-            .entry(loc.x)
-            .or_insert_with(HashMap::new)
-            .insert(loc.y, item);
+        self.columns.entry(loc.x).or_default().insert(loc.y, item);
     }
 
     fn insert_wall(&mut self, wall: Wall) {
