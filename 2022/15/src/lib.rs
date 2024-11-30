@@ -1,4 +1,4 @@
-use common::{Answer, Coordinates};
+use common::{distances::manhattan, Answer, Coordinates};
 use itertools::Itertools;
 use lazy_static::lazy_static;
 use regex::Regex;
@@ -18,12 +18,12 @@ impl SensorReadout {
         Self {
             sensor: s,
             beacon: b,
-            distance: distance(s, b),
+            distance: manhattan(s, b),
         }
     }
 
     fn in_range(&self, pos: Coord) -> bool {
-        distance(self.sensor, pos) <= self.distance
+        manhattan(self.sensor, pos) <= self.distance
     }
 
     fn in_range_in_row(&self, y: IntType) -> Vec<Coord> {
@@ -129,10 +129,6 @@ fn extract_data(s: &str) -> SensorReadout {
             SensorReadout::new(Coordinates::new(sx, sy), Coordinates::new(bx, by))
         })
         .unwrap()
-}
-
-fn distance(left: Coord, right: Coord) -> IntType {
-    (left.x() - right.x()).abs() + (left.y() - right.y()).abs()
 }
 
 pub fn step1(s: &str) -> Answer {
