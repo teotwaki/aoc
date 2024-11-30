@@ -1,20 +1,20 @@
-use common::{Answer, Position};
+use common::{Answer, Coordinates};
 use itertools::Itertools;
 use lazy_static::lazy_static;
 use regex::Regex;
 
 type IntType = i64;
-type Pos = Position<IntType>;
+type Coord = Coordinates<IntType>;
 
 #[derive(Debug, Copy, Clone)]
 struct SensorReadout {
-    sensor: Pos,
-    beacon: Pos,
+    sensor: Coord,
+    beacon: Coord,
     distance: IntType,
 }
 
 impl SensorReadout {
-    fn new(s: Pos, b: Pos) -> Self {
+    fn new(s: Coord, b: Coord) -> Self {
         Self {
             sensor: s,
             beacon: b,
@@ -22,11 +22,11 @@ impl SensorReadout {
         }
     }
 
-    fn in_range(&self, pos: Pos) -> bool {
+    fn in_range(&self, pos: Coord) -> bool {
         distance(self.sensor, pos) <= self.distance
     }
 
-    fn in_range_in_row(&self, y: IntType) -> Vec<Pos> {
+    fn in_range_in_row(&self, y: IntType) -> Vec<Coord> {
         let y_diff = (self.sensor.y() - y).abs();
 
         if y_diff <= self.distance {
@@ -34,13 +34,13 @@ impl SensorReadout {
             let min_x = self.sensor.x() - x_range;
             let max_x = self.sensor.x() + x_range;
 
-            (min_x..=max_x).map(|x| Position::new(x, y)).collect()
+            (min_x..=max_x).map(|x| Coordinates::new(x, y)).collect()
         } else {
             vec![]
         }
     }
 
-    fn perimeter(&self) -> impl Iterator<Item = Pos> {
+    fn perimeter(&self) -> impl Iterator<Item = Coord> {
         let distance = self.distance + 1;
         let sx = self.sensor.x();
         let sy = self.sensor.y();
@@ -49,19 +49,19 @@ impl SensorReadout {
 
         // Top-right edge
         for i in 0..=distance {
-            points.push(Position::new(sx + i, sy - distance + i));
+            points.push(Coordinates::new(sx + i, sy - distance + i));
         }
         // Bottom-right edge
         for i in 0..=distance {
-            points.push(Position::new(sx + distance - i, sy + i));
+            points.push(Coordinates::new(sx + distance - i, sy + i));
         }
         // Bottom-left edge
         for i in 0..=distance {
-            points.push(Position::new(sx - i, sy + distance - i));
+            points.push(Coordinates::new(sx - i, sy + distance - i));
         }
         // Top-left edge
         for i in 0..=distance {
-            points.push(Position::new(sx - distance + i, sy - i));
+            points.push(Coordinates::new(sx - distance + i, sy - i));
         }
 
         // Deduplicate and filter points within bounds
@@ -75,7 +75,7 @@ impl SensorReadout {
 #[derive(Debug, Clone)]
 struct Map {
     readouts: Vec<SensorReadout>,
-    beacons: Vec<Pos>,
+    beacons: Vec<Coord>,
 }
 
 impl Map {
@@ -98,7 +98,7 @@ impl Map {
         unavailable_positions
     }
 
-    fn beacon_location(&self, limit: IntType) -> Pos {
+    fn beacon_location(&self, limit: IntType) -> Coord {
         self.readouts
             .iter()
             .flat_map(|s| s.perimeter())
@@ -125,11 +125,13 @@ fn extract_data(s: &str) -> SensorReadout {
                 c.name("by").and_then(|m| m.as_str().parse().ok()).unwrap(),
             )
         })
-        .map(|(sx, sy, bx, by)| SensorReadout::new(Position::new(sx, sy), Position::new(bx, by)))
+        .map(|(sx, sy, bx, by)| {
+            SensorReadout::new(Coordinates::new(sx, sy), Coordinates::new(bx, by))
+        })
         .unwrap()
 }
 
-fn distance(left: Pos, right: Pos) -> IntType {
+fn distance(left: Coord, right: Coord) -> IntType {
     (left.x() - right.x()).abs() + (left.y() - right.y()).abs()
 }
 
@@ -182,7 +184,7 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3"#;
         let map = Map::new(SMALL_INPUT);
         let pos = map.beacon_location(20);
 
-        assert_eq!(pos, Position::new(14, 11));
+        assert_eq!(pos, Coordinates::new(14, 11));
     }
 
     #[test]
