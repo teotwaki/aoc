@@ -65,7 +65,7 @@ enum Hand {
 impl From<&Vec<Card>> for Hand {
     fn from(cards: &Vec<Card>) -> Self {
         let mut freq: Vec<_> = cards
-            .into_iter()
+            .iter()
             .fold(HashMap::<Card, usize>::new(), |mut map, card| {
                 *map.entry(*card).or_default() += 1;
                 map
@@ -92,7 +92,7 @@ impl From<&Vec<Card>> for Hand {
             }
         }
 
-        let hand = match freq.len() {
+        match freq.len() {
             5 => Hand::HighCard,
             4 => Hand::Pair,
             3 if freq[0].1 == 2 => Hand::TwoPairs,
@@ -101,9 +101,7 @@ impl From<&Vec<Card>> for Hand {
             2 => Hand::FourOfAKind,
             1 => Hand::FiveOfAKind,
             _ => unreachable!(),
-        };
-
-        hand
+        }
     }
 }
 
