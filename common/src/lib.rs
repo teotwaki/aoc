@@ -1,5 +1,8 @@
 mod answer;
-mod position;
+mod coordinates;
+mod direction;
+pub mod distances;
 
 pub use answer::Answer;
-pub use position::Position;
+pub use coordinates::Coordinates;
+pub use direction::Direction;
