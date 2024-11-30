@@ -1,4 +1,4 @@
-use common::Answer;
+use common::{Answer, Direction};
 use std::{collections::HashSet, str::FromStr};
 
 #[derive(Default)]
@@ -25,11 +25,13 @@ impl Head {
     }
 
     fn move_towards(&mut self, dir: &Direction) -> (i16, i16) {
+        use Direction::*;
+
         match dir {
-            Direction::Up => self.up(),
-            Direction::Down => self.down(),
-            Direction::Left => self.left(),
-            Direction::Right => self.right(),
+            Up => self.up(),
+            Down => self.down(),
+            Left => self.left(),
+            Right => self.right(),
         }
 
         (self.x, self.y)
@@ -72,13 +74,6 @@ impl Knot {
     }
 }
 
-enum Direction {
-    Up,
-    Down,
-    Left,
-    Right,
-}
-
 struct Motion {
     pub direction: Direction,
     pub count: i16,
@@ -88,15 +83,16 @@ impl FromStr for Motion {
     type Err = ();
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts: Vec<&str> = s.split(' ').collect();
+        use Direction::*;
 
+        let parts: Vec<&str> = s.split(' ').collect();
         let count = parts[1].parse().unwrap();
 
         let direction = match parts[0] {
-            "U" => Direction::Up,
-            "D" => Direction::Down,
-            "L" => Direction::Left,
-            "R" => Direction::Right,
+            "U" => Up,
+            "D" => Down,
+            "L" => Left,
+            "R" => Right,
             _ => unreachable!(),
         };
 
