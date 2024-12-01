@@ -4,7 +4,7 @@ type IntType = u32;
 
 fn parse(s: &str) -> (Vec<IntType>, Vec<IntType>) {
     s.lines()
-        .map(|s| s.split("   "))
+        .map(|s| s.split_whitespace())
         .map(|mut parts| (parts.next().unwrap(), parts.next().unwrap()))
         .map(|(a, b)| (a.parse::<IntType>().unwrap(), b.parse::<IntType>().unwrap()))
         .unzip()
@@ -17,8 +17,8 @@ pub fn step1(s: &str) -> Answer {
     b.sort();
 
     a.iter()
-        .zip(b.iter())
-        .map(|(&a, &b)| a.abs_diff(b))
+        .zip(b)
+        .map(|(a, b)| a.abs_diff(b))
         .sum::<IntType>()
         .into()
 }
