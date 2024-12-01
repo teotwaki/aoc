@@ -33,6 +33,7 @@ fn main() -> Result<()> {
 
     add!(2022, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
     add!(2023, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16);
+    add!(2024, 1);
 
     let cli = Cli::parse();
     let year = cli.year.unwrap_or_else(|| registry.latest_year());
