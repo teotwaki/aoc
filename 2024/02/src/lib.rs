@@ -1,6 +1,6 @@
 use common::Answer;
 
-type IntType = u16;
+type IntType = u8;
 
 fn parse(s: &str) -> Vec<Vec<IntType>> {
     s.lines()
@@ -30,15 +30,14 @@ pub fn step1(s: &str) -> Answer {
 }
 
 fn dampen(report: &[IntType]) -> Vec<Vec<IntType>> {
-    let mut v = Vec::new();
+    (0..report.len())
+        .map(|i| {
+            let mut r = Vec::from(report);
+            r.remove(i);
 
-    for i in 0..report.len() {
-        let mut r = Vec::from(report);
-        r.remove(i);
-        v.push(r)
-    }
-
-    v
+            r
+        })
+        .collect()
 }
 
 pub fn step2(s: &str) -> Answer {
