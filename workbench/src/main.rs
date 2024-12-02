@@ -11,6 +11,12 @@ struct Cli {
 
     #[arg(value_parser = clap::value_parser!(Day))]
     day: Option<Day>,
+
+    #[arg(long)]
+    step1: bool,
+
+    #[arg(long)]
+    step2: bool,
 }
 
 fn main() -> Result<()> {
@@ -41,11 +47,15 @@ fn main() -> Result<()> {
 
     println!("Running solution for {year}-{day}");
 
-    let answer = registry.run_step1(year, day)?;
-    println!("Step 1 answer: {answer}");
+    if cli.step1 || !cli.step2 {
+        let answer = registry.run_step1(year, day)?;
+        println!("Step 1 answer: {answer}");
+    }
 
-    let answer = registry.run_step2(year, day)?;
-    println!("Step 2 answer: {answer}");
+    if cli.step2 || !cli.step1 {
+        let answer = registry.run_step2(year, day)?;
+        println!("Step 2 answer: {answer}");
+    }
 
     Ok(())
 }
