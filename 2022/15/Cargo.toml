@@ -9,5 +9,4 @@ doctest = false
 [dependencies]
 common = { path = "../../common" }
 itertools = "0.13"
-lazy_static = "1.5"
 regex = "1.11"
