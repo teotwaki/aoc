@@ -1,7 +1,7 @@
 use common::{distances::manhattan, Answer, Coordinates};
 use itertools::Itertools;
-use lazy_static::lazy_static;
 use regex::Regex;
+use std::sync::LazyLock;
 
 type IntType = i64;
 type Coord = Coordinates<IntType>;
@@ -110,12 +110,13 @@ impl Map {
 }
 
 fn extract_data(s: &str) -> SensorReadout {
-    lazy_static! {
-        static ref RE: Regex = Regex::new(
+    static RE: LazyLock<Regex> = LazyLock::new(|| {
+        Regex::new(
             r"^Sensor at x=(?P<sx>[^,]+), y=(?P<sy>[^:]+): closest beacon is at x=(?P<bx>[^,]+), y=(?P<by>.+)$"
         )
-        .expect("Invalid regex");
-    }
+        .expect("Invalid regex")
+    });
+
     RE.captures(s)
         .map(|c| {
             (
