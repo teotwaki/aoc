@@ -33,8 +33,6 @@ fn remove_instructions(s: &str) -> String {
         data.replace_range(start..end, "");
     }
 
-    dbg!(&data);
-
     data
 }
 
