@@ -62,6 +62,6 @@ mod test {
 
     #[test]
     fn step2_finds_correct_answer() {
-        assert_eq!(step2(EXAMPLE), Answer::Unsigned(488));
+        assert_eq!(step2(EXAMPLE), Answer::Unsigned(48));
     }
 }
