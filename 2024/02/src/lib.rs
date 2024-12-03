@@ -2,14 +2,12 @@ use common::Answer;
 
 type IntType = u8;
 
-fn parse(s: &str) -> Vec<Vec<IntType>> {
-    s.lines()
-        .map(|s| {
-            s.split_whitespace()
-                .map(|s| s.parse::<IntType>().unwrap())
-                .collect()
-        })
-        .collect()
+fn parse(s: &str) -> impl Iterator<Item = Vec<IntType>> + '_ {
+    s.lines().map(|s| {
+        s.split_whitespace()
+            .map(|s| s.parse::<IntType>().unwrap())
+            .collect()
+    })
 }
 
 #[inline]
@@ -24,9 +22,7 @@ fn valid_report(report: &[IntType]) -> bool {
 }
 
 pub fn step1(s: &str) -> Answer {
-    let reports = parse(s);
-
-    reports.iter().filter(|r| valid_report(r)).count().into()
+    parse(s).filter(|r| valid_report(r)).count().into()
 }
 
 fn dampen(report: &[IntType]) -> Vec<Vec<IntType>> {
@@ -41,7 +37,7 @@ fn dampen(report: &[IntType]) -> Vec<Vec<IntType>> {
 }
 
 pub fn step2(s: &str) -> Answer {
-    let reports = parse(s);
+    let reports = parse(s).collect::<Vec<_>>();
 
     let initial_valid = reports.iter().filter(|r| valid_report(r)).count();
 
@@ -67,12 +63,12 @@ mod test {
 
     #[test]
     fn parse_extracts_correct_number_of_lines() {
-        assert_eq!(parse(INPUT).len(), 6);
+        assert_eq!(parse(INPUT).count(), 6);
     }
 
     #[test]
     fn parse_extracts_correct_number_of_reports() {
-        assert_eq!(parse(INPUT).first().unwrap().len(), 5);
+        assert_eq!(parse(INPUT).next().unwrap().len(), 5);
     }
 
     #[test]

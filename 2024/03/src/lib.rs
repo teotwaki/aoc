@@ -4,20 +4,18 @@ use std::sync::LazyLock;
 
 type IntType = u32;
 
-fn parse(s: &str) -> Vec<(IntType, IntType)> {
+fn parse(s: &str) -> impl Iterator<Item = (IntType, IntType)> + '_ {
     static EXPRESSION: &str = r"mul\((\d{1,3}),(\d{1,3})\)";
     static RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(EXPRESSION).unwrap());
 
-    RE.captures_iter(s)
-        .map(|caps| {
-            let (_, [a, b]) = caps.extract();
-            (a.parse::<IntType>().unwrap(), b.parse::<IntType>().unwrap())
-        })
-        .collect()
+    RE.captures_iter(s).map(|caps| {
+        let (_, [a, b]) = caps.extract();
+        (a.parse::<IntType>().unwrap(), b.parse::<IntType>().unwrap())
+    })
 }
 
 pub fn step1(s: &str) -> Answer {
-    parse(s).iter().map(|(a, b)| a * b).sum::<IntType>().into()
+    parse(s).map(|(a, b)| a * b).sum::<IntType>().into()
 }
 
 fn remove_instructions(s: &str) -> String {
@@ -49,7 +47,7 @@ mod test {
 
     #[test]
     fn parse_extracts_correct_number_of_items() {
-        assert_eq!(parse(INPUT).len(), 4);
+        assert_eq!(parse(INPUT).count(), 4);
     }
 
     #[test]
