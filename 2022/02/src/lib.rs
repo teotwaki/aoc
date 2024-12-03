@@ -87,27 +87,25 @@ impl From<StrategicHand> for Hand {
     }
 }
 
-fn score(hand: &Hand) -> i32 {
-    Outcome::from(hand) as i32 + hand.1 as i32
+fn score(hand: Hand) -> i32 {
+    Outcome::from(&hand) as i32 + hand.1 as i32
 }
 
-fn get_hands(s: &str) -> Vec<Hand> {
+fn get_hands(s: &str) -> impl Iterator<Item = Hand> + '_ {
     s.lines()
         .map(|l| (l.chars().next().unwrap(), l.chars().nth(2).unwrap()))
         .map(|(om, mm)| (OpponentMove(om), MyMove(mm)))
         .map(|(om, mm)| Hand(om.into(), mm.into()))
-        .collect()
 }
 
 pub fn step1(s: &str) -> Answer {
-    get_hands(s).iter().map(score).sum::<i32>().into()
+    get_hands(s).map(score).sum::<i32>().into()
 }
 
 pub fn step2(s: &str) -> Answer {
     get_hands(s)
-        .iter()
         .map(|hand| StrategicHand(hand.0, hand.1.into()))
-        .map(|hand| score(&hand.into()))
+        .map(|hand| score(hand.into()))
         .sum::<i32>()
         .into()
 }
