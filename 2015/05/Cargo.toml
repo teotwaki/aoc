@@ -1,5 +1,5 @@
 [package]
-name = "y2015-d4"
+name = "y2015-d5"
 version.workspace = true
 edition.workspace = true
 
@@ -8,4 +8,4 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
-md5 = "0.7"
+itertools = "0.13"
