@@ -44,37 +44,32 @@ struct Map {
 }
 
 impl Map {
-    fn neighbours_of(&self, pos: usize) -> Vec<usize> {
-        if pos >= self.map.len() {
-            return vec![];
-        }
-
+    fn neighbours_of(&self, pos: usize) -> impl Iterator<Item = usize> + '_ {
         let mut candidates = Vec::with_capacity(4);
 
-        if pos >= self.width {
-            candidates.push(pos - self.width);
+        if pos < self.map.len() {
+            if pos >= self.width {
+                candidates.push(pos - self.width);
+            }
+
+            if pos < self.width * (self.height - 1) {
+                candidates.push(pos + self.width);
+            }
+
+            if pos % self.width != 0 {
+                candidates.push(pos - 1);
+            }
+
+            if pos % self.width != self.width - 1 {
+                candidates.push(pos + 1);
+            }
         }
 
-        if pos < self.width * (self.height - 1) {
-            candidates.push(pos + self.width);
-        }
-
-        if pos % self.width != 0 {
-            candidates.push(pos - 1);
-        }
-
-        if pos % self.width != self.width - 1 {
-            candidates.push(pos + 1);
-        }
-
-        candidates
-            .into_iter()
-            .filter(|p| {
-                let left = self.map[pos] as i32;
-                let right = self.map[*p] as i32;
-                left.abs_diff(right) <= 1 || left < right
-            })
-            .collect()
+        candidates.into_iter().filter(move |p| {
+            let left = self.map[pos] as i32;
+            let right = self.map[*p] as i32;
+            left.abs_diff(right) <= 1 || left < right
+        })
     }
 
     fn new(s: &str) -> Self {
@@ -115,12 +110,11 @@ fn solve_maze(s: &str) -> (Map, HashMap<usize, usize>) {
             let distance = distances[&u] + 1;
 
             map.neighbours_of(u)
-                .iter()
                 .filter(|v| queue.contains(v))
                 .for_each(|v| {
-                    if distance < *distances.get(v).unwrap_or(&usize::MAX) {
-                        distances.insert(*v, distance);
-                        previous.insert(*v, u);
+                    if distance < *distances.get(&v).unwrap_or(&usize::MAX) {
+                        distances.insert(v, distance);
+                        previous.insert(v, u);
                     }
                 });
         }
@@ -131,7 +125,6 @@ fn solve_maze(s: &str) -> (Map, HashMap<usize, usize>) {
 
 pub fn step1(s: &str) -> Answer {
     let (map, previous) = solve_maze(s);
-
     let shortest_from_start = shortest_path_length(map.start, &previous);
 
     shortest_from_start.into()

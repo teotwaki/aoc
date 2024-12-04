@@ -22,7 +22,7 @@ struct Document {
     instructions: Vec<Instruction>,
 }
 
-fn top_crates(columns: Vec<VecDeque<char>>) -> String {
+fn top_crates(columns: &[VecDeque<char>]) -> String {
     columns.iter().map(|c| c[0]).collect()
 }
 
@@ -38,7 +38,7 @@ impl Document {
             }
         }
 
-        top_crates(columns)
+        top_crates(&columns)
     }
 
     pub fn simulate_9001(&self) -> String {
@@ -54,7 +54,7 @@ impl Document {
                 .for_each(|(i, c)| columns[instruction.to].insert(i, *c));
         }
 
-        top_crates(columns)
+        top_crates(&columns)
     }
 }
 
@@ -118,7 +118,7 @@ fn instruction_lines(s: &str) -> IResult<&str, Vec<Instruction>> {
     many1(terminated(instruction_line, tag("\n")))(s)
 }
 
-fn transform_crates(column_count: usize, lines: Vec<Vec<Option<char>>>) -> Vec<VecDeque<char>> {
+fn transform_crates(column_count: usize, lines: &[Vec<Option<char>>]) -> Vec<VecDeque<char>> {
     lines
         .iter()
         .fold(vec![VecDeque::new(); column_count], |mut columns, line| {
@@ -135,7 +135,7 @@ fn parse(s: &str) -> IResult<&str, Document> {
     let (s, crate_lines) = crate_lines(s)?;
     let (s, columns) = columns_line(s)?;
     let column_count = columns.last().expect("No column count detected");
-    let crate_columns = transform_crates(*column_count, crate_lines);
+    let crate_columns = transform_crates(*column_count, &crate_lines);
     let (s, _) = tag("\n")(s)?;
     let (s, instructions) = instruction_lines(s)?;
 

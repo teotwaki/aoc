@@ -7,28 +7,13 @@ use nom::{
     sequence::tuple,
     IResult,
 };
-use std::{
-    collections::HashMap,
-    fmt::{Display, Write},
-};
+use std::collections::HashMap;
 
 #[derive(Debug, PartialEq)]
 enum Item {
     Sand,
     Rock,
     SandProducer,
-}
-
-impl Display for Item {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let c = match self {
-            Item::Sand => 'o',
-            Item::Rock => '#',
-            Item::SandProducer => '+',
-        };
-
-        f.write_char(c)
-    }
 }
 
 #[derive(Debug)]
@@ -132,30 +117,6 @@ impl Map {
         let max = keys.max().expect("Couldn't find maximum y value");
 
         (*min, *max)
-    }
-}
-
-impl Display for Map {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let (min_x, max_x) = self.min_max_x();
-        let (min_x, max_x) = (min_x - 3, max_x + 3);
-        let (min_y, max_y) = self.min_max_y();
-        let (min_y, max_y) = (min_y - 3, max_y + 3);
-
-        for y in min_y..=max_y {
-            for x in min_x..=max_x {
-                let p = Point { x, y };
-                if let Some(item) = self.get(p) {
-                    f.write_fmt(format_args!("{}", item))?;
-                } else {
-                    f.write_char('.')?;
-                }
-            }
-
-            f.write_char('\n')?;
-        }
-
-        Ok(())
     }
 }
 

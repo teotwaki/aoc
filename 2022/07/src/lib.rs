@@ -22,7 +22,7 @@ struct File<'a> {
 }
 
 impl<'a> File<'a> {
-    pub fn get_directories(&'a self) -> Vec<&'a str> {
+    pub fn get_directories(&'a self) -> impl Iterator<Item = &'a str> {
         self.path
             .chars()
             .enumerate()
@@ -34,7 +34,6 @@ impl<'a> File<'a> {
                     &self.path[..i]
                 }
             })
-            .collect()
     }
 
     pub fn get_size(&'a self) -> usize {
@@ -140,7 +139,6 @@ fn parse_directories(s: &str) -> HashMap<String, usize> {
 
     files.iter().for_each(|f| {
         f.get_directories()
-            .iter()
             .for_each(|d| *directories.entry(d.to_string()).or_default() += f.get_size());
     });
 

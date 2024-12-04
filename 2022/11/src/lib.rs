@@ -36,11 +36,15 @@ struct Monkey {
 }
 
 impl Monkey {
-    fn process(&self, very_worried: bool, worry_divisor: i64) -> Vec<(i64, usize)> {
+    fn process(
+        &self,
+        very_worried: bool,
+        worry_divisor: i64,
+    ) -> impl Iterator<Item = (i64, usize)> + '_ {
         self.items
             .iter()
             .map(|i| self.op.perform(*i))
-            .map(|i| {
+            .map(move |i| {
                 if very_worried {
                     i % worry_divisor
                 } else {
@@ -54,7 +58,6 @@ impl Monkey {
                     (i, self.forward_to.1)
                 }
             })
-            .collect()
     }
 
     fn clear(&mut self) {
@@ -166,9 +169,8 @@ fn play_round(monkeys: &mut [Monkey], very_worried: bool, worry_divisor: i64) {
 
         monkey
             .process(very_worried, worry_divisor)
-            .iter()
             .for_each(|(item, to_monkey)| {
-                monkeys[*to_monkey].append(*item);
+                monkeys[to_monkey].append(item);
                 monkeys[i].inspected();
             });
 
