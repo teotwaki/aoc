@@ -14,6 +14,7 @@ struct SensorReadout {
 }
 
 impl SensorReadout {
+    #[inline]
     fn new(s: Coord, b: Coord) -> Self {
         Self {
             sensor: s,
@@ -22,6 +23,7 @@ impl SensorReadout {
         }
     }
 
+    #[inline]
     fn in_range(&self, pos: Coord) -> bool {
         manhattan(self.sensor, pos) <= self.distance
     }

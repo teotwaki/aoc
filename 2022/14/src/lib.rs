@@ -127,23 +127,28 @@ struct Point {
 }
 
 impl Point {
+    #[inline]
     fn down(&mut self) {
         self.y += 1;
     }
 
+    #[inline]
     fn left(&mut self) {
         self.x -= 1;
     }
 
+    #[inline]
     fn double_right(&mut self) {
         self.x += 2;
     }
 
+    #[inline]
     fn revert(&mut self) {
         self.x -= 1;
         self.y -= 1;
     }
 
+    #[inline]
     fn is_out_of_bounds(&self) -> bool {
         self.y > 200
     }

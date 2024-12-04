@@ -16,6 +16,7 @@ where
     T: Clone + Default,
     U: Eq + Hash + Default + Copy + PartialOrd + Num,
 {
+    #[inline]
     pub fn new() -> Self {
         Grid {
             items: HashMap::new(),
@@ -23,6 +24,7 @@ where
         }
     }
 
+    #[inline]
     pub fn with_capacity(capacity: usize) -> Self {
         Grid {
             items: HashMap::with_capacity(capacity),
@@ -57,15 +59,27 @@ where
         self.get(pos).is_some()
     }
 
+    #[inline]
     pub fn width(&self) -> U {
         self.max_x - self.min_x + U::one()
     }
 
+    #[inline]
     pub fn height(&self) -> U {
         self.max_y - self.min_y + U::one()
     }
 
+    #[inline]
     pub fn iter(&self) -> impl Iterator<Item = (&Coordinates<U>, &T)> {
         self.items.iter()
+    }
+}
+
+impl<T, U> IntoIterator for Grid<T, U> {
+    type Item = <HashMap<Coordinates<U>, T> as IntoIterator>::Item;
+    type IntoIter = <HashMap<Coordinates<U>, T> as IntoIterator>::IntoIter;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.items.into_iter()
     }
 }
