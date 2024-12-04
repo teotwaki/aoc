@@ -8,6 +8,11 @@ members = [
   "workbench",
   "common",
 
+  "2015/01",
+  # other days missing
+
+  # other years missing
+
   "2022/01",
   "2022/02",
   "2022/03",
