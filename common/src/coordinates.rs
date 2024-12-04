@@ -1,5 +1,5 @@
 use num_traits::{Float, NumCast, PrimInt, ToPrimitive};
-use std::ops::{AddAssign, SubAssign};
+use std::ops::{Add, AddAssign, SubAssign};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Coordinates<T> {
@@ -186,5 +186,16 @@ where
         let y = T::from(self.y).unwrap();
 
         Coordinates::new(x, y)
+    }
+}
+
+impl<T: Add<Output = T>> Add for Coordinates<T> {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        Self {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y,
+        }
     }
 }

@@ -126,6 +126,7 @@ pub enum RunError {
 }
 
 impl Registry {
+    #[inline]
     pub fn new() -> Self {
         Default::default()
     }
