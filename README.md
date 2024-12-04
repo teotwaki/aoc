@@ -18,6 +18,12 @@ roughly 2.5 ms to be spawned, execute and shut down. So when a benchmark below s
 actually means the process loaded the input, parsed the data and executed the algorithm in 400
 usec.
 
+## 2015
+
+| Day | Step 1  | Step 2   |
+|-----|---------|----------|
+| 1   | 2.8ms   | 2.8ms    |
+
 ## 2022
 
 | Day | Step 1  | Step 2   |
