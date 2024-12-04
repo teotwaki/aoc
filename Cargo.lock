@@ -108,6 +108,7 @@ dependencies = [
  "y2024-d1",
  "y2024-d2",
  "y2024-d3",
+ "y2024-d4",
 ]
 
 [[package]]
@@ -708,4 +709,11 @@ version = "0.1.0"
 dependencies = [
  "common",
  "regex",
+]
+
+[[package]]
+name = "y2024-d4"
+version = "0.1.0"
+dependencies = [
+ "common",
 ]

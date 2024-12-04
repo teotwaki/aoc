@@ -31,31 +31,126 @@ where
 
 impl<T> Coordinates<T>
 where
-    T: AddAssign + PrimInt,
+    T: AddAssign + SubAssign + PrimInt,
 {
     #[inline]
-    pub fn down(&mut self) {
-        self.y += T::one();
-    }
-
-    #[inline]
-    pub fn right(&mut self) {
-        self.x += T::one();
-    }
-}
-
-impl<T> Coordinates<T>
-where
-    T: SubAssign + PrimInt,
-{
-    #[inline]
-    pub fn up(&mut self) {
+    pub fn move_up(&mut self) -> &mut Self {
         self.y -= T::one();
+
+        self
     }
 
     #[inline]
-    pub fn left(&mut self) {
+    pub fn up(&self) -> Self {
+        Self {
+            x: self.x,
+            y: self.y - T::one(),
+        }
+    }
+
+    #[inline]
+    pub fn move_down(&mut self) -> &mut Self {
+        self.y += T::one();
+
+        self
+    }
+
+    #[inline]
+    pub fn down(&self) -> Self {
+        Self {
+            x: self.x,
+            y: self.y + T::one(),
+        }
+    }
+
+    #[inline]
+    pub fn move_left(&mut self) -> &mut Self {
         self.x -= T::one();
+
+        self
+    }
+
+    #[inline]
+    pub fn left(&self) -> Self {
+        Self {
+            x: self.x - T::one(),
+            y: self.y,
+        }
+    }
+
+    #[inline]
+    pub fn move_right(&mut self) -> &mut Self {
+        self.x += T::one();
+
+        self
+    }
+
+    #[inline]
+    pub fn right(&self) -> Self {
+        Self {
+            x: self.x + T::one(),
+            y: self.y,
+        }
+    }
+
+    #[inline]
+    pub fn move_northwest(&mut self) -> &mut Self {
+        self.move_up().move_left();
+
+        self
+    }
+
+    #[inline]
+    pub fn northwest(&self) -> Self {
+        Self {
+            x: self.x - T::one(),
+            y: self.y - T::one(),
+        }
+    }
+
+    #[inline]
+    pub fn move_northeast(&mut self) -> &mut Self {
+        self.move_up().move_right();
+
+        self
+    }
+
+    #[inline]
+    pub fn northeast(&self) -> Self {
+        Self {
+            x: self.x + T::one(),
+            y: self.y - T::one(),
+        }
+    }
+
+    #[inline]
+    pub fn move_southeast(&mut self) -> &mut Self {
+        self.move_down().move_right();
+
+        self
+    }
+
+    #[inline]
+    pub fn southeast(&self) -> Self {
+        Self {
+            x: self.x + T::one(),
+            y: self.y + T::one(),
+        }
+    }
+
+    #[inline]
+    pub fn move_southwest(&mut self) -> &mut Self {
+        self.move_down().move_left();
+
+        self
+    }
+
+    #[inline]
+    pub fn southwest(&self) -> Self {
+        Self {
+            x: self.x - T::one(),
+            y: self.y + T::one(),
+        }
     }
 }
 
