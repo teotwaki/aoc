@@ -73,6 +73,16 @@ where
     pub fn iter(&self) -> impl Iterator<Item = (&Coordinates<U>, &T)> {
         self.items.iter()
     }
+
+    #[inline]
+    pub fn len(&self) -> usize {
+        self.items.len()
+    }
+
+    #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.items.is_empty()
+    }
 }
 
 impl<T, U> IntoIterator for Grid<T, U> {

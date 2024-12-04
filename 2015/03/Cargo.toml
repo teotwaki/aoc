@@ -1,0 +1,10 @@
+[package]
+name = "y2015-d3"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
