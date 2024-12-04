@@ -67,4 +67,12 @@ usec.
 |-----|--------|--------|
 | 1   | 2.8ms  | 2.9ms  |
 | 2   | 2.8ms  | 2.9ms  |
-| 2   | 3.2ms  | 3.2ms  |
+| 3   | 3.2ms  | 3.2ms  |
+| 4   | 4.6ms  | 3.7ms  |
+
+# Improvements
+
+- Common data structures:
+  - Map/Grid (2022/08, 2022/14)
+  - Path (2022/09)
+  - Coordinates (2022/09, 2022/14)
