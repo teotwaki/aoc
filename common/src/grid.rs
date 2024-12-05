@@ -55,6 +55,10 @@ where
         self.items.get(pos)
     }
 
+    pub fn get_mut(&mut self, pos: Coordinates<U>) -> &mut T {
+        self.items.entry(pos).or_default()
+    }
+
     pub fn contains(&self, pos: &Coordinates<U>) -> bool {
         self.get(pos).is_some()
     }

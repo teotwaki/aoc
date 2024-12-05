@@ -1,5 +1,5 @@
 use num_traits::{Float, NumCast, PrimInt, ToPrimitive};
-use std::ops::{Add, AddAssign, SubAssign};
+use std::ops::{Add, AddAssign, Range, RangeInclusive, SubAssign};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Coordinates<T> {
@@ -26,6 +26,26 @@ where
     #[inline]
     pub fn y(&self) -> T {
         self.y
+    }
+}
+
+impl<T> Coordinates<T>
+where
+    Range<T>: Iterator<Item = T>,
+    T: Copy,
+{
+    pub fn range(&self, rhs: Self) -> impl Iterator<Item = Self> + '_ {
+        (self.x..rhs.x).flat_map(move |x| (self.y..rhs.y).map(move |y| Coordinates::new(x, y)))
+    }
+}
+
+impl<T> Coordinates<T>
+where
+    RangeInclusive<T>: Iterator<Item = T>,
+    T: Copy,
+{
+    pub fn range_inclusive(&self, rhs: Self) -> impl Iterator<Item = Self> + '_ {
+        (self.x..=rhs.x).flat_map(move |x| (self.y..=rhs.y).map(move |y| Coordinates::new(x, y)))
     }
 }
 

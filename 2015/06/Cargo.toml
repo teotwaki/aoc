@@ -1,0 +1,11 @@
+[package]
+name = "y2015-d6"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+regex = "1.11"
