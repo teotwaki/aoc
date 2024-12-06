@@ -184,6 +184,17 @@ where
             Left => self.left(),
         }
     }
+
+    pub fn previous(&self, dir: Direction) -> Self {
+        use Direction::*;
+
+        match dir {
+            Up => self.down(),
+            Right => self.left(),
+            Down => self.up(),
+            Left => self.right(),
+        }
+    }
 }
 
 impl<T, U, V> From<(U, V)> for Coordinates<T>
