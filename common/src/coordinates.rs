@@ -1,3 +1,4 @@
+use crate::Direction;
 use num_traits::{Float, NumCast, PrimInt, ToPrimitive};
 use std::ops::{Add, AddAssign, Range, RangeInclusive, SubAssign};
 
@@ -170,6 +171,17 @@ where
         Self {
             x: self.x - T::one(),
             y: self.y + T::one(),
+        }
+    }
+
+    pub fn next(&self, dir: Direction) -> Self {
+        use Direction::*;
+
+        match dir {
+            Up => self.up(),
+            Right => self.right(),
+            Down => self.down(),
+            Left => self.left(),
         }
     }
 }

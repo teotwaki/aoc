@@ -34,17 +34,6 @@ fn turn(dir: Direction) -> Direction {
     }
 }
 
-fn next_pos(current: Coords, dir: Direction) -> Coords {
-    use Direction::*;
-
-    match dir {
-        Up => current.up(),
-        Right => current.right(),
-        Down => current.down(),
-        Left => current.left(),
-    }
-}
-
 enum Outcome {
     Loop,
     OutOfBounds(HashSet<(Coords, Direction)>),
@@ -58,7 +47,7 @@ fn simulate_route(obstacles: &Grid<(), IntType>, start: Coords) -> Outcome {
     guard_locations.insert((start, direction));
 
     loop {
-        let next = next_pos(guard_pos, direction);
+        let next = guard_pos.next(direction);
 
         if obstacles.get(&next).is_some() {
             direction = turn(direction);
