@@ -84,6 +84,7 @@ usec.
 | 3   | 3.2ms  | 3.2ms  |
 | 4   | 4.6ms  | 3.7ms  |
 | 5   | 3.0ms  | 3.2ms  |
+| 6   | 3.7ms  | 1.952s |
 
 # Improvements
 
