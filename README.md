@@ -1,90 +1,80 @@
 # Advent of Code
 
-Here are some benchmark results of my implementations. Here's what's covered by the timing:
+Here are some benchmark results of my implementations. This is a very barebones benchmarking
+solution.
 
-- Spawning the binary
-- Binary loads `input.txt`
-- Parsing of the data
-- Execution of the algorithm
-
-All benchmarks were run on an M1 Pro MBP. Benchmarking is performed with [hyperfine][hyperfine-gh],
-using the `-N` and `--warmup` options. Depending on the speed of the binary, the warmup can be
-anywhere between 10 and 500.
-
-[hyperfine-gh]: https://github.com/sharkdp/hyperfine
-
-**Please note**: Spawning process on MacOS is *slow*. A simple binary that does nothing takes
-roughly 2.5 ms to be spawned, execute and shut down. So when a benchmark below shows "2.9 ms", that
-actually means the process loaded the input, parsed the data and executed the algorithm in 400
-usec.
+All benchmarks were run on an M1 Pro MBP. Benchmarking is performed using a very barebones
+benchmarking solution build into the workbench. Each solution is run for 1 second as a warm-up,
+and then the solution is run for 10 seconds and timings are recorded. The tables below indicate
+the average performance during that run.
 
 ## 2015
 
-| Day | Step 1  | Step 2   |
-|-----|---------|----------|
-| 1   | 2.8ms   | 2.8ms    |
-| 2   | 2.8ms   | 2.8ms    |
-| 3   | 3.0ms   | 3.0ms    |
-| 4   | 58.7ms  | 1.839s   |
-| 5   | 2.8ms   | 2.9ms    |
-| 6   | 440.8ms | 365.8ms  |
-| 7   | 3.3ms   | 3.8ms    |
-| 8   | 3.0ms   | 2.8ms    |
-| 9   | 14.9ms  | 14.9ms   |
+| Day | Step 1   | Step 2   |
+|-----|----------|----------|
+| 1   | 16.2 us  | 8.6 us   |
+| 2   | 69.1 us  | 96.1 us  |
+| 3   | 209.1 us | 220.5 us |
+| 4   | 54.6 ms  | 1.826 s  |
+| 5   | 72.5 us  | 114.5 us |
+| 6   | 419.5 ms | 358.3 ms |
+| 7   | 426.5 us | 877.5 us |
+| 8   | 183 us   | 51.9 us  |
+| 9   | 12.1 ms  | 12.1ms   |
 
 ## 2022
 
-| Day | Step 1  | Step 2   |
-|-----|---------|----------|
-| 1   | 2.9ms   | 2.9ms    |
-| 2   | 2.8ms   | 2.8ms    |
-| 3   | 2.9ms   | 2.9ms    |
-| 4   | 3.0ms   | 3.0ms    |
-| 5   | 2.9ms   | 2.9ms    |
-| 6   | 3.0ms   | 3.8ms    |
-| 7   | 3.2ms   | 3.2ms    |
-| 8   | 3.1ms   | 3.2ms    |
-| 9   | 5.0ms   | 5.0ms    |
-| 10  | 2.9ms   | 2.9ms    |
-| 11  | 2.9ms   | 11.3ms   |
-| 12  | 97.4ms  | 98.5ms   |
-| 13  | 3.3ms   | 3.6ms    |
-| 14  | 7.5ms   | 192.0ms  |
-| 15  | 650.1ms | 694.7ms  |
+| Day | Step 1   | Step 2   |
+|-----|----------|----------|
+| 1   | 38.1 us  | 38 us    |
+| 2   | 53.9 us  | 53.3 us  |
+| 3   | 38.7 us  | 29.4 us  |
+| 4   | 133.2 us | 132.3 us |
+| 5   | 39 us    | 59.5 us  |
+| 6   | 101.3 us | 361.7 us |
+| 7   | 197.3 us | 196.2 us |
+| 8   | 177.8 us | 234.7 us |
+| 9   | 2.1 ms   | 2 ms     |
+| 10  | 16 us    | 16.6 us  |
+| 11  | 18.1 us  | 5 ms     |
+| 12  | 94.3 ms  | 95.4 ms  |
+| 13  | 381.4 us | 620.3 us |
+| 14  | 4.5 ms   | 187.6 ms |
+| 15  | 663.5 ms | 716.6 ms |
 
 ## 2023
 
 **Note**: Day 12 was not implemented.
 
-| Day | Step 1 | Step 2   |
-|-----|--------|----------|
-| 1   | 2.9ms  | 3.2ms    |
-| 2   | 2.9ms  | 2.9ms    |
-| 3   | 8.4ms  | 761.9ms  |
-| 4   | 3.0ms  | 3.0ms    |
-| 5   | 2.9ms  | 173.501s |
-| 6   | 2.7ms  | 51.4ms   |
-| 7   | 3.2ms  | 3.1ms    |
-| 8   | 3.7ms  | 6.1ms    |
-| 9   | 3.1ms  | 3.1ms    |
-| 10  | 85.6ms | 86.3ms   |
-| 11  | 6.3ms  | 6.2ms    |
-| 12  | n/a    | n/a      |
-| 13  | 2.9ms  | 2.9ms    |
-| 14  | 2.8ms  | 48.7ms   |
-| 15  | 2.8ms  | 3.1ms    |
-| 15  | 3.2ms  | 29.1ms   |
+| Day | Step 1   | Step 2   |
+|-----|----------|----------|
+| 1   | 41 us    | 221.4 us |
+| 2   | 50.4 us  | 50.7 us  |
+| 3   | 5.3 ms   | 754.4 ms |
+| 4   | 163.5 us | 164.3 us |
+| 5   | 40.4 us  | 172.9 s  |
+| 6   | 7.2 us   | 39.2 ms  |
+| 7   | 307 us   | 311.5 us |
+| 8   | 762.9 us | 3.2 ms   |
+| 9   | 205.6 us | 205.6 us |
+| 10  | 82.4 ms  | 82.5 ms  |
+| 11  | 3.3 ms   | 3.3 ms   |
+| 12  | n/a      | n/a      |
+| 13  | 135.4 us | 134.9 us |
+| 14  | 45 us    | 44.8 ms  |
+| 15  | 56.3 us  | 214 us   |
+| 16  | 303.7 us | 25.5 ms  |
 
 ## 2024
 
-| Day | Step 1 | Step 2 |
-|-----|--------|--------|
-| 1   | 2.8ms  | 2.9ms  |
-| 2   | 2.8ms  | 2.9ms  |
-| 3   | 3.2ms  | 3.2ms  |
-| 4   | 4.6ms  | 3.7ms  |
-| 5   | 3.0ms  | 3.2ms  |
-| 6   | 3.7ms  | 1.882s |
+| Day | Step 1   | Step 2   |
+|-----|----------|----------|
+| 1   | 55.2 us  | 182 us   |
+| 2   | 101.6 us | 185 us   |
+| 3   | 121.8 us | 96 us    |
+| 4   | 1.7 ms   | 759.5 us |
+| 5   | 152.6 us | 367.2 us |
+| 6   | 828.6 us | 1.870 s  |
 
 # Improvements
 
