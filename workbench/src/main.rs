@@ -1,7 +1,8 @@
 use anyhow::Result;
 use aoc_workbench::{Day, Registry, Year};
-
 use clap::Parser;
+use humantime::format_duration;
+use std::time::{Duration, Instant};
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -17,6 +18,83 @@ struct Cli {
 
     #[arg(long)]
     step2: bool,
+
+    #[arg(long)]
+    bench: bool,
+}
+
+fn run(registry: &Registry, cli: &Cli) -> Result<()> {
+    let year = cli.year.unwrap_or_else(|| registry.latest_year());
+    let day = cli.day.unwrap_or_else(|| registry.latest_day(year));
+
+    println!("Running solution for {year}-{day}");
+
+    if cli.step1 || !cli.step2 {
+        let answer = registry.run_step1(year, day)?;
+        println!("Step 1 answer: {answer}");
+    }
+
+    if cli.step2 || !cli.step1 {
+        let answer = registry.run_step2(year, day)?;
+        println!("Step 2 answer: {answer}");
+    }
+
+    Ok(())
+}
+
+fn bench<F: Fn() -> Result<()>>(f: F) -> Result<()> {
+    let run = || -> Result<Duration> {
+        let now = Instant::now();
+        f()?;
+        Ok(now.elapsed())
+    };
+
+    let now = Instant::now();
+    while now.elapsed() < Duration::from_secs(1) {
+        run()?;
+    }
+
+    let mut durations = Vec::with_capacity(2000);
+    let now = Instant::now();
+
+    while now.elapsed() < Duration::from_secs(10) {
+        durations.push(run()?);
+    }
+
+    let average = durations.iter().sum::<Duration>() / durations.len() as u32;
+
+    println!(
+        "  - {} iterations, average: {}",
+        durations.len(),
+        format_duration(average),
+    );
+
+    Ok(())
+}
+
+fn benchmark(registry: &Registry, cli: &Cli) -> Result<()> {
+    let year = cli.year.unwrap_or_else(|| registry.latest_year());
+    let day = cli.day.unwrap_or_else(|| registry.latest_day(year));
+
+    if cli.step1 || !cli.step2 {
+        println!("Benchmarking solution for {year}-{day} part 1");
+
+        bench(|| {
+            registry.run_step1(year, day)?;
+            Ok(())
+        })?;
+    }
+
+    if cli.step2 || !cli.step1 {
+        println!("Benchmarking solution for {year}-{day} part 2");
+
+        bench(|| {
+            registry.run_step2(year, day)?;
+            Ok(())
+        })?;
+    }
+
+    Ok(())
 }
 
 fn main() -> Result<()> {
@@ -43,19 +121,11 @@ fn main() -> Result<()> {
     add!(2024, 1, 2, 3, 4, 5, 6);
 
     let cli = Cli::parse();
-    let year = cli.year.unwrap_or_else(|| registry.latest_year());
-    let day = cli.day.unwrap_or_else(|| registry.latest_day(year));
 
-    println!("Running solution for {year}-{day}");
-
-    if cli.step1 || !cli.step2 {
-        let answer = registry.run_step1(year, day)?;
-        println!("Step 1 answer: {answer}");
-    }
-
-    if cli.step2 || !cli.step1 {
-        let answer = registry.run_step2(year, day)?;
-        println!("Step 2 answer: {answer}");
+    if !cli.bench {
+        run(&registry, &cli)?;
+    } else {
+        benchmark(&registry, &cli)?;
     }
 
     Ok(())
