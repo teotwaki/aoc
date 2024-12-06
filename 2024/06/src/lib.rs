@@ -89,6 +89,24 @@ pub fn step2(s: &str) -> Answer {
 
     guard_path
         .iter()
+        .filter(|&&(coords, dir)| {
+            let mut pos = coords.previous(dir);
+            let dir = turn(dir);
+
+            loop {
+                let next = pos.next(dir);
+
+                if !obstacles.within_bounds(next) {
+                    break false;
+                }
+
+                if obstacles.get(&next).is_some() {
+                    break true;
+                }
+
+                pos = next;
+            }
+        })
         .map(|&(coords, _)| coords)
         .unique()
         .filter(|pos| *pos != start)
