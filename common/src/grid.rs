@@ -87,6 +87,19 @@ where
     pub fn is_empty(&self) -> bool {
         self.items.is_empty()
     }
+
+    #[inline]
+    pub fn within_bounds(&self, pos: Coordinates<U>) -> bool {
+        pos.x() >= self.min_x
+            && pos.x() <= self.max_x
+            && pos.y() >= self.min_y
+            && pos.y() <= self.max_y
+    }
+
+    #[inline]
+    pub fn remove(&mut self, pos: &Coordinates<U>) {
+        self.items.remove(pos);
+    }
 }
 
 impl<T, U> IntoIterator for Grid<T, U> {
