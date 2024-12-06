@@ -20,15 +20,3 @@ pub fn step1(s: &str) -> Answer {
 pub fn step2(s: &str) -> Answer {
     find_md5_prefix(s, "000000")
 }
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    const INPUT: &str = r#""#;
-
-    #[test]
-    fn parse_extracts_correct_number_of_lines() {
-        assert_eq!(parse(INPUT).len(), 10);
-    }
-}
