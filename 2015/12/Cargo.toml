@@ -1,0 +1,11 @@
+[package]
+name = "y2015-d12"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+json = "0.12.4"

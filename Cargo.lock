@@ -79,6 +79,7 @@ dependencies = [
  "y2015-d1",
  "y2015-d10",
  "y2015-d11",
+ "y2015-d12",
  "y2015-d2",
  "y2015-d3",
  "y2015-d4",
@@ -216,6 +217,12 @@ checksum = "413ee7dfc52ee1a4949ceeb7dbc8a33f2d6c088194d9f922fb8318faf1f01186"
 dependencies = [
  "either",
 ]
+
+[[package]]
+name = "json"
+version = "0.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "078e285eafdfb6c4b434e0d31e8cfcb5115b651496faca5749b88fafd4f23bfd"
 
 [[package]]
 name = "md5"
@@ -512,6 +519,14 @@ name = "y2015-d11"
 version = "0.1.0"
 dependencies = [
  "common",
+]
+
+[[package]]
+name = "y2015-d12"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "json",
 ]
 
 [[package]]
