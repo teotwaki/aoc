@@ -24,6 +24,7 @@ the average performance during that run.
 | [10](2015/10/src/lib.rs) | 107.650 ms | 1.530 s    |
 | [11](2015/11/src/lib.rs) | 261.0 us   | 11.540 ms  |
 | [12](2015/12/src/lib.rs) | 113.3 us   | 202.6 us   |
+| [13](2015/13/src/lib.rs) | 24.352 ms  | 242.300 ms |
 
 ## 2022
 
