@@ -1,7 +1,6 @@
-use std::iter::repeat_n;
-
-use common::{utils::number_length, Answer};
+use common::{utils::concat_numbers, Answer};
 use itertools::Itertools;
+use std::iter::repeat_n;
 
 type IntType = u64;
 
@@ -24,7 +23,7 @@ fn apply(op: &str, a: IntType, b: IntType) -> IntType {
     match op {
         "add" => a + b,
         "mul" => a * b,
-        "concat" => a * 10u64.pow(number_length(b) as u32) + b,
+        "concat" => concat_numbers(a, b),
         _ => unreachable!(),
     }
 }

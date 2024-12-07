@@ -1,5 +1,4 @@
-use common::Answer;
-use std::fmt::Write;
+use common::{utils::concat_numbers, Answer, DigitString};
 
 #[derive(Debug, Clone, Copy, Default)]
 struct Digit {
@@ -27,13 +26,13 @@ fn look_and_say(s: &str) -> String {
 
     digits.push(digit);
 
-    let mut s = String::new();
+    let mut ds = DigitString::new();
 
     digits
         .iter()
-        .for_each(|d| write!(s, "{}{}", d.count, d.value).unwrap());
+        .for_each(|d| ds.push(concat_numbers(d.count as u64, d.value as u64)));
 
-    s
+    ds.to_string()
 }
 
 fn look_n_say(s: &str, n: usize) -> usize {

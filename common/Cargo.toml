@@ -15,3 +15,7 @@ criterion = { version = "0.5" }
 [[bench]]
 name = "number_length"
 harness = false
+
+[[bench]]
+name = "digit_string"
+harness = false
