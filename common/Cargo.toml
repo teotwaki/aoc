@@ -8,3 +8,10 @@ doctest = false
 
 [dependencies]
 num-traits = "0.2"
+
+[dev-dependencies]
+criterion = { version = "0.5" }
+
+[[bench]]
+name = "number_length"
+harness = false
