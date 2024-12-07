@@ -122,9 +122,10 @@ mod test {
     #[test]
     fn dimmable_lights_store_correct_value_after_decrease() {
         let mut lights = DimmableLights::new();
+        increase(&mut lights, (1, 1).into());
         decrease(&mut lights, (1, 1).into());
 
-        assert_eq!(sum_brightness(&lights), -1);
+        assert_eq!(sum_brightness(&lights), 0);
     }
 
     #[test]
