@@ -23,17 +23,6 @@ fn parse(s: &str) -> (Grid<(), IntType>, Coords) {
     (map, guard.unwrap())
 }
 
-fn turn(dir: Direction) -> Direction {
-    use Direction::*;
-
-    match dir {
-        Up => Right,
-        Right => Down,
-        Down => Left,
-        Left => Up,
-    }
-}
-
 enum Outcome {
     Loop,
     OutOfBounds(HashSet<(Coords, Direction)>),
@@ -50,7 +39,7 @@ fn simulate_route(obstacles: &Grid<(), IntType>, start: Coords) -> Outcome {
         let next = guard_pos.next(direction);
 
         if obstacles.get(&next).is_some() {
-            direction = turn(direction);
+            direction.turn_clockwise();
             guard_locations.insert((guard_pos, direction));
             continue;
         }
@@ -89,9 +78,9 @@ pub fn step2(s: &str) -> Answer {
 
     guard_path
         .iter()
-        .filter(|&&(coords, dir)| {
+        .filter(|&&(coords, mut dir)| {
             let mut pos = coords.previous(dir);
-            let dir = turn(dir);
+            dir.turn_clockwise();
 
             loop {
                 let next = pos.next(dir);
