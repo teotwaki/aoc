@@ -126,6 +126,7 @@ dependencies = [
  "y2024-d4",
  "y2024-d5",
  "y2024-d6",
+ "y2024-d7",
 ]
 
 [[package]]
@@ -867,6 +868,14 @@ dependencies = [
 
 [[package]]
 name = "y2024-d6"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "itertools",
+]
+
+[[package]]
+name = "y2024-d7"
 version = "0.1.0"
 dependencies = [
  "common",
