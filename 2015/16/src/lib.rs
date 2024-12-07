@@ -1,5 +1,6 @@
 use common::Answer;
 use std::{
+    cmp::Ordering,
     collections::{HashMap, HashSet},
     sync::LazyLock,
 };
@@ -25,7 +26,7 @@ fn parse(s: &str) -> impl Iterator<Item = Vec<(&str, IntType)>> {
 }
 
 fn matches_aunt_exactly(aunt_props: &[(&str, IntType)]) -> bool {
-    let props = LazyLock::new(|| {
+    static PROPS: LazyLock<HashSet<(&str, IntType)>> = LazyLock::new(|| {
         HashSet::from([
             ("children", 3),
             ("cats", 7),
@@ -40,7 +41,7 @@ fn matches_aunt_exactly(aunt_props: &[(&str, IntType)]) -> bool {
         ])
     });
 
-    aunt_props.iter().all(|prop| props.contains(prop))
+    aunt_props.iter().all(|prop| PROPS.contains(prop))
 }
 
 fn find_aunt<F: Fn(&[(&str, IntType)]) -> bool>(s: &str, f: F) -> usize {
@@ -57,8 +58,8 @@ pub fn step1(s: &str) -> Answer {
 }
 
 fn matches_aunt_range(aunt_props: &[(&str, IntType)]) -> bool {
-    let props = LazyLock::new(|| {
-        use std::cmp::Ordering::*;
+    static PROPS: LazyLock<HashMap<&str, (Ordering, IntType)>> = LazyLock::new(|| {
+        use Ordering::*;
 
         HashMap::from([
             ("children", (Equal, 3)),
@@ -76,7 +77,7 @@ fn matches_aunt_range(aunt_props: &[(&str, IntType)]) -> bool {
 
     aunt_props
         .iter()
-        .all(|&(name, value)| match props.get(name) {
+        .all(|&(name, value)| match PROPS.get(name) {
             Some((ord, i)) => value.cmp(i) == *ord,
             _ => true,
         })
