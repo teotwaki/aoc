@@ -4,7 +4,7 @@ fn get_sums(s: &str) -> Vec<i32> {
     let mut sums: Vec<i32> = s
         .split("\n\n")
         .map(|s| {
-            s.split('\n')
+            s.lines()
                 .filter(|s| !s.is_empty())
                 .map(|s| s.parse::<i32>().unwrap())
                 .sum::<i32>()
