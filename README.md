@@ -66,7 +66,6 @@ the average performance during that run.
 | [9](2023/09/src/lib.rs)  | 205.6 us  | 205.6 us   |
 | [10](2023/10/src/lib.rs) | 82.433 ms | 82.464 ms  |
 | [11](2023/11/src/lib.rs) | 3.303 ms  | 3.299 ms   |
-| [12](2023/12/src/lib.rs) | n/a       | n/a        |
 | [13](2023/13/src/lib.rs) | 135.4 us  | 134.9 us   |
 | [14](2023/14/src/lib.rs) | 45.0 us   | 44.820 ms  |
 | [15](2023/15/src/lib.rs) | 56.3 us   | 214.0 us   |
