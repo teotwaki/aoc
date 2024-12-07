@@ -1,4 +1,5 @@
 use common::Answer;
+use rayon::prelude::*;
 use std::{cmp::Ordering, collections::HashMap};
 
 type IntType = u16;
@@ -77,7 +78,7 @@ pub fn step2(s: &str) -> Answer {
     let (rulebook, mut updates) = parse(s);
 
     updates
-        .iter_mut()
+        .par_iter_mut()
         .filter(|u| !validate(u, &rulebook))
         .map(|u| {
             u.sort_by(|&a, &b| rulebook.compare(a, b));

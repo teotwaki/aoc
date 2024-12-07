@@ -1,4 +1,5 @@
 use common::Answer;
+use rayon::prelude::*;
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -108,7 +109,7 @@ impl Almanac {
 
     fn find_all_locations(&self) -> Vec<u32> {
         self.seeds
-            .chunks(2)
+            .par_chunks(2)
             .flat_map(|c| (c[0]..(c[0] + c[1])).collect::<Vec<_>>())
             .map(|s| self.transpose(s))
             .collect()
@@ -130,7 +131,7 @@ pub fn step1(s: &str) -> Answer {
 
 pub fn step2(s: &str) -> Answer {
     let almanac = Almanac::from_str(s).unwrap();
-    let lowest_location = *almanac.find_all_locations().iter().min().unwrap();
+    let lowest_location = *almanac.find_all_locations().par_iter().min().unwrap();
 
     lowest_location.into()
 }

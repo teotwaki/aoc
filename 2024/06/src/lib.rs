@@ -1,5 +1,6 @@
 use common::{Answer, Coordinates, Direction, Grid};
 use itertools::Itertools;
+use rayon::prelude::*;
 use std::collections::HashSet;
 
 type IntType = i16;
@@ -77,7 +78,7 @@ pub fn step2(s: &str) -> Answer {
     };
 
     guard_path
-        .iter()
+        .par_iter()
         .filter(|&&(coords, mut dir)| {
             let mut pos = coords.previous(dir);
             dir.turn_clockwise();
@@ -97,9 +98,10 @@ pub fn step2(s: &str) -> Answer {
             }
         })
         .map(|&(coords, _)| coords)
-        .unique()
-        .filter(|pos| *pos != start)
-        .filter(|&pos| {
+        .collect::<HashSet<_>>()
+        .par_iter()
+        .filter(|&pos| *pos != start)
+        .filter(|&&pos| {
             let mut obstacles = obstacles.clone();
             obstacles.store(pos, ());
 
