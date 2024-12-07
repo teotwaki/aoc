@@ -12,8 +12,11 @@ fn parse(s: &str) -> impl Iterator<Item = Vec<(&str, IntType)>> {
 
         (0..3)
             .map(|_| {
-                let property = parts.next().unwrap().trim_matches(':');
-                let value = parts.next().unwrap().trim_matches(',').parse().unwrap();
+                let property = parts.next().map(|s| s.trim_matches(':')).unwrap();
+                let value = parts
+                    .next()
+                    .and_then(|s| s.trim_matches(',').parse().ok())
+                    .unwrap();
 
                 (property, value)
             })

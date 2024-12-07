@@ -17,12 +17,10 @@ fn parse(s: &str) -> impl Iterator<Item = Route> {
     s.lines().map(|l| {
         let mut parts = l.split_whitespace();
         let src = Location(parts.next().unwrap());
-        parts.next();
-        let dst = Location(parts.next().unwrap());
-        parts.next();
+        let dst = Location(parts.nth(1).unwrap());
         let dist = Distance(
             parts
-                .next()
+                .nth(1)
                 .and_then(|s| s.parse::<IntType>().ok())
                 .unwrap(),
         );

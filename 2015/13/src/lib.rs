@@ -17,7 +17,11 @@ fn parse(s: &str) -> Mapping {
             "gain" => 1,
             _ => -1,
         };
-        let happiness = action * parts.next().unwrap().parse::<IntType>().unwrap();
+        let happiness = action
+            * parts
+                .next()
+                .and_then(|s| s.parse::<IntType>().ok())
+                .unwrap();
         let b = parts.nth(6).unwrap();
 
         mapping.entry(a).or_default().insert(b, happiness);

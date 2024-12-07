@@ -13,9 +13,9 @@ fn parse(s: &str) -> impl Iterator<Item = Reindeer> + '_ {
     s.lines().map(|l| {
         let mut parts = l.split_whitespace();
 
-        let speed = parts.nth(3).unwrap().parse().unwrap();
-        let fly_duration = parts.nth(2).unwrap().parse().unwrap();
-        let rest_duration = parts.nth(6).unwrap().parse().unwrap();
+        let speed = parts.nth(3).and_then(|s| s.parse().ok()).unwrap();
+        let fly_duration = parts.nth(2).and_then(|s| s.parse().ok()).unwrap();
+        let rest_duration = parts.nth(6).and_then(|s| s.parse().ok()).unwrap();
 
         Reindeer {
             speed,

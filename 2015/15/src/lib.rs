@@ -29,15 +29,23 @@ impl Ingredient {
 fn parse(s: &str) -> impl Iterator<Item = Ingredient> + '_ {
     s.lines().map(|l| {
         let mut parts = l.split_whitespace();
-        let capacity = parts.nth(2).unwrap();
-        let capacity = capacity[..capacity.len() - 1].parse().unwrap();
-        let durability = parts.nth(1).unwrap();
-        let durability = durability[..durability.len() - 1].parse().unwrap();
-        let flavor = parts.nth(1).unwrap();
-        let flavor = flavor[..flavor.len() - 1].parse().unwrap();
-        let texture = parts.nth(1).unwrap();
-        let texture = texture[..texture.len() - 1].parse().unwrap();
-        let calories = parts.nth(1).unwrap().parse().unwrap();
+        let capacity = parts
+            .nth(2)
+            .and_then(|s| s.trim_matches(',').parse().ok())
+            .unwrap();
+        let durability = parts
+            .nth(1)
+            .and_then(|s| s.trim_matches(',').parse().ok())
+            .unwrap();
+        let flavor = parts
+            .nth(1)
+            .and_then(|s| s.trim_matches(',').parse().ok())
+            .unwrap();
+        let texture = parts
+            .nth(1)
+            .and_then(|s| s.trim_matches(',').parse().ok())
+            .unwrap();
+        let calories = parts.nth(1).and_then(|s| s.parse().ok()).unwrap();
 
         Ingredient {
             capacity,
