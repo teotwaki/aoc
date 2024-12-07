@@ -47,7 +47,7 @@ the average performance during that run.
 | [12](2022/12/src/lib.rs) | 94.291 ms  | 95.384 ms  |
 | [13](2022/13/src/lib.rs) | 381.4 us   | 620.3 us   |
 | [14](2022/14/src/lib.rs) | 4.522 ms   | 187.592 ms |
-| [15](2022/15/src/lib.rs) | 663.471 ms | 716.572 ms |
+| [15](2022/15/src/lib.rs) | 666.804 ms | 421.006 ms |
 
 ## 2023
 
@@ -59,7 +59,7 @@ the average performance during that run.
 | [2](2023/02/src/lib.rs)  | 50.4 us   | 50.7 us    |
 | [3](2023/03/src/lib.rs)  | 5.276 ms  | 754.365 ms |
 | [4](2023/04/src/lib.rs)  | 163.5 us  | 164.3 us   |
-| [5](2023/05/src/lib.rs)  | 40.4 us   | 172.888 s  |
+| [5](2023/05/src/lib.rs)  | 39.3 us   | 23.859 s   |
 | [6](2023/06/src/lib.rs)  | 7.2 us    | 39.156 ms  |
 | [7](2023/07/src/lib.rs)  | 306.9 us  | 311.5 us   |
 | [8](2023/08/src/lib.rs)  | 762.9 us  | 3.232 ms   |
@@ -79,9 +79,9 @@ the average performance during that run.
 | [2](2024/02/src/lib.rs) | 101.6 us  | 185.0 us   |
 | [3](2024/03/src/lib.rs) | 121.8 us  | 96.0 us    |
 | [4](2024/04/src/lib.rs) | 1.669 ms  | 759.5 us   |
-| [5](2024/05/src/lib.rs) | 152.6 us  | 367.2 us   |
-| [6](2024/06/src/lib.rs) | 828.6 us  | 1.870 s    |
-| [7](2024/07/src/lib.rs) | 15.766 ms | 528.622 ms |
+| [5](2024/05/src/lib.rs) | 151.7 us  | 242.2 us   |
+| [6](2024/06/src/lib.rs) | 831.0 us  | 246.699 ms |
+| [7](2024/07/src/lib.rs) | 4.255 ms  | 136.255 ms |
 
 # Improvements
 

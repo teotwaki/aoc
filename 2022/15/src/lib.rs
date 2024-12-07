@@ -1,7 +1,7 @@
 use common::{distances::manhattan, Answer, Coordinates};
 use itertools::Itertools;
 use regex::Regex;
-use std::sync::LazyLock;
+use std::{collections::HashSet, sync::LazyLock};
 
 type IntType = i64;
 type Coord = Coordinates<IntType>;
@@ -42,7 +42,7 @@ impl SensorReadout {
         }
     }
 
-    fn perimeter(&self) -> impl Iterator<Item = Coord> {
+    fn perimeter(&self) -> HashSet<Coord> {
         let distance = self.distance + 1;
         let sx = self.sensor.x();
         let sy = self.sensor.y();
@@ -70,7 +70,7 @@ impl SensorReadout {
         points
             .into_iter()
             .filter(|p| p.x() >= 0 && p.x() < 4_000_000 && p.y() >= 0 && p.y() < 4_000_000)
-            .unique() // Ensure unique points
+            .collect()
     }
 }
 
@@ -89,22 +89,18 @@ impl Map {
     }
 
     fn unavailable_locations_in_row(&self, row: IntType) -> usize {
-        let unavailable_positions = self
-            .readouts
+        self.readouts
             .iter()
             .flat_map(|s| s.in_range_in_row(row))
             .unique()
             .filter(|p| !self.beacons.contains(p))
-            .count();
-
-        unavailable_positions
+            .count()
     }
 
     fn beacon_location(&self, limit: IntType) -> Coord {
         self.readouts
             .iter()
             .flat_map(|s| s.perimeter())
-            .unique()
             .filter(|p| p.x() >= 0 && p.x() < limit && p.y() >= 0 && p.y() < limit)
             .find(|&p| self.readouts.iter().all(|s| !s.in_range(p)))
             .unwrap()

@@ -1207,6 +1207,7 @@ name = "y2023-d5"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rayon",
 ]
 
 [[package]]
@@ -1273,6 +1274,7 @@ name = "y2024-d5"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rayon",
 ]
 
 [[package]]
@@ -1281,6 +1283,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "itertools 0.13.0",
+ "rayon",
 ]
 
 [[package]]
@@ -1289,4 +1292,5 @@ version = "0.1.0"
 dependencies = [
  "common",
  "itertools 0.13.0",
+ "rayon",
 ]

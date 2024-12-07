@@ -9,3 +9,4 @@ doctest = false
 [dependencies]
 common = { path = "../../common" }
 itertools = "0.13"
+rayon = "1.10"

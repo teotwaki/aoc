@@ -1,22 +1,25 @@
 use common::{utils::concat_numbers, Answer};
 use itertools::Itertools;
+use rayon::prelude::*;
 use std::iter::repeat_n;
 
 type IntType = u64;
 
-fn parse(s: &str) -> impl Iterator<Item = (IntType, Vec<IntType>)> + '_ {
-    s.lines().map(|l| {
-        let mut parts = l.split(':');
-        let result = parts.next().unwrap().parse().unwrap();
-        let terms = parts
-            .next()
-            .unwrap()
-            .split_whitespace()
-            .map(|s| s.parse().unwrap())
-            .collect::<Vec<_>>();
+fn parse(s: &str) -> Vec<(IntType, Vec<IntType>)> {
+    s.lines()
+        .map(|l| {
+            let mut parts = l.split(':');
+            let result = parts.next().unwrap().parse().unwrap();
+            let terms = parts
+                .next()
+                .unwrap()
+                .split_whitespace()
+                .map(|s| s.parse().unwrap())
+                .collect::<Vec<_>>();
 
-        (result, terms)
-    })
+            (result, terms)
+        })
+        .collect()
 }
 
 fn apply(op: &str, a: IntType, b: IntType) -> IntType {
@@ -42,6 +45,7 @@ fn is_solvable(ops: &[&str], result: IntType, terms: &[IntType]) -> bool {
 
 fn sum_solvable(ops: &[&str], s: &str) -> IntType {
     parse(s)
+        .par_iter()
         .filter(|(r, t)| is_solvable(ops, *r, t))
         .map(|(result, _)| result)
         .sum::<IntType>()
