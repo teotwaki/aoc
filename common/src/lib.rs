@@ -3,6 +3,7 @@ mod coordinates;
 mod direction;
 pub mod distances;
 mod grid;
+pub mod utils;
 
 pub use answer::Answer;
 pub use coordinates::Coordinates;

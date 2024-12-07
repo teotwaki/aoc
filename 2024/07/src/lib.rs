@@ -1,6 +1,6 @@
-use std::iter::{repeat_n, successors};
+use std::iter::repeat_n;
 
-use common::Answer;
+use common::{utils::number_length, Answer};
 use itertools::Itertools;
 
 type IntType = u64;
@@ -20,15 +20,11 @@ fn parse(s: &str) -> impl Iterator<Item = (IntType, Vec<IntType>)> + '_ {
     })
 }
 
-fn int_len(n: IntType) -> u32 {
-    successors(Some(n), |&n| (n >= 10).then_some(n / 10)).count() as u32
-}
-
 fn apply(op: &str, a: IntType, b: IntType) -> IntType {
     match op {
         "add" => a + b,
         "mul" => a * b,
-        "concat" => a * 10u64.pow(int_len(b)) + b,
+        "concat" => a * 10u64.pow(number_length(b) as u32) + b,
         _ => unreachable!(),
     }
 }
