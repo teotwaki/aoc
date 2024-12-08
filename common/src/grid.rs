@@ -1,6 +1,9 @@
 use crate::Coordinates;
 use num_traits::Num;
-use std::{collections::HashMap, hash::Hash};
+use std::{
+    collections::{HashMap, HashSet},
+    hash::Hash,
+};
 
 #[derive(Debug, Clone, Default)]
 pub struct Grid<T, U> {
@@ -102,12 +105,71 @@ where
     }
 }
 
-impl<T, U> IntoIterator for Grid<T, U> {
-    type Item = <HashMap<Coordinates<T>, U> as IntoIterator>::Item;
-    type IntoIter = <HashMap<Coordinates<T>, U> as IntoIterator>::IntoIter;
+#[derive(Debug, Clone, Default)]
+pub struct BooleanGrid<T> {
+    items: HashSet<Coordinates<T>>,
+    min_x: T,
+    max_x: T,
+    min_y: T,
+    max_y: T,
+}
 
-    fn into_iter(self) -> Self::IntoIter {
-        self.items.into_iter()
+impl<T> BooleanGrid<T>
+where
+    T: Eq + Hash + Default + Copy + PartialOrd + Num,
+{
+    #[inline]
+    pub fn new() -> Self {
+        Self {
+            items: HashSet::new(),
+            ..Default::default()
+        }
+    }
+
+    pub fn mark(&mut self, pos: Coordinates<T>) {
+        self.items.insert(pos);
+    }
+
+    pub fn contains(&self, pos: &Coordinates<T>) -> bool {
+        self.items.contains(pos)
+    }
+
+    #[inline]
+    pub fn width(&self) -> T {
+        self.max_x - self.min_x + T::one()
+    }
+
+    #[inline]
+    pub fn height(&self) -> T {
+        self.max_y - self.min_y + T::one()
+    }
+
+    #[inline]
+    pub fn iter(&self) -> impl Iterator<Item = &Coordinates<T>> {
+        self.items.iter()
+    }
+
+    #[inline]
+    pub fn len(&self) -> usize {
+        self.items.len()
+    }
+
+    #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.items.is_empty()
+    }
+
+    #[inline]
+    pub fn within_bounds(&self, pos: Coordinates<T>) -> bool {
+        pos.x() >= self.min_x
+            && pos.x() <= self.max_x
+            && pos.y() >= self.min_y
+            && pos.y() <= self.max_y
+    }
+
+    #[inline]
+    pub fn remove(&mut self, pos: &Coordinates<T>) {
+        self.items.remove(pos);
     }
 }
 
@@ -165,6 +227,78 @@ where
 
     #[inline]
     pub fn iter(&self) -> impl Iterator<Item = (&Coordinates<T>, &U)> {
+        self.grid.iter()
+    }
+
+    #[inline]
+    pub fn len(&self) -> usize {
+        self.grid.len()
+    }
+
+    #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.grid.is_empty()
+    }
+
+    #[inline]
+    pub fn within_bounds(&self, pos: Coordinates<T>) -> bool {
+        pos.x() >= self.min.x()
+            && pos.x() <= self.max.x()
+            && pos.y() >= self.min.y()
+            && pos.y() <= self.max.y()
+    }
+
+    #[inline]
+    pub fn remove(&mut self, pos: &Coordinates<T>) {
+        self.grid.remove(pos);
+    }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct BooleanBoundedGrid<T> {
+    grid: BooleanGrid<T>,
+    min: Coordinates<T>,
+    max: Coordinates<T>,
+}
+
+impl<T> BooleanBoundedGrid<T>
+where
+    T: Eq + Hash + Default + Copy + PartialOrd + Num,
+{
+    #[inline]
+    pub fn new(min: Coordinates<T>, max: Coordinates<T>) -> Self {
+        Self {
+            grid: BooleanGrid::new(),
+            min,
+            max,
+        }
+    }
+
+    pub fn mark(&mut self, pos: Coordinates<T>) -> bool {
+        if self.within_bounds(pos) {
+            self.grid.mark(pos);
+            true
+        } else {
+            false
+        }
+    }
+
+    pub fn contains(&self, pos: &Coordinates<T>) -> bool {
+        self.grid.contains(pos)
+    }
+
+    #[inline]
+    pub fn width(&self) -> T {
+        self.max.x() - self.min.x() + T::one()
+    }
+
+    #[inline]
+    pub fn height(&self) -> T {
+        self.max.y() - self.min.y() + T::one()
+    }
+
+    #[inline]
+    pub fn iter(&self) -> impl Iterator<Item = &Coordinates<T>> {
         self.grid.iter()
     }
 

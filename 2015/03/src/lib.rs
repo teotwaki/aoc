@@ -1,4 +1,4 @@
-use common::{Answer, Coordinates, Grid};
+use common::{Answer, BooleanGrid, Coordinates};
 
 fn move_house(c: char, pos: &mut Coordinates<i32>) {
     match c {
@@ -11,25 +11,25 @@ fn move_house(c: char, pos: &mut Coordinates<i32>) {
 }
 
 pub fn step1(s: &str) -> Answer {
-    let mut grid = Grid::new();
+    let mut grid = BooleanGrid::new();
     let mut pos = Coordinates::new(0, 0);
 
-    grid.store(pos, ());
+    grid.mark(pos);
 
     s.chars().for_each(|c| {
         move_house(c, &mut pos);
-        grid.store(pos, ());
+        grid.mark(pos);
     });
 
     grid.len().into()
 }
 
 pub fn step2(s: &str) -> Answer {
-    let mut grid = Grid::new();
+    let mut grid = BooleanGrid::new();
     let mut santa = Coordinates::new(0, 0);
     let mut robo = Coordinates::new(0, 0);
 
-    grid.store(santa, ());
+    grid.mark(santa);
 
     let mut chars = s.chars();
 
@@ -39,14 +39,14 @@ pub fn step2(s: &str) -> Answer {
         };
 
         move_house(c, &mut santa);
-        grid.store(santa, ());
+        grid.mark(santa);
 
         let Some(c) = chars.next() else {
             break;
         };
 
         move_house(c, &mut robo);
-        grid.store(robo, ());
+        grid.mark(robo);
     }
 
     grid.len().into()

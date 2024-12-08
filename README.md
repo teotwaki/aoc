@@ -82,7 +82,7 @@ the average performance during that run.
 | [5](2024/05/src/lib.rs) | 151.7 us  | 242.2 us   |
 | [6](2024/06/src/lib.rs) | 831.0 us  | 246.699 ms |
 | [7](2024/07/src/lib.rs) | 4.255 ms  | 136.255 ms |
-| [8](2024/08/src/lib.rs) | 51.1 us   | 128.9 us   |
+| [8](2024/08/src/lib.rs) | 50.3 us   | 127.1 us   |
 
 # Improvements
 
