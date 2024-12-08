@@ -1,8 +1,8 @@
 use crate::Direction;
 use num_traits::{Float, NumCast, PrimInt, ToPrimitive};
-use std::ops::{Add, AddAssign, Range, RangeInclusive, SubAssign};
+use std::ops::{Add, AddAssign, Range, RangeInclusive, Sub, SubAssign};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct Coordinates<T> {
     x: T,
     y: T,
@@ -239,6 +239,17 @@ impl<T: Add<Output = T>> Add for Coordinates<T> {
         Self {
             x: self.x + rhs.x,
             y: self.y + rhs.y,
+        }
+    }
+}
+
+impl<T: Sub<Output = T>> Sub for Coordinates<T> {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        Self {
+            x: self.x - rhs.x,
+            y: self.y - rhs.y,
         }
     }
 }
