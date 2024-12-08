@@ -1,6 +1,6 @@
 use common::{Answer, Coordinates, Grid};
 
-fn parse(s: &str) -> Grid<char, u8> {
+fn parse(s: &str) -> Grid<u8, char> {
     let mut grid = Grid::new();
     s.lines().enumerate().for_each(|(y, l)| {
         l.chars()
@@ -60,7 +60,7 @@ fn possibilities(pos: Coordinates<u8>) -> Vec<[Coordinates<u8>; 4]> {
     possibilities
 }
 
-fn validate_xmas(grid: &Grid<char, u8>, candidate: &[Coordinates<u8>]) -> bool {
+fn validate_xmas(grid: &Grid<u8, char>, candidate: &[Coordinates<u8>]) -> bool {
     grid.get(&candidate[1]) == Some(&'M')
         && grid.get(&candidate[2]) == Some(&'A')
         && grid.get(&candidate[3]) == Some(&'S')
@@ -80,7 +80,7 @@ pub fn step1(s: &str) -> Answer {
         .into()
 }
 
-fn validate_mas(grid: &Grid<char, u8>, pos: Coordinates<u8>) -> bool {
+fn validate_mas(grid: &Grid<u8, char>, pos: Coordinates<u8>) -> bool {
     let nw = *grid.get(&pos.northwest()).unwrap_or(&' ');
     let ne = *grid.get(&pos.northeast()).unwrap_or(&' ');
     let se = *grid.get(&pos.southeast()).unwrap_or(&' ');
