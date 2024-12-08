@@ -4,17 +4,17 @@ use std::{collections::HashMap, hash::Hash};
 
 #[derive(Debug, Clone, Default)]
 pub struct Grid<T, U> {
-    items: HashMap<Coordinates<U>, T>,
-    min_x: U,
-    max_x: U,
-    min_y: U,
-    max_y: U,
+    items: HashMap<Coordinates<T>, U>,
+    min_x: T,
+    max_x: T,
+    min_y: T,
+    max_y: T,
 }
 
 impl<T, U> Grid<T, U>
 where
-    T: Clone + Default,
-    U: Eq + Hash + Default + Copy + PartialOrd + Num,
+    T: Eq + Hash + Default + Copy + PartialOrd + Num,
+    U: Clone + Default,
 {
     #[inline]
     pub fn new() -> Self {
@@ -32,7 +32,7 @@ where
         }
     }
 
-    fn store_min_max(&mut self, pos: Coordinates<U>) {
+    fn store_min_max(&mut self, pos: Coordinates<T>) {
         if self.min_x > pos.x() {
             self.min_x = pos.x();
         } else if self.max_x < pos.x() {
@@ -46,35 +46,35 @@ where
         }
     }
 
-    pub fn store(&mut self, pos: Coordinates<U>, value: T) {
+    pub fn store(&mut self, pos: Coordinates<T>, value: U) {
         self.items.insert(pos, value);
         self.store_min_max(pos);
     }
 
-    pub fn get(&self, pos: &Coordinates<U>) -> Option<&T> {
+    pub fn get(&self, pos: &Coordinates<T>) -> Option<&U> {
         self.items.get(pos)
     }
 
-    pub fn get_mut(&mut self, pos: Coordinates<U>) -> &mut T {
+    pub fn get_mut(&mut self, pos: Coordinates<T>) -> &mut U {
         self.items.entry(pos).or_default()
     }
 
-    pub fn contains(&self, pos: &Coordinates<U>) -> bool {
+    pub fn contains(&self, pos: &Coordinates<T>) -> bool {
         self.get(pos).is_some()
     }
 
     #[inline]
-    pub fn width(&self) -> U {
-        self.max_x - self.min_x + U::one()
+    pub fn width(&self) -> T {
+        self.max_x - self.min_x + T::one()
     }
 
     #[inline]
-    pub fn height(&self) -> U {
-        self.max_y - self.min_y + U::one()
+    pub fn height(&self) -> T {
+        self.max_y - self.min_y + T::one()
     }
 
     #[inline]
-    pub fn iter(&self) -> impl Iterator<Item = (&Coordinates<U>, &T)> {
+    pub fn iter(&self) -> impl Iterator<Item = (&Coordinates<T>, &U)> {
         self.items.iter()
     }
 
@@ -89,7 +89,7 @@ where
     }
 
     #[inline]
-    pub fn within_bounds(&self, pos: Coordinates<U>) -> bool {
+    pub fn within_bounds(&self, pos: Coordinates<T>) -> bool {
         pos.x() >= self.min_x
             && pos.x() <= self.max_x
             && pos.y() >= self.min_y
@@ -97,14 +97,14 @@ where
     }
 
     #[inline]
-    pub fn remove(&mut self, pos: &Coordinates<U>) {
+    pub fn remove(&mut self, pos: &Coordinates<T>) {
         self.items.remove(pos);
     }
 }
 
 impl<T, U> IntoIterator for Grid<T, U> {
-    type Item = <HashMap<Coordinates<U>, T> as IntoIterator>::Item;
-    type IntoIter = <HashMap<Coordinates<U>, T> as IntoIterator>::IntoIter;
+    type Item = <HashMap<Coordinates<T>, U> as IntoIterator>::Item;
+    type IntoIter = <HashMap<Coordinates<T>, U> as IntoIterator>::IntoIter;
 
     fn into_iter(self) -> Self::IntoIter {
         self.items.into_iter()
@@ -114,17 +114,17 @@ impl<T, U> IntoIterator for Grid<T, U> {
 #[derive(Debug, Clone, Default)]
 pub struct BoundedGrid<T, U> {
     grid: Grid<T, U>,
-    min: Coordinates<U>,
-    max: Coordinates<U>,
+    min: Coordinates<T>,
+    max: Coordinates<T>,
 }
 
 impl<T, U> BoundedGrid<T, U>
 where
-    T: Clone + Default,
-    U: Eq + Hash + Default + Copy + PartialOrd + Num,
+    T: Eq + Hash + Default + Copy + PartialOrd + Num,
+    U: Clone + Default,
 {
     #[inline]
-    pub fn new(min: Coordinates<U>, max: Coordinates<U>) -> Self {
+    pub fn new(min: Coordinates<T>, max: Coordinates<T>) -> Self {
         Self {
             grid: Grid::new(),
             min,
@@ -132,7 +132,7 @@ where
         }
     }
 
-    pub fn store(&mut self, pos: Coordinates<U>, value: T) -> bool {
+    pub fn store(&mut self, pos: Coordinates<T>, value: U) -> bool {
         if self.within_bounds(pos) {
             self.grid.store(pos, value);
             true
@@ -141,30 +141,30 @@ where
         }
     }
 
-    pub fn get(&self, pos: &Coordinates<U>) -> Option<&T> {
+    pub fn get(&self, pos: &Coordinates<T>) -> Option<&U> {
         self.grid.get(pos)
     }
 
-    pub fn get_mut(&mut self, pos: Coordinates<U>) -> &mut T {
+    pub fn get_mut(&mut self, pos: Coordinates<T>) -> &mut U {
         self.grid.get_mut(pos)
     }
 
-    pub fn contains(&self, pos: &Coordinates<U>) -> bool {
+    pub fn contains(&self, pos: &Coordinates<T>) -> bool {
         self.grid.get(pos).is_some()
     }
 
     #[inline]
-    pub fn width(&self) -> U {
-        self.max.x() - self.min.x() + U::one()
+    pub fn width(&self) -> T {
+        self.max.x() - self.min.x() + T::one()
     }
 
     #[inline]
-    pub fn height(&self) -> U {
-        self.max.y() - self.min.y() + U::one()
+    pub fn height(&self) -> T {
+        self.max.y() - self.min.y() + T::one()
     }
 
     #[inline]
-    pub fn iter(&self) -> impl Iterator<Item = (&Coordinates<U>, &T)> {
+    pub fn iter(&self) -> impl Iterator<Item = (&Coordinates<T>, &U)> {
         self.grid.iter()
     }
 
@@ -179,7 +179,7 @@ where
     }
 
     #[inline]
-    pub fn within_bounds(&self, pos: Coordinates<U>) -> bool {
+    pub fn within_bounds(&self, pos: Coordinates<T>) -> bool {
         pos.x() >= self.min.x()
             && pos.x() <= self.max.x()
             && pos.y() >= self.min.y()
@@ -187,7 +187,7 @@ where
     }
 
     #[inline]
-    pub fn remove(&mut self, pos: &Coordinates<U>) {
+    pub fn remove(&mut self, pos: &Coordinates<T>) {
         self.grid.remove(pos);
     }
 }

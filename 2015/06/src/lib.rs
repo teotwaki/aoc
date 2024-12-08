@@ -3,8 +3,8 @@ use regex::Regex;
 use std::sync::LazyLock;
 
 type IntType = u16;
-type Lights = Grid<bool, IntType>;
-type DimmableLights = Grid<i32, IntType>;
+type Lights = Grid<IntType, bool>;
+type DimmableLights = Grid<IntType, i32>;
 type Coords = Coordinates<IntType>;
 
 enum Instruction {

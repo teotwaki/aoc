@@ -6,7 +6,7 @@ use std::collections::HashSet;
 type IntType = i16;
 type Coords = Coordinates<IntType>;
 
-fn parse(s: &str) -> (Grid<(), IntType>, Coords) {
+fn parse(s: &str) -> (Grid<IntType, ()>, Coords) {
     let mut map = Grid::new();
     let mut guard = None;
 
@@ -29,7 +29,7 @@ enum Outcome {
     OutOfBounds(HashSet<(Coords, Direction)>),
 }
 
-fn simulate_route(obstacles: &Grid<(), IntType>, start: Coords) -> Outcome {
+fn simulate_route(obstacles: &Grid<IntType, ()>, start: Coords) -> Outcome {
     let mut guard_locations = HashSet::new();
     let mut direction = Direction::Up;
     let mut guard_pos = start;

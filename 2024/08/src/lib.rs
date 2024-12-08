@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 type IntType = i8;
 type Coords = Coordinates<IntType>;
-type FreqMap = HashMap<char, Grid<(), IntType>>;
+type FreqMap = HashMap<char, Grid<IntType, ()>>;
 
 fn get_grid_size(s: &str) -> (Coords, Coords) {
     let max_x = s.lines().next().map(|l| l.chars().count()).unwrap();
@@ -31,7 +31,7 @@ fn parse(s: &str) -> FreqMap {
 }
 
 fn store_antinodes(
-    antinodes: &mut BoundedGrid<(), IntType>,
+    antinodes: &mut BoundedGrid<IntType, ()>,
     mut a: Coords,
     b: Coords,
     resonance: bool,
