@@ -1,9 +1,9 @@
-use common::{Answer, BoundedGrid, Coordinates, Grid};
+use common::{Answer, BooleanBoundedGrid, BooleanGrid, Coordinates};
 use std::collections::HashMap;
 
 type IntType = i8;
 type Coords = Coordinates<IntType>;
-type FreqMap = HashMap<char, Grid<IntType, ()>>;
+type FreqMap = HashMap<char, BooleanGrid<IntType>>;
 
 fn get_grid_size(s: &str) -> (Coords, Coords) {
     let max_x = s.lines().next().map(|l| l.chars().count()).unwrap();
@@ -23,7 +23,7 @@ fn parse(s: &str) -> FreqMap {
                 frequencies
                     .entry(c)
                     .or_default()
-                    .store(Coords::new(x as IntType, y as IntType), ())
+                    .mark(Coords::new(x as IntType, y as IntType))
             });
     });
 
@@ -31,7 +31,7 @@ fn parse(s: &str) -> FreqMap {
 }
 
 fn store_antinodes(
-    antinodes: &mut BoundedGrid<IntType, ()>,
+    antinodes: &mut BooleanBoundedGrid<IntType>,
     mut a: Coords,
     b: Coords,
     resonance: bool,
@@ -39,7 +39,7 @@ fn store_antinodes(
     let diff = a - b;
     loop {
         a = a + diff;
-        let inserted = antinodes.store(a, ());
+        let inserted = antinodes.mark(a);
 
         if !resonance || !inserted {
             break;
@@ -49,21 +49,18 @@ fn store_antinodes(
 
 fn calculate_antinodes(s: &str, resonance: bool) -> usize {
     let (min, max) = get_grid_size(s);
-    let mut antinodes = BoundedGrid::new(min, max);
+    let mut antinodes = BooleanBoundedGrid::new(min, max);
     let frequencies = parse(s);
 
     frequencies.iter().for_each(|(_, antennas)| {
-        antennas.iter().for_each(|(&pos, _)| {
+        antennas.iter().for_each(|&pos| {
             if resonance {
-                antinodes.store(pos, ());
+                antinodes.mark(pos);
             }
 
-            antennas
-                .iter()
-                .filter(|&(p, _)| *p != pos)
-                .for_each(|(&other, _)| {
-                    store_antinodes(&mut antinodes, pos, other, resonance);
-                })
+            antennas.iter().filter(|&&p| p != pos).for_each(|&other| {
+                store_antinodes(&mut antinodes, pos, other, resonance);
+            })
         })
     });
 

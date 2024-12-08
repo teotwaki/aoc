@@ -1,4 +1,4 @@
-use common::{Answer, Coordinates, Direction, Grid};
+use common::{Answer, BooleanGrid, Coordinates, Direction};
 use itertools::Itertools;
 use rayon::prelude::*;
 use std::collections::HashSet;
@@ -6,8 +6,8 @@ use std::collections::HashSet;
 type IntType = i16;
 type Coords = Coordinates<IntType>;
 
-fn parse(s: &str) -> (Grid<IntType, ()>, Coords) {
-    let mut map = Grid::new();
+fn parse(s: &str) -> (BooleanGrid<IntType>, Coords) {
+    let mut map = BooleanGrid::new();
     let mut guard = None;
 
     s.lines().enumerate().for_each(|(y, l)| {
@@ -15,7 +15,7 @@ fn parse(s: &str) -> (Grid<IntType, ()>, Coords) {
             let pos = (x as IntType, y as IntType).into();
             match c {
                 '^' => guard = Some(pos),
-                '#' => map.store(pos, ()),
+                '#' => map.mark(pos),
                 _ => {}
             }
         })
@@ -29,7 +29,7 @@ enum Outcome {
     OutOfBounds(HashSet<(Coords, Direction)>),
 }
 
-fn simulate_route(obstacles: &Grid<IntType, ()>, start: Coords) -> Outcome {
+fn simulate_route(obstacles: &BooleanGrid<IntType>, start: Coords) -> Outcome {
     let mut guard_locations = HashSet::new();
     let mut direction = Direction::Up;
     let mut guard_pos = start;
@@ -39,7 +39,7 @@ fn simulate_route(obstacles: &Grid<IntType, ()>, start: Coords) -> Outcome {
     loop {
         let next = guard_pos.next(direction);
 
-        if obstacles.get(&next).is_some() {
+        if obstacles.contains(&next) {
             direction.turn_clockwise();
             guard_locations.insert((guard_pos, direction));
             continue;
@@ -90,7 +90,7 @@ pub fn step2(s: &str) -> Answer {
                     break false;
                 }
 
-                if obstacles.get(&next).is_some() {
+                if obstacles.contains(&next) {
                     break true;
                 }
 
@@ -103,7 +103,7 @@ pub fn step2(s: &str) -> Answer {
         .filter(|&pos| *pos != start)
         .filter(|&&pos| {
             let mut obstacles = obstacles.clone();
-            obstacles.store(pos, ());
+            obstacles.mark(pos);
 
             matches!(simulate_route(&obstacles, start), Outcome::Loop)
         })
