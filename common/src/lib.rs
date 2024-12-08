@@ -10,4 +10,4 @@ pub use answer::Answer;
 pub use coordinates::Coordinates;
 pub use digit_string::{DigitString, DigitStringU128};
 pub use direction::Direction;
-pub use grid::Grid;
+pub use grid::{BoundedGrid, Grid};

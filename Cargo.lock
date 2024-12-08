@@ -135,6 +135,7 @@ dependencies = [
  "y2024-d5",
  "y2024-d6",
  "y2024-d7",
+ "y2024-d8",
 ]
 
 [[package]]
@@ -1293,4 +1294,11 @@ dependencies = [
  "common",
  "itertools 0.13.0",
  "rayon",
+]
+
+[[package]]
+name = "y2024-d8"
+version = "0.1.0"
+dependencies = [
+ "common",
 ]

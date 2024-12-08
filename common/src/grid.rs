@@ -18,7 +18,7 @@ where
 {
     #[inline]
     pub fn new() -> Self {
-        Grid {
+        Self {
             items: HashMap::new(),
             ..Default::default()
         }
@@ -26,7 +26,7 @@ where
 
     #[inline]
     pub fn with_capacity(capacity: usize) -> Self {
-        Grid {
+        Self {
             items: HashMap::with_capacity(capacity),
             ..Default::default()
         }
@@ -108,5 +108,86 @@ impl<T, U> IntoIterator for Grid<T, U> {
 
     fn into_iter(self) -> Self::IntoIter {
         self.items.into_iter()
+    }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct BoundedGrid<T, U> {
+    grid: Grid<T, U>,
+    min: Coordinates<U>,
+    max: Coordinates<U>,
+}
+
+impl<T, U> BoundedGrid<T, U>
+where
+    T: Clone + Default,
+    U: Eq + Hash + Default + Copy + PartialOrd + Num,
+{
+    #[inline]
+    pub fn new(min: Coordinates<U>, max: Coordinates<U>) -> Self {
+        Self {
+            grid: Grid::new(),
+            min,
+            max,
+        }
+    }
+
+    pub fn store(&mut self, pos: Coordinates<U>, value: T) -> bool {
+        if self.within_bounds(pos) {
+            self.grid.store(pos, value);
+            true
+        } else {
+            false
+        }
+    }
+
+    pub fn get(&self, pos: &Coordinates<U>) -> Option<&T> {
+        self.grid.get(pos)
+    }
+
+    pub fn get_mut(&mut self, pos: Coordinates<U>) -> &mut T {
+        self.grid.get_mut(pos)
+    }
+
+    pub fn contains(&self, pos: &Coordinates<U>) -> bool {
+        self.grid.get(pos).is_some()
+    }
+
+    #[inline]
+    pub fn width(&self) -> U {
+        self.max.x() - self.min.x() + U::one()
+    }
+
+    #[inline]
+    pub fn height(&self) -> U {
+        self.max.y() - self.min.y() + U::one()
+    }
+
+    #[inline]
+    pub fn iter(&self) -> impl Iterator<Item = (&Coordinates<U>, &T)> {
+        self.grid.iter()
+    }
+
+    #[inline]
+    pub fn len(&self) -> usize {
+        self.grid.len()
+    }
+
+    #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.grid.is_empty()
+    }
+
+    #[inline]
+    pub fn within_bounds(&self, pos: Coordinates<U>) -> bool {
+        pos.x() >= self.min.x()
+            && pos.x() <= self.max.x()
+            && pos.y() >= self.min.y()
+            && pos.y() <= self.max.y()
+    }
+
+    #[inline]
+    pub fn remove(&mut self, pos: &Coordinates<U>) {
+        self.grid.remove(pos);
     }
 }
