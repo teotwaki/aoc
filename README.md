@@ -10,6 +10,8 @@ the average performance during that run.
 
 ## 2015
 
+**Note**: Day 19 part 2 is not implemented.
+
 | Day                      | Step 1     | Step 2     |
 |--------------------------|------------|------------|
 | [1](2015/01/src/lib.rs)  | 16.2 us    | 8.6 us     |
@@ -30,6 +32,7 @@ the average performance during that run.
 | [16](2015/16/src/lib.rs) | 62.8 us    | 48.0 us    |
 | [17](2015/17/src/lib.rs) | 32.990 ms  | 34.028 ms  |
 | [18](2015/18/src/lib.rs) | 137.584 ms | 136.544 ms |
+| [19](2015/19/src/lib.rs) | 17.647 ms  | n/a        |
 
 ## 2022
 
@@ -53,7 +56,7 @@ the average performance during that run.
 
 ## 2023
 
-**Note**: Day 12 was not implemented.
+**Note**: Day 12 is not implemented.
 
 | Day                      | Step 1    | Step 2     |
 |--------------------------|-----------|------------|
