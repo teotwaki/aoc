@@ -128,6 +128,21 @@ where
 
     pub fn mark(&mut self, pos: Coordinates<T>) {
         self.items.insert(pos);
+        self.store_min_max(pos);
+    }
+
+    fn store_min_max(&mut self, pos: Coordinates<T>) {
+        if self.min_x > pos.x() {
+            self.min_x = pos.x();
+        } else if self.max_x < pos.x() {
+            self.max_x = pos.x();
+        }
+
+        if self.min_y > pos.y() {
+            self.min_y = pos.y();
+        } else if self.max_y < pos.y() {
+            self.max_y = pos.y();
+        }
     }
 
     pub fn contains(&self, pos: &Coordinates<T>) -> bool {

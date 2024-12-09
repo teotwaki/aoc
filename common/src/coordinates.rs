@@ -195,6 +195,23 @@ where
             Left => self.right(),
         }
     }
+
+    pub fn neighbors(&self) -> [Coordinates<T>; 4] {
+        [self.up(), self.right(), self.down(), self.left()]
+    }
+
+    pub fn neighbors_8(&self) -> [Coordinates<T>; 8] {
+        [
+            self.up(),
+            self.northeast(),
+            self.right(),
+            self.southeast(),
+            self.down(),
+            self.southwest(),
+            self.left(),
+            self.northwest(),
+        ]
+    }
 }
 
 impl<T, U, V> From<(U, V)> for Coordinates<T>
