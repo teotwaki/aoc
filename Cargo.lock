@@ -981,6 +981,7 @@ name = "y2015-d19"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rayon",
 ]
 
 [[package]]
