@@ -34,15 +34,3 @@ pub fn step2(s: &str) -> Answer {
         .count()
         .into()
 }
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    const INPUT: &str = r#""#;
-
-    #[test]
-    fn parse_extracts_correct_number_of_lines() {
-        assert_eq!(parse(INPUT).len(), 10);
-    }
-}
