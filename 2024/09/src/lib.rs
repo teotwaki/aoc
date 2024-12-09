@@ -9,23 +9,42 @@ enum Block {
     FreeSpace,
 }
 
-fn parse_blocks(s: &str) -> Vec<Block> {
+#[derive(Debug, Clone, Copy)]
+enum Object {
+    File(FileSize, IntType),
+    FreeSpace(FileSize),
+}
+
+impl From<Object> for Vec<Block> {
+    fn from(value: Object) -> Self {
+        use Object::*;
+
+        match value {
+            File(len, id) => (0..len).map(|_| Block::File(id)).collect(),
+            FreeSpace(len) => (0..len).map(|_| Block::FreeSpace).collect(),
+        }
+    }
+}
+
+fn parse(s: &str) -> impl Iterator<Item = Object> + '_ {
     let mut id = 0;
 
-    s.lines()
-        .flat_map(|l| l.chars().map(|c| c.to_digit(10).unwrap() as FileSize))
+    s.chars()
+        .filter(|c| *c != '\n')
+        .map(|c| c.to_digit(10).unwrap() as FileSize)
         .enumerate()
-        .flat_map(|(i, c)| {
+        .filter_map(move |(i, c)| {
             if i % 2 == 0 {
-                let v = vec![Block::File(id); c as usize];
+                let o = Object::File(c, id as IntType);
                 id += 1;
 
-                v
+                Some(o)
+            } else if c != 0 {
+                Some(Object::FreeSpace(c))
             } else {
-                vec![Block::FreeSpace; c as usize]
+                None
             }
         })
-        .collect()
 }
 
 fn checksum(blocks: &[Block]) -> usize {
@@ -40,7 +59,7 @@ fn checksum(blocks: &[Block]) -> usize {
 }
 
 pub fn step1(s: &str) -> Answer {
-    let mut blocks = parse_blocks(s);
+    let mut blocks = parse(s).flat_map(Vec::from).collect::<Vec<_>>();
 
     let mut i = 0;
     let mut j = blocks.len() - 1;
@@ -66,46 +85,8 @@ pub fn step1(s: &str) -> Answer {
     checksum(&blocks).into()
 }
 
-#[derive(Debug, Clone, Copy)]
-enum Object {
-    File(FileSize, IntType),
-    FreeSpace(FileSize),
-}
-
-impl From<Object> for Vec<Block> {
-    fn from(value: Object) -> Self {
-        use Object::*;
-
-        match value {
-            File(len, id) => (0..len).map(|_| Block::File(id)).collect(),
-            FreeSpace(len) => (0..len).map(|_| Block::FreeSpace).collect(),
-        }
-    }
-}
-
-fn parse_objects(s: &str) -> Vec<Object> {
-    let mut id = 0;
-
-    s.lines()
-        .flat_map(|l| l.chars().map(|c| c.to_digit(10).unwrap() as FileSize))
-        .enumerate()
-        .filter_map(|(i, c)| {
-            if i % 2 == 0 {
-                let o = Object::File(c, id as IntType);
-                id += 1;
-
-                Some(o)
-            } else if c != 0 {
-                Some(Object::FreeSpace(c))
-            } else {
-                None
-            }
-        })
-        .collect()
-}
-
 pub fn step2(s: &str) -> Answer {
-    let mut objects = parse_objects(s);
+    let mut objects = parse(s).collect::<Vec<_>>();
 
     let mut j = objects.len() - 1;
 
@@ -145,10 +126,7 @@ pub fn step2(s: &str) -> Answer {
         j -= 1;
     }
 
-    let blocks = objects
-        .iter()
-        .flat_map(|o| Vec::from(*o))
-        .collect::<Vec<_>>();
+    let blocks = objects.into_iter().flat_map(Vec::from).collect::<Vec<_>>();
 
     checksum(&blocks).into()
 }
