@@ -1,3 +1,4 @@
+use rayon::prelude::*;
 use std::collections::{HashMap, HashSet};
 
 use common::Answer;
@@ -19,7 +20,26 @@ impl<'a> Token<'a> {
     }
 }
 
-fn parse(s: &str) -> (HashMap<&str, Vec<&str>>, Vec<Token>) {
+fn tokenize<'a>(mut data: &'a str, tokens: &[&'a str]) -> Vec<Token<'a>> {
+    let mut tokenized = vec![];
+
+    'outer: while !data.is_empty() {
+        for token in tokens {
+            if data.starts_with(token) {
+                tokenized.push(Token::Molecule(token));
+                data = &data[token.len()..];
+                continue 'outer;
+            }
+        }
+
+        tokenized.push(Token::Noise(&data[..1]));
+        data = &data[1..];
+    }
+
+    tokenized
+}
+
+fn parse(s: &str) -> (HashMap<&str, Vec<&str>>, &str) {
     let mut parts = s.split("\n\n");
     let mut map: HashMap<&str, Vec<&str>> = HashMap::new();
 
@@ -30,32 +50,12 @@ fn parse(s: &str) -> (HashMap<&str, Vec<&str>>, Vec<Token>) {
             .push(parts.next().unwrap());
     });
 
-    let molecules = map.keys().copied().collect::<Vec<_>>();
-    let mut calibration = parts.next().unwrap().trim_end();
-
-    let mut tokens = vec![];
-
-    'outer: while !calibration.is_empty() {
-        for mol in &molecules {
-            if calibration.starts_with(mol) {
-                tokens.push(Token::Molecule(mol));
-                calibration = &calibration[mol.len()..];
-                continue 'outer;
-            }
-        }
-
-        tokens.push(Token::Noise(&calibration[..1]));
-        calibration = &calibration[1..];
-    }
-
-    (map, tokens)
+    (map, parts.next().unwrap().trim_end())
 }
 
 fn generate_molecules(tokens: &[Token], needle: &str, replacement: &str) -> Vec<String> {
-    let mut v = vec![];
-
-    for i in 0..tokens.len() {
-        v.push(
+    (0..tokens.len())
+        .map(|i| {
             tokens
                 .iter()
                 .enumerate()
@@ -66,32 +66,56 @@ fn generate_molecules(tokens: &[Token], needle: &str, replacement: &str) -> Vec<
                         token.as_str()
                     }
                 })
-                .collect::<String>(),
-        );
-    }
-
-    v
+                .collect::<String>()
+        })
+        .collect()
 }
 
 pub fn step1(s: &str) -> Answer {
-    let (recipes, tokens) = parse(s);
-    let original = tokens.iter().map(|t| t.as_str()).collect::<String>();
+    let (recipes, original) = parse(s);
+    let molecules = recipes.keys().copied().collect::<Vec<_>>();
+    let medecine = tokenize(original, &molecules);
 
     let molecules = recipes
-        .iter()
+        .par_iter()
         .flat_map(|(tok, replacements)| {
             replacements
-                .iter()
-                .flat_map(|rep| generate_molecules(&tokens, tok, rep))
+                .par_iter()
+                .flat_map(|rep| generate_molecules(&medecine, tok, rep))
         })
-        .filter(|s| s != &original)
+        .filter(|s| s != original)
         .collect::<HashSet<_>>();
 
     molecules.len().into()
 }
 
-pub fn step2(_: &str) -> Answer {
-    ().into()
+fn to_elements(mut s: &str) -> Vec<&str> {
+    let mut elements = vec![];
+
+    while !s.is_empty() {
+        if let Some(second) = s.chars().nth(1) {
+            if second.is_lowercase() {
+                elements.push(&s[..2]);
+                s = &s[2..];
+
+                continue;
+            }
+        }
+
+        elements.push(&s[..1]);
+        s = &s[1..];
+    }
+
+    elements
+}
+
+pub fn step2(s: &str) -> Answer {
+    let medecine = s.trim_end().split("\n\n").nth(1).unwrap();
+    let elements = to_elements(medecine);
+    let paren_count = elements.iter().filter(|&&s| s == "Rn" || s == "Ar").count();
+    let comma_count = elements.iter().filter(|&&s| s == "Y").count();
+
+    (elements.len() - paren_count - 2 * comma_count - 1).into()
 }
 
 #[cfg(test)]
