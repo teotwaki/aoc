@@ -24,19 +24,27 @@ fn parse(s: &str) -> Map {
     map
 }
 
-fn do_bfs(map: &Map, f: BFSFunc) -> usize {
+#[inline]
+fn is_trailhead((_, height): &(&Coords, &u8)) -> bool {
+    **height == 0
+}
+
+#[inline]
+fn is_trailend(_: Coords, value: &u8) -> bool {
+    *value == 9
+}
+
+#[inline]
+fn is_trail((_, &a): CellRef, (_, &b): CellRef) -> bool {
+    a < b && b - a <= 1
+}
+
+fn count_trails(map: &Map, f: BFSFunc) -> usize {
     map.iter()
         .par_bridge()
-        .filter(|(_, v)| **v == 0)
+        .filter(is_trailhead)
         .map(|(pos, _)| *pos)
-        .flat_map(|start| {
-            f(
-                map,
-                start,
-                |_, value| *value == 9,
-                |(_, &a), (_, &b)| a < b && b - a <= 1,
-            )
-        })
+        .flat_map(|start| f(map, start, is_trailend, is_trail))
         .fold(HashMap::<Coords, usize>::new, |mut acc, trail| {
             let head = *trail.first().unwrap();
             *acc.entry(head).or_default() += 1;
@@ -49,12 +57,12 @@ fn do_bfs(map: &Map, f: BFSFunc) -> usize {
 
 pub fn step1(s: &str) -> Answer {
     let map = parse(s);
-    do_bfs(&map, Map::bfs_all).into()
+    count_trails(&map, Map::bfs_all).into()
 }
 
 pub fn step2(s: &str) -> Answer {
     let map = parse(s);
-    do_bfs(&map, Map::bfs_exhaustive).into()
+    count_trails(&map, Map::bfs_exhaustive).into()
 }
 
 #[cfg(test)]
