@@ -41,7 +41,7 @@ impl<'a> File<'a> {
     }
 }
 
-fn file<'a>(parent_dir: String) -> impl Fn(&'a str) -> IResult<&'a str, ParseOutput> {
+fn file<'a>(parent_dir: String) -> impl Fn(&'a str) -> IResult<&'a str, ParseOutput<'a>> {
     move |s: &str| {
         let (s, (size, _, filename)) =
             terminated(tuple((parse_usize, space1, not_line_ending)), newline)(s)?;
@@ -74,7 +74,7 @@ fn ls_command(s: &str) -> IResult<&str, ParseOutput> {
     Ok((s, ParseOutput::None))
 }
 
-fn cd_command<'a>(current_dir: String) -> impl Fn(&'a str) -> IResult<&'a str, ParseOutput> {
+fn cd_command<'a>(current_dir: String) -> impl Fn(&'a str) -> IResult<&'a str, ParseOutput<'a>> {
     move |s: &str| {
         let (s, (_, target_dir)) = terminated(tuple((tag("$ cd "), not_line_ending)), newline)(s)?;
 
