@@ -1,8 +1,9 @@
 use crate::Coordinates;
-use num_traits::Num;
+use num_traits::{Num, PrimInt};
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{HashMap, HashSet, VecDeque},
     hash::Hash,
+    ops::{AddAssign, SubAssign},
 };
 
 #[derive(Debug, Clone, Default)]
@@ -102,6 +103,144 @@ where
     #[inline]
     pub fn remove(&mut self, pos: &Coordinates<T>) {
         self.items.remove(pos);
+    }
+}
+
+impl<T, U> Grid<T, U>
+where
+    T: Eq + Hash + Default + Copy + PartialOrd + PrimInt + SubAssign + AddAssign,
+    U: Clone + Default,
+{
+    pub fn bfs<
+        E: Fn(Coordinates<T>, &U) -> bool,
+        P: Fn((Coordinates<T>, &U), (Coordinates<T>, &U)) -> bool,
+    >(
+        &self,
+        root: Coordinates<T>,
+        is_target: E,
+        pred: P,
+    ) -> Vec<Coordinates<T>> {
+        let mut q = VecDeque::from([root]);
+        let mut explored = HashSet::from([root]);
+        let mut parents = HashMap::new();
+
+        while let Some(v) = q.pop_front() {
+            if is_target(v, self.items.get(&v).unwrap()) {
+                let mut path = vec![v];
+                while let Some(&parent) = parents.get(path.last().unwrap()) {
+                    path.push(parent);
+                }
+
+                path.reverse();
+
+                return path;
+            } else {
+                for neighbor in v.neighbors() {
+                    if self.within_bounds(neighbor)
+                        && !explored.contains(&neighbor)
+                        && pred(
+                            (v, self.get(&v).unwrap()),
+                            (neighbor, self.get(&neighbor).unwrap()),
+                        )
+                    {
+                        parents.insert(neighbor, v);
+                        explored.insert(neighbor);
+                        q.push_back(neighbor);
+                    }
+                }
+            }
+        }
+
+        vec![]
+    }
+
+    pub fn bfs_all<
+        E: Fn(Coordinates<T>, &U) -> bool,
+        P: Fn((Coordinates<T>, &U), (Coordinates<T>, &U)) -> bool,
+    >(
+        &self,
+        root: Coordinates<T>,
+        is_target: E,
+        pred: P,
+    ) -> Vec<Vec<Coordinates<T>>> {
+        let mut q = VecDeque::from([vec![root]]);
+        let mut explored = HashSet::from([root]);
+        let ends = self
+            .items
+            .iter()
+            .filter(|&(pos, v)| is_target(*pos, v))
+            .map(|(&pos, _)| pos)
+            .collect::<HashSet<_>>();
+
+        let mut paths = vec![];
+
+        while let Some(path) = q.pop_front() {
+            let front = *path.last().unwrap();
+
+            if ends.contains(&front) {
+                paths.push(path);
+            } else {
+                for neighbor in front.neighbors() {
+                    if self.within_bounds(neighbor)
+                        && !explored.contains(&neighbor)
+                        && pred(
+                            (front, self.get(&front).unwrap()),
+                            (neighbor, self.get(&neighbor).unwrap()),
+                        )
+                    {
+                        explored.insert(neighbor);
+                        let mut path = path.clone();
+                        path.push(neighbor);
+                        q.push_back(path);
+                    }
+                }
+            }
+        }
+
+        paths
+    }
+
+    pub fn bfs_exhaustive<
+        E: Fn(Coordinates<T>, &U) -> bool,
+        P: Fn((Coordinates<T>, &U), (Coordinates<T>, &U)) -> bool,
+    >(
+        &self,
+        root: Coordinates<T>,
+        is_target: E,
+        pred: P,
+    ) -> Vec<Vec<Coordinates<T>>> {
+        let mut q = VecDeque::from([vec![root]]);
+        let ends = self
+            .items
+            .iter()
+            .filter(|&(pos, v)| is_target(*pos, v))
+            .map(|(&pos, _)| pos)
+            .collect::<HashSet<_>>();
+
+        let mut paths = vec![];
+
+        while let Some(path) = q.pop_front() {
+            let front = *path.last().unwrap();
+
+            if ends.contains(&front) {
+                paths.push(path);
+            } else {
+                for neighbor in front.neighbors() {
+                    if self.within_bounds(neighbor)
+                        && pred(
+                            (front, self.get(&front).unwrap()),
+                            (neighbor, self.get(&neighbor).unwrap()),
+                        )
+                    {
+                        let mut path = path.clone();
+                        path.push(neighbor);
+                        q.push_back(path);
+                    }
+                }
+            }
+        }
+
+        paths
     }
 }
 
