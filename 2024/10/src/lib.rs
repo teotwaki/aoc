@@ -1,4 +1,5 @@
 use common::{Answer, Coordinates, Grid};
+use rayon::prelude::*;
 use std::collections::HashMap;
 
 type Map = Grid<i8, u8>;
@@ -24,9 +25,8 @@ fn parse(s: &str) -> Map {
 }
 
 fn do_bfs(map: &Map, f: BFSFunc) -> usize {
-    let mut scores: HashMap<Coordinates<i8>, usize> = HashMap::new();
-
     map.iter()
+        .par_bridge()
         .filter(|(_, v)| **v == 0)
         .map(|(pos, _)| *pos)
         .flat_map(|start| {
@@ -37,12 +37,14 @@ fn do_bfs(map: &Map, f: BFSFunc) -> usize {
                 |(_, &a), (_, &b)| a < b && b - a <= 1,
             )
         })
-        .for_each(|trail| {
+        .fold(HashMap::<Coords, usize>::new, |mut acc, trail| {
             let head = *trail.first().unwrap();
-            *scores.entry(head).or_default() += 1;
-        });
+            *acc.entry(head).or_default() += 1;
 
-    scores.values().sum::<usize>()
+            acc
+        })
+        .map(|acc| acc.values().sum::<usize>())
+        .sum()
 }
 
 pub fn step1(s: &str) -> Answer {
