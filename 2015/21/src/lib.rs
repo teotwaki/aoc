@@ -118,43 +118,36 @@ fn gold_per_battle(
     boss: (IntType, IntType, IntType),
     player_hp: IntType,
     cmp: fn(&IntType, &IntType) -> bool,
-) -> Vec<IntType> {
-    let (boss_hp, boss_dmg, boss_armor) = boss;
-    let mut budgets = vec![];
-
-    for weapon in WEAPONS.iter() {
-        for armor in ARMOR.iter() {
-            for rings in RINGS.iter().combinations(2) {
+) -> impl Iterator<Item = IntType> {
+    WEAPONS.iter().flat_map(move |weapon| {
+        ARMOR.iter().flat_map(move |armor| {
+            RINGS.iter().combinations(2).filter_map(move |rings| {
                 let dmg = weapon.damage + rings[0].damage + rings[1].damage;
                 let defence = armor.armor + rings[0].armor + rings[1].armor;
 
                 if cmp(
-                    &rounds(player_hp, boss_dmg, defence),
-                    &rounds(boss_hp, dmg, boss_armor),
+                    &rounds(player_hp, boss.1, defence),
+                    &rounds(boss.0, dmg, boss.2),
                 ) {
-                    budgets.push(weapon.cost + armor.cost + rings[0].cost + rings[1].cost);
+                    Some(weapon.cost + armor.cost + rings[0].cost + rings[1].cost)
+                } else {
+                    None
                 }
-            }
-        }
-    }
-
-    budgets
+            })
+        })
+    })
 }
 
 pub fn step1(_: &str) -> Answer {
     gold_per_battle((104, 8, 1), 100, IntType::ge)
-        .iter()
         .min()
-        .copied()
         .unwrap()
         .into()
 }
 
 pub fn step2(_: &str) -> Answer {
     gold_per_battle((104, 8, 1), 100, IntType::lt)
-        .iter()
         .max()
-        .copied()
         .unwrap()
         .into()
 }
