@@ -10,8 +10,6 @@ the average performance during that run.
 
 ## 2015
 
-**Note**: Day 19 part 2 is not implemented.
-
 | Day                      | Step 1     | Step 2     |
 |--------------------------|------------|------------|
 | [1](2015/01/src/lib.rs)  | 16.2 us    | 8.6 us     |
