@@ -1,4 +1,5 @@
 use common::{utils::number_length, Answer};
+use num::Integer;
 use std::collections::HashMap;
 
 type Stone = u64;
@@ -19,11 +20,9 @@ fn blink(stones: &mut HashMap<Stone, usize>) {
                 *stones.entry(1).or_default() += count;
             } else {
                 let len = number_length(stone);
+
                 if len % 2 == 0 {
-                    let halflen = (len / 2) as u32;
-                    let multiplier = 10u64.pow(halflen);
-                    let left = stone / multiplier;
-                    let right = stone - left * multiplier;
+                    let (left, right) = stone.div_rem(&10u64.pow((len / 2) as u32));
                     *stones.entry(left).or_default() += count;
                     *stones.entry(right).or_default() += count;
                 } else {
