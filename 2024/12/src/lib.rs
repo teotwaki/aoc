@@ -125,7 +125,7 @@ pub fn step2(s: &str) -> Answer {
     find_plot_groups(&garden)
         .par_iter()
         .map(|plot_group| (plot_group.len(), count_sides(plot_group)))
-        .map(|(area, fence_length)| area * fence_length)
+        .map(|(area, fence_sides)| area * fence_sides)
         .sum::<usize>()
         .into()
 }
