@@ -92,7 +92,7 @@ the average performance during that run.
 | 9   | Disk Fragmenter       | 869.7 us | 39.733 ms  | [problem](https://adventofcode.com/2024/day/9) / [solution](2024/09/src/lib.rs)  |
 | 10  | Hoof It               | 614.4 us | 641.1 us   | [problem](https://adventofcode.com/2024/day/10) / [solution](2024/10/src/lib.rs) |
 | 11  | Plutonian Pebbles     | 309.2 us | 6.613 ms   | [problem](https://adventofcode.com/2024/day/11) / [solution](2024/11/src/lib.rs) |
-| 12  | Garden Groups         | 3.722 ms | 3.997 ms   | [problem](https://adventofcode.com/2024/day/12) / [solution](2024/12/src/lib.rs) |
+| 12  | Garden Groups         | 3.545 ms | 3.822 ms   | [problem](https://adventofcode.com/2024/day/12) / [solution](2024/12/src/lib.rs) |
 
 # Improvements
 

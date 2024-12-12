@@ -242,6 +242,34 @@ where
 
         paths
     }
+
+    pub fn flood<P: Fn(&U, &U) -> bool>(
+        &self,
+        start: Coordinates<T>,
+        pred: P,
+    ) -> HashSet<Coordinates<T>> {
+        let mut plain = HashSet::new();
+
+        if let Some(start_val) = self.items.get(&start) {
+            let mut queue = vec![start];
+
+            while let Some(pos) = queue.pop() {
+                if !plain.contains(&pos) {
+                    plain.insert(pos);
+
+                    queue.extend(pos.neighbors().iter().filter(|&pos| {
+                        if let Some(current_val) = self.items.get(pos) {
+                            pred(start_val, current_val)
+                        } else {
+                            false
+                        }
+                    }))
+                }
+            }
+        }
+
+        plain
+    }
 }
 
 #[derive(Debug, Clone, Default)]

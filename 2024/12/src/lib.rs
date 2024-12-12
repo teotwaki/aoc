@@ -1,4 +1,4 @@
-use common::{Answer, BooleanGrid, Coordinates, Grid};
+use common::{Answer, Coordinates, Grid};
 use rayon::prelude::*;
 use std::collections::HashSet;
 
@@ -18,36 +18,15 @@ fn parse(s: &str) -> Garden {
     garden
 }
 
-fn find_all_connected_plots(
-    start: Coords,
-    garden: &Garden,
-    assigned_plots: &mut BooleanGrid<IntType>,
-) -> HashSet<Coords> {
-    let mut queue = vec![start];
-    let mut plot_group = HashSet::new();
-    let crop_type = garden.get(&start);
-
-    while let Some(plot) = queue.pop() {
-        if !assigned_plots.contains(&plot) {
-            assigned_plots.mark(plot);
-            plot_group.insert(plot);
-            plot.neighbors()
-                .iter()
-                .filter(|&pos| garden.get(pos) == crop_type)
-                .for_each(|&pos| queue.push(pos));
-        }
-    }
-
-    plot_group
-}
-
 fn find_plot_groups(garden: &Garden) -> Vec<HashSet<Coords>> {
-    let mut assigned_plots = BooleanGrid::new();
+    let mut assigned_plots: HashSet<Coords> = HashSet::new();
     let mut plot_groups = vec![];
 
-    for (plot, _) in garden.iter() {
+    for (plot, val) in garden.iter() {
         if !assigned_plots.contains(plot) {
-            plot_groups.push(find_all_connected_plots(*plot, garden, &mut assigned_plots));
+            let group = garden.flood(*plot, |_, b| val == b);
+            assigned_plots.extend(group.iter());
+            plot_groups.push(group);
         }
     }
 
