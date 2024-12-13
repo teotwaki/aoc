@@ -1,16 +1,16 @@
 use common::{utils::number_length, Answer};
 use num::Integer;
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 type Stone = u64;
 
-fn parse(s: &str) -> HashMap<Stone, usize> {
+fn parse(s: &str) -> FxHashMap<Stone, usize> {
     s.split_whitespace()
         .map(|s| (s.parse::<Stone>().unwrap(), 1))
         .collect()
 }
 
-fn blink(stones: &mut HashMap<Stone, usize>) {
+fn blink(stones: &mut FxHashMap<Stone, usize>) {
     stones
         .clone()
         .into_iter()
@@ -59,9 +59,11 @@ mod test {
 
     #[test]
     fn blink_correctly_transforms_72() {
-        let mut stones = HashMap::from([(72, 1)]);
+        let mut stones = FxHashMap::default();
+        stones.insert(72, 1);
+
         blink(&mut stones);
-        dbg!(&stones);
+
         assert_eq!(stones.get(&72), Some(&0));
         assert_eq!(stones.get(&7), Some(&1));
         assert_eq!(stones.get(&2), Some(&1));
@@ -70,7 +72,10 @@ mod test {
     #[test]
     fn blink_finds_correct_values() {
         // initial arrangement
-        let mut stones = HashMap::from([(125, 1), (17, 1)]);
+        let mut stones = FxHashMap::default();
+        stones.insert(125, 1);
+        stones.insert(17, 1);
+
         assert_eq!(stones.len(), 2);
 
         blink(&mut stones);

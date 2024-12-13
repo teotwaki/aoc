@@ -1,14 +1,15 @@
 use crate::Coordinates;
 use num_traits::{Num, PrimInt};
+use rustc_hash::{FxHashMap, FxHashSet};
 use std::{
-    collections::{HashMap, HashSet, VecDeque},
+    collections::VecDeque,
     hash::Hash,
     ops::{AddAssign, SubAssign},
 };
 
 #[derive(Debug, Clone, Default)]
 pub struct Grid<T, U> {
-    items: HashMap<Coordinates<T>, U>,
+    items: FxHashMap<Coordinates<T>, U>,
     min_x: T,
     max_x: T,
     min_y: T,
@@ -23,15 +24,17 @@ where
     #[inline]
     pub fn new() -> Self {
         Self {
-            items: HashMap::new(),
+            items: FxHashMap::default(),
             ..Default::default()
         }
     }
 
-    #[inline]
     pub fn with_capacity(capacity: usize) -> Self {
+        let mut hashmap = FxHashMap::default();
+        hashmap.reserve(capacity);
+
         Self {
-            items: HashMap::with_capacity(capacity),
+            items: hashmap,
             ..Default::default()
         }
     }
@@ -121,8 +124,10 @@ where
         pred: P,
     ) -> Vec<Coordinates<T>> {
         let mut q = VecDeque::from([root]);
-        let mut explored = HashSet::from([root]);
-        let mut parents = HashMap::new();
+        let mut explored = FxHashSet::default();
+        let mut parents = FxHashMap::default();
+
+        explored.insert(root);
 
         while let Some(v) = q.pop_front() {
             if is_target(v, self.items.get(&v).unwrap()) {
@@ -164,14 +169,15 @@ where
         pred: P,
     ) -> Vec<Vec<Coordinates<T>>> {
         let mut q = VecDeque::from([vec![root]]);
-        let mut explored = HashSet::from([root]);
+        let mut explored = FxHashSet::default();
         let ends = self
             .items
             .iter()
             .filter(|&(pos, v)| is_target(*pos, v))
             .map(|(&pos, _)| pos)
-            .collect::<HashSet<_>>();
+            .collect::<FxHashSet<_>>();
 
+        explored.insert(root);
         let mut paths = vec![];
 
         while let Some(path) = q.pop_front() {
@@ -215,7 +221,7 @@ where
             .iter()
             .filter(|&(pos, v)| is_target(*pos, v))
             .map(|(&pos, _)| pos)
-            .collect::<HashSet<_>>();
+            .collect::<FxHashSet<_>>();
 
         let mut paths = vec![];
 
@@ -247,8 +253,8 @@ where
         &self,
         start: Coordinates<T>,
         pred: P,
-    ) -> HashSet<Coordinates<T>> {
-        let mut plain = HashSet::new();
+    ) -> FxHashSet<Coordinates<T>> {
+        let mut plain = FxHashSet::default();
 
         if let Some(start_val) = self.items.get(&start) {
             let mut queue = vec![start];
@@ -274,7 +280,7 @@ where
 
 #[derive(Debug, Clone, Default)]
 pub struct BooleanGrid<T> {
-    items: HashSet<Coordinates<T>>,
+    items: FxHashSet<Coordinates<T>>,
     min_x: T,
     max_x: T,
     min_y: T,
@@ -288,7 +294,7 @@ where
     #[inline]
     pub fn new() -> Self {
         Self {
-            items: HashSet::new(),
+            items: FxHashSet::default(),
             ..Default::default()
         }
     }

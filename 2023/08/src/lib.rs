@@ -6,7 +6,7 @@ use nom::{
     IResult,
 };
 use num::integer::lcm;
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 #[derive(Debug)]
 enum Side {
@@ -25,7 +25,7 @@ impl From<char> for Side {
 }
 
 struct Map<'a> {
-    map: HashMap<&'a str, (&'a str, &'a str)>,
+    map: FxHashMap<&'a str, (&'a str, &'a str)>,
     instructions: Vec<Side>,
 }
 

@@ -81,6 +81,7 @@ dependencies = [
  "common",
  "humantime",
  "paste",
+ "rustc-hash",
  "thiserror",
  "y2015-d1",
  "y2015-d10",
@@ -250,6 +251,7 @@ version = "0.1.0"
 dependencies = [
  "criterion",
  "num-traits",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -637,6 +639,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
 
 [[package]]
+name = "rustc-hash"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7fb8039b3032c191086b10f11f319a6e99e1e82889c5cc6046f515c9db1d497"
+
+[[package]]
 name = "ryu"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -942,6 +950,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "itertools 0.13.0",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -964,6 +973,7 @@ name = "y2015-d16"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1048,6 +1058,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "nom",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1063,6 +1074,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "itertools 0.13.0",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1092,6 +1104,7 @@ name = "y2022-d12"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1108,6 +1121,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "nom",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1153,6 +1167,7 @@ name = "y2022-d6"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1161,6 +1176,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "nom",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1175,6 +1191,7 @@ name = "y2022-d9"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1211,6 +1228,7 @@ name = "y2023-d14"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1270,6 +1288,7 @@ name = "y2023-d7"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1279,6 +1298,7 @@ dependencies = [
  "common",
  "nom",
  "num",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1301,6 +1321,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "rayon",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1309,6 +1330,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "num",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1317,6 +1339,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "rayon",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1347,6 +1370,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "rayon",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1356,6 +1380,7 @@ dependencies = [
  "common",
  "itertools 0.13.0",
  "rayon",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -1372,6 +1397,7 @@ name = "y2024-d8"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rustc-hash",
 ]
 
 [[package]]

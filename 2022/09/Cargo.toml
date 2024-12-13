@@ -8,3 +8,4 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
+rustc-hash = "2.1"

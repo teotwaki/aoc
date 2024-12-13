@@ -1,10 +1,8 @@
 use common::Answer;
-use std::{
-    cmp::Ordering,
-    collections::{HashMap, VecDeque},
-};
+use rustc_hash::FxHashMap;
+use std::{cmp::Ordering, collections::VecDeque};
 
-fn shortest_path_length(target: usize, previous: &HashMap<usize, usize>) -> usize {
+fn shortest_path_length(target: usize, previous: &FxHashMap<usize, usize>) -> usize {
     let mut u = target;
     let mut path = vec![];
 
@@ -18,7 +16,7 @@ fn shortest_path_length(target: usize, previous: &HashMap<usize, usize>) -> usiz
 
 fn find_item_with_smallest_distance(
     queue: &VecDeque<usize>,
-    distances: &HashMap<usize, usize>,
+    distances: &FxHashMap<usize, usize>,
 ) -> usize {
     queue
         .iter()
@@ -95,12 +93,14 @@ impl Map {
     }
 }
 
-fn solve_maze(s: &str) -> (Map, HashMap<usize, usize>) {
+fn solve_maze(s: &str) -> (Map, FxHashMap<usize, usize>) {
     let map = Map::new(s);
 
     let mut queue = VecDeque::from_iter(map.map.iter().enumerate().map(|(i, _)| i));
-    let mut distances = HashMap::from([(map.end, 0)]);
-    let mut previous = HashMap::new();
+    let mut distances = FxHashMap::default();
+    let mut previous = FxHashMap::default();
+
+    distances.insert(map.end, 0);
 
     while !queue.is_empty() {
         let pos = find_item_with_smallest_distance(&queue, &distances);

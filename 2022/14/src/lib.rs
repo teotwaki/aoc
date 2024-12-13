@@ -7,7 +7,7 @@ use nom::{
     sequence::tuple,
     IResult,
 };
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 #[derive(Debug, PartialEq)]
 enum Item {
@@ -18,13 +18,13 @@ enum Item {
 
 #[derive(Debug)]
 struct Map {
-    columns: HashMap<i32, HashMap<i32, Item>>,
+    columns: FxHashMap<i32, FxHashMap<i32, Item>>,
 }
 
 impl Map {
     fn new() -> Self {
         Map {
-            columns: HashMap::new(),
+            columns: FxHashMap::default(),
         }
     }
 

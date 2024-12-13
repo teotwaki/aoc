@@ -1,9 +1,9 @@
 use common::{Answer, BooleanBoundedGrid, BooleanGrid, Coordinates};
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 type IntType = i8;
 type Coords = Coordinates<IntType>;
-type FreqMap = HashMap<char, BooleanGrid<IntType>>;
+type FreqMap = FxHashMap<char, BooleanGrid<IntType>>;
 
 fn get_grid_size(s: &str) -> (Coords, Coords) {
     let max_x = s.lines().next().map(|l| l.chars().count()).unwrap();
@@ -13,7 +13,7 @@ fn get_grid_size(s: &str) -> (Coords, Coords) {
 }
 
 fn parse(s: &str) -> FreqMap {
-    let mut frequencies = FreqMap::new();
+    let mut frequencies = FreqMap::default();
 
     s.lines().enumerate().for_each(|(y, l)| {
         l.chars()

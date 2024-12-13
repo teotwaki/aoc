@@ -1,17 +1,18 @@
 use common::Answer;
 use rayon::prelude::*;
-use std::{cmp::Ordering, collections::HashMap};
+use rustc_hash::FxHashMap;
+use std::cmp::Ordering;
 
 type IntType = u16;
 
 struct Rulebook {
-    before: HashMap<IntType, Vec<IntType>>,
+    before: FxHashMap<IntType, Vec<IntType>>,
 }
 
 impl Rulebook {
     fn new() -> Self {
         Self {
-            before: HashMap::new(),
+            before: FxHashMap::default(),
         }
     }
 

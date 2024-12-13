@@ -10,3 +10,4 @@ doctest = false
 common = { path = "../../common" }
 itertools = "0.13"
 rayon = "1.10"
+rustc-hash = "2.1"

@@ -1,6 +1,6 @@
 use common::{Answer, Coordinates, Grid};
 use rayon::prelude::*;
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 type Map = Grid<i8, u8>;
 type Height = u8;
@@ -45,7 +45,7 @@ fn count_trails(map: &Map, f: BFSFunc) -> usize {
         .filter(is_trailhead)
         .map(|(pos, _)| *pos)
         .flat_map(|start| f(map, start, is_trailend, is_trail))
-        .fold(HashMap::<Coords, usize>::new, |mut acc, trail| {
+        .fold(FxHashMap::<Coords, usize>::default, |mut acc, trail| {
             let head = *trail.first().unwrap();
             *acc.entry(head).or_default() += 1;
 

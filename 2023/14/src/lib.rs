@@ -1,5 +1,5 @@
 use common::Answer;
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 enum Place {
@@ -22,7 +22,7 @@ impl From<char> for Place {
 #[derive(Debug)]
 struct Map {
     rows: Vec<Vec<Place>>,
-    cache: HashMap<Vec<Vec<Place>>, usize>,
+    cache: FxHashMap<Vec<Vec<Place>>, usize>,
 }
 
 impl From<&str> for Map {
@@ -32,7 +32,7 @@ impl From<&str> for Map {
                 .lines()
                 .map(|l| l.chars().map(Place::from).collect())
                 .collect(),
-            cache: HashMap::new(),
+            cache: FxHashMap::default(),
         }
     }
 }

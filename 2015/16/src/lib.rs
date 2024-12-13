@@ -1,9 +1,6 @@
 use common::Answer;
-use std::{
-    cmp::Ordering,
-    collections::{HashMap, HashSet},
-    sync::LazyLock,
-};
+use rustc_hash::{FxHashMap, FxHashSet};
+use std::{cmp::Ordering, sync::LazyLock};
 
 type IntType = u8;
 
@@ -26,19 +23,21 @@ fn parse(s: &str) -> impl Iterator<Item = Vec<(&str, IntType)>> {
 }
 
 fn matches_aunt_exactly(aunt_props: &[(&str, IntType)]) -> bool {
-    static PROPS: LazyLock<HashSet<(&str, IntType)>> = LazyLock::new(|| {
-        HashSet::from([
-            ("children", 3),
-            ("cats", 7),
-            ("samoyeds", 2),
-            ("pomeranians", 3),
-            ("akitas", 0),
-            ("vizslas", 0),
-            ("goldfish", 5),
-            ("trees", 3),
-            ("cars", 2),
-            ("perfumes", 1),
-        ])
+    static PROPS: LazyLock<FxHashSet<(&str, IntType)>> = LazyLock::new(|| {
+        let mut map = FxHashSet::default();
+
+        map.insert(("children", 3));
+        map.insert(("cats", 7));
+        map.insert(("samoyeds", 2));
+        map.insert(("pomeranians", 3));
+        map.insert(("akitas", 0));
+        map.insert(("vizslas", 0));
+        map.insert(("goldfish", 5));
+        map.insert(("trees", 3));
+        map.insert(("cars", 2));
+        map.insert(("perfumes", 1));
+
+        map
     });
 
     aunt_props.iter().all(|prop| PROPS.contains(prop))
@@ -58,21 +57,23 @@ pub fn step1(s: &str) -> Answer {
 }
 
 fn matches_aunt_range(aunt_props: &[(&str, IntType)]) -> bool {
-    static PROPS: LazyLock<HashMap<&str, (Ordering, IntType)>> = LazyLock::new(|| {
+    static PROPS: LazyLock<FxHashMap<&str, (Ordering, IntType)>> = LazyLock::new(|| {
         use Ordering::*;
 
-        HashMap::from([
-            ("children", (Equal, 3)),
-            ("cats", (Greater, 7)),
-            ("samoyeds", (Equal, 2)),
-            ("pomeranians", (Less, 3)),
-            ("akitas", (Equal, 0)),
-            ("vizslas", (Equal, 0)),
-            ("goldfish", (Less, 5)),
-            ("trees", (Greater, 3)),
-            ("cars", (Equal, 2)),
-            ("perfumes", (Equal, 1)),
-        ])
+        let mut map = FxHashMap::default();
+
+        map.insert("children", (Equal, 3));
+        map.insert("cats", (Greater, 7));
+        map.insert("samoyeds", (Equal, 2));
+        map.insert("pomeranians", (Less, 3));
+        map.insert("akitas", (Equal, 0));
+        map.insert("vizslas", (Equal, 0));
+        map.insert("goldfish", (Less, 5));
+        map.insert("trees", (Greater, 3));
+        map.insert("cars", (Equal, 2));
+        map.insert("perfumes", (Equal, 1));
+
+        map
     });
 
     aunt_props

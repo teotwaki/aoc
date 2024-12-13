@@ -1,13 +1,12 @@
-use itertools::Itertools;
-use std::collections::HashMap;
-
 use common::Answer;
+use itertools::Itertools;
+use rustc_hash::FxHashMap;
 
 type IntType = i32;
-type Mapping<'a> = HashMap<&'a str, HashMap<&'a str, IntType>>;
+type Mapping<'a> = FxHashMap<&'a str, FxHashMap<&'a str, IntType>>;
 
 fn parse(s: &str) -> Mapping {
-    let mut mapping: Mapping = HashMap::new();
+    let mut mapping: Mapping = FxHashMap::default();
 
     s.lines().for_each(|l| {
         let mut parts = l[..l.len() - 1].split_whitespace();
