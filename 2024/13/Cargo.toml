@@ -1,0 +1,11 @@
+[package]
+name = "y2024-d13"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+num = "0.4"

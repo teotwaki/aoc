@@ -93,6 +93,7 @@ the average performance during that run.
 | 10  | Hoof It               | 532.2 us | 556.4 us   | [problem](https://adventofcode.com/2024/day/10) / [solution](2024/10/src/lib.rs) |
 | 11  | Plutonian Pebbles     | 169.4 us | 3.754 ms   | [problem](https://adventofcode.com/2024/day/11) / [solution](2024/11/src/lib.rs) |
 | 12  | Garden Groups         | 1.838 ms | 1.956 ms   | [problem](https://adventofcode.com/2024/day/12) / [solution](2024/12/src/lib.rs) |
+| 13  | Claw Contraption      | 65.7 us  | 65.7 us    | [problem](https://adventofcode.com/2024/day/13) / [solution](2024/13/src/lib.rs) |
 
 # Improvements
 
