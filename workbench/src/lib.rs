@@ -1,7 +1,6 @@
 use common::Answer;
-use std::{
-    collections::HashMap, fmt::Display, fs::read_to_string, num::ParseIntError, str::FromStr,
-};
+use rustc_hash::FxHashMap;
+use std::{fmt::Display, fs::read_to_string, num::ParseIntError, str::FromStr};
 use thiserror::Error;
 
 pub type Solver = fn(&str) -> Answer;
@@ -114,7 +113,7 @@ impl Solution {
 }
 
 #[derive(Debug, Clone, Default)]
-pub struct Registry(HashMap<Year, HashMap<Day, Solution>>);
+pub struct Registry(FxHashMap<Year, FxHashMap<Day, Solution>>);
 
 #[derive(Error, Debug)]
 pub enum RunError {

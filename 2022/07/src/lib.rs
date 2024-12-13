@@ -6,7 +6,7 @@ use nom::{
     sequence::{terminated, tuple},
     IResult,
 };
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 enum ParseOutput<'a> {
     File(File<'a>),
@@ -133,9 +133,9 @@ fn parse(input: &str) -> IResult<&str, Vec<File>> {
     }
 }
 
-fn parse_directories(s: &str) -> HashMap<String, usize> {
+fn parse_directories(s: &str) -> FxHashMap<String, usize> {
     let (_, files) = parse(s).expect("Failed to parse terminal session");
-    let mut directories = HashMap::new();
+    let mut directories = FxHashMap::default();
 
     files.iter().for_each(|f| {
         f.get_directories()

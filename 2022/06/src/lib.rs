@@ -1,9 +1,10 @@
 use common::Answer;
-use std::{collections::HashSet, str::Chars};
+use rustc_hash::FxHashSet;
+use std::str::Chars;
 
 fn has_unique_elements(chars: Chars) -> bool {
-    let mut uniq = HashSet::new();
-    chars.into_iter().all(move |x| uniq.insert(x))
+    let mut uniq = FxHashSet::default();
+    chars.into_iter().all(|x| uniq.insert(x))
 }
 
 fn find_marker(s: &str, length: usize) -> usize {
@@ -12,6 +13,7 @@ fn find_marker(s: &str, length: usize) -> usize {
             return i + length;
         }
     }
+
     unreachable!()
 }
 

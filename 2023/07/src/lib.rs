@@ -1,5 +1,6 @@
 use common::Answer;
-use std::{cmp::Ordering, collections::HashMap};
+use rustc_hash::FxHashMap;
+use std::cmp::Ordering;
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 enum Card {
@@ -66,7 +67,7 @@ impl From<&Vec<Card>> for Hand {
     fn from(cards: &Vec<Card>) -> Self {
         let mut freq: Vec<_> = cards
             .iter()
-            .fold(HashMap::<Card, usize>::new(), |mut map, card| {
+            .fold(FxHashMap::<Card, usize>::default(), |mut map, card| {
                 *map.entry(*card).or_default() += 1;
                 map
             })

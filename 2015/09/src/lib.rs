@@ -1,6 +1,6 @@
 use common::Answer;
 use itertools::Itertools;
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 type IntType = u16;
 
@@ -30,11 +30,11 @@ fn parse(s: &str) -> impl Iterator<Item = Route> {
 }
 
 #[derive(Debug, Clone)]
-struct Graph<'a>(HashMap<Location<'a>, HashMap<Location<'a>, Distance>>);
+struct Graph<'a>(FxHashMap<Location<'a>, FxHashMap<Location<'a>, Distance>>);
 
 impl<'a> Graph<'a> {
     fn new() -> Self {
-        Self(HashMap::new())
+        Self(FxHashMap::default())
     }
 
     fn insert(&mut self, a: Location<'a>, b: Location<'a>, distance: Distance) {

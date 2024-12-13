@@ -1,6 +1,6 @@
 use common::{Answer, Coordinates, Grid};
 use rayon::prelude::*;
-use std::collections::HashSet;
+use rustc_hash::FxHashSet;
 
 type IntType = i16;
 type Garden = Grid<IntType, char>;
@@ -18,8 +18,8 @@ fn parse(s: &str) -> Garden {
     garden
 }
 
-fn find_plot_groups(garden: &Garden) -> Vec<HashSet<Coords>> {
-    let mut assigned_plots: HashSet<Coords> = HashSet::new();
+fn find_plot_groups(garden: &Garden) -> Vec<FxHashSet<Coords>> {
+    let mut assigned_plots: FxHashSet<Coords> = FxHashSet::default();
     let mut plot_groups = vec![];
 
     for (plot, val) in garden.iter() {
@@ -59,7 +59,7 @@ pub fn step1(s: &str) -> Answer {
         .into()
 }
 
-fn count_sides(plot_group: &HashSet<Coords>) -> usize {
+fn count_sides(plot_group: &FxHashSet<Coords>) -> usize {
     plot_group
         .iter()
         .map(|plot| {

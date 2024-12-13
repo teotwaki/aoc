@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use common::Answer;
 use nom::{
     branch::alt,
@@ -9,6 +7,7 @@ use nom::{
     sequence::tuple,
     IResult,
 };
+use rustc_hash::FxHashMap;
 
 type IntType = u16;
 
@@ -136,13 +135,13 @@ fn parse(s: &str) -> Vec<Operation> {
 
 #[derive(Debug, Clone)]
 struct Circuit<'a> {
-    wires: HashMap<Wire<'a>, IntType>,
+    wires: FxHashMap<Wire<'a>, IntType>,
 }
 
 impl<'a> Circuit<'a> {
     fn new() -> Self {
         Self {
-            wires: HashMap::new(),
+            wires: FxHashMap::default(),
         }
     }
 

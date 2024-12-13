@@ -10,3 +10,4 @@ doctest = false
 common = { path = "../../common" }
 nom = "7.1"
 num = "0.4"
+rustc-hash = "2.1"

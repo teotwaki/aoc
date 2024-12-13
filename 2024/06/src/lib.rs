@@ -1,7 +1,7 @@
 use common::{Answer, BooleanGrid, Coordinates, Direction};
 use itertools::Itertools;
 use rayon::prelude::*;
-use std::collections::HashSet;
+use rustc_hash::FxHashSet;
 
 type IntType = i16;
 type Coords = Coordinates<IntType>;
@@ -26,11 +26,11 @@ fn parse(s: &str) -> (BooleanGrid<IntType>, Coords) {
 
 enum Outcome {
     Loop,
-    OutOfBounds(HashSet<(Coords, Direction)>),
+    OutOfBounds(FxHashSet<(Coords, Direction)>),
 }
 
 fn simulate_route(obstacles: &BooleanGrid<IntType>, start: Coords) -> Outcome {
-    let mut guard_locations = HashSet::new();
+    let mut guard_locations = FxHashSet::default();
     let mut direction = Direction::Up;
     let mut guard_pos = start;
 
@@ -98,7 +98,7 @@ pub fn step2(s: &str) -> Answer {
             }
         })
         .map(|&(coords, _)| coords)
-        .collect::<HashSet<_>>()
+        .collect::<FxHashSet<_>>()
         .par_iter()
         .filter(|&pos| *pos != start)
         .filter(|&&pos| {

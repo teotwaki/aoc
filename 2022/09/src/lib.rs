@@ -1,5 +1,6 @@
 use common::{Answer, Direction};
-use std::{collections::HashSet, str::FromStr};
+use rustc_hash::FxHashSet;
+use std::str::FromStr;
 
 #[derive(Default)]
 struct Head {
@@ -42,7 +43,7 @@ impl Head {
 struct Knot {
     x: i16,
     y: i16,
-    coords: HashSet<(i16, i16)>,
+    coords: FxHashSet<(i16, i16)>,
 }
 
 impl Knot {
