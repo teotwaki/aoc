@@ -1,0 +1,12 @@
+[package]
+name = "y2024-d14"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+num = "0.4.3"
+rustc-hash = "2.1.0"

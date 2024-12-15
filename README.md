@@ -94,6 +94,7 @@ the average performance during that run.
 | 11  | Plutonian Pebbles     | 169.4 us | 3.754 ms   | [problem](https://adventofcode.com/2024/day/11) / [solution](2024/11/src/lib.rs) |
 | 12  | Garden Groups         | 1.838 ms | 1.956 ms   | [problem](https://adventofcode.com/2024/day/12) / [solution](2024/12/src/lib.rs) |
 | 13  | Claw Contraption      | 65.7 us  | 65.7 us    | [problem](https://adventofcode.com/2024/day/13) / [solution](2024/13/src/lib.rs) |
+| 14  | Restroom Redoubt      | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/14) / [solution](2024/14/src/lib.rs) |
 
 # Improvements
 
