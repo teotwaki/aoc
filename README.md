@@ -81,24 +81,25 @@ the average performance during that run.
 
 **Note::* Day 15 is not implemented.
 
-| Day | Title                 | Step 1   | Step 2     | Links                                                                            |
-|-----|-----------------------|----------|------------|----------------------------------------------------------------------------------|
-| 1   | Historian Hysteria    | 55.2 us  | 182.0 us   | [problem](https://adventofcode.com/2024/day/1) / [solution](2024/01/src/lib.rs)  |
-| 2   | Red-Nosed Reports     | 101.6 us | 185.0 us   | [problem](https://adventofcode.com/2024/day/2) / [solution](2024/02/src/lib.rs)  |
-| 3   | Mull It Over          | 121.8 us | 96.0 us    | [problem](https://adventofcode.com/2024/day/3) / [solution](2024/03/src/lib.rs)  |
-| 4   | Ceres Search          | 1.669 ms | 759.5 us   | [problem](https://adventofcode.com/2024/day/4) / [solution](2024/04/src/lib.rs)  |
-| 5   | Print Queue           | 136.5 us | 234.9 us   | [problem](https://adventofcode.com/2024/day/5) / [solution](2024/05/src/lib.rs)  |
-| 6   | Guard Gallivant       | 246.9 us | 54.072 ms  | [problem](https://adventofcode.com/2024/day/6) / [solution](2024/06/src/lib.rs)  |
-| 7   | Bridge Repair         | 4.255 ms | 136.255 ms | [problem](https://adventofcode.com/2024/day/7) / [solution](2024/07/src/lib.rs)  |
-| 8   | Resonant Collinearity | 22.9 us  | 37.3 us    | [problem](https://adventofcode.com/2024/day/8) / [solution](2024/08/src/lib.rs)  |
-| 9   | Disk Fragmenter       | 869.7 us | 39.733 ms  | [problem](https://adventofcode.com/2024/day/9) / [solution](2024/09/src/lib.rs)  |
-| 10  | Hoof It               | 532.2 us | 556.4 us   | [problem](https://adventofcode.com/2024/day/10) / [solution](2024/10/src/lib.rs) |
-| 11  | Plutonian Pebbles     | 169.4 us | 3.754 ms   | [problem](https://adventofcode.com/2024/day/11) / [solution](2024/11/src/lib.rs) |
-| 12  | Garden Groups         | 1.838 ms | 1.956 ms   | [problem](https://adventofcode.com/2024/day/12) / [solution](2024/12/src/lib.rs) |
-| 13  | Claw Contraption      | 65.7 us  | 65.7 us    | [problem](https://adventofcode.com/2024/day/13) / [solution](2024/13/src/lib.rs) |
-| 14  | Restroom Redoubt      | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/14) / [solution](2024/14/src/lib.rs) |
-| 15  | Warehouse Woes        | n/a      | n/a        | [problem](https://adventofcode.com/2024/day/14)                                  |
-| 16  | Restroom Redoubt      | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/16) / [solution](2024/16/src/lib.rs) |
+| Day | Title                  | Step 1   | Step 2     | Links                                                                            |
+|-----|------------------------|----------|------------|----------------------------------------------------------------------------------|
+| 1   | Historian Hysteria     | 55.2 us  | 182.0 us   | [problem](https://adventofcode.com/2024/day/1) / [solution](2024/01/src/lib.rs)  |
+| 2   | Red-Nosed Reports      | 101.6 us | 185.0 us   | [problem](https://adventofcode.com/2024/day/2) / [solution](2024/02/src/lib.rs)  |
+| 3   | Mull It Over           | 121.8 us | 96.0 us    | [problem](https://adventofcode.com/2024/day/3) / [solution](2024/03/src/lib.rs)  |
+| 4   | Ceres Search           | 1.669 ms | 759.5 us   | [problem](https://adventofcode.com/2024/day/4) / [solution](2024/04/src/lib.rs)  |
+| 5   | Print Queue            | 136.5 us | 234.9 us   | [problem](https://adventofcode.com/2024/day/5) / [solution](2024/05/src/lib.rs)  |
+| 6   | Guard Gallivant        | 246.9 us | 54.072 ms  | [problem](https://adventofcode.com/2024/day/6) / [solution](2024/06/src/lib.rs)  |
+| 7   | Bridge Repair          | 4.255 ms | 136.255 ms | [problem](https://adventofcode.com/2024/day/7) / [solution](2024/07/src/lib.rs)  |
+| 8   | Resonant Collinearity  | 22.9 us  | 37.3 us    | [problem](https://adventofcode.com/2024/day/8) / [solution](2024/08/src/lib.rs)  |
+| 9   | Disk Fragmenter        | 869.7 us | 39.733 ms  | [problem](https://adventofcode.com/2024/day/9) / [solution](2024/09/src/lib.rs)  |
+| 10  | Hoof It                | 532.2 us | 556.4 us   | [problem](https://adventofcode.com/2024/day/10) / [solution](2024/10/src/lib.rs) |
+| 11  | Plutonian Pebbles      | 169.4 us | 3.754 ms   | [problem](https://adventofcode.com/2024/day/11) / [solution](2024/11/src/lib.rs) |
+| 12  | Garden Groups          | 1.838 ms | 1.956 ms   | [problem](https://adventofcode.com/2024/day/12) / [solution](2024/12/src/lib.rs) |
+| 13  | Claw Contraption       | 65.7 us  | 65.7 us    | [problem](https://adventofcode.com/2024/day/13) / [solution](2024/13/src/lib.rs) |
+| 14  | Restroom Redoubt       | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/14) / [solution](2024/14/src/lib.rs) |
+| 15  | Warehouse Woes         | n/a      | n/a        | [problem](https://adventofcode.com/2024/day/14)                                  |
+| 16  | Restroom Redoubt       | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/16) / [solution](2024/16/src/lib.rs) |
+| 17  | Chronospatial Computer | 7.0 us   | 203.2 us   | [problem](https://adventofcode.com/2024/day/17) / [solution](2024/17/src/lib.rs)   |
 
 # Improvements
 
