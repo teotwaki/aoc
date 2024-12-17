@@ -140,6 +140,7 @@ dependencies = [
  "y2024-d12",
  "y2024-d13",
  "y2024-d14",
+ "y2024-d16",
  "y2024-d2",
  "y2024-d3",
  "y2024-d4",
@@ -1358,6 +1359,14 @@ version = "0.1.0"
 dependencies = [
  "common",
  "num",
+ "rustc-hash",
+]
+
+[[package]]
+name = "y2024-d16"
+version = "0.1.0"
+dependencies = [
+ "common",
  "rustc-hash",
 ]
 

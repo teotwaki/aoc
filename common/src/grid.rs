@@ -361,6 +361,49 @@ where
     }
 }
 
+impl<T> BooleanGrid<T>
+where
+    T: Eq + Hash + Default + Copy + PartialOrd + PrimInt + SubAssign + AddAssign,
+{
+    pub fn bfs_all<P: Fn((Coordinates<T>, bool), (Coordinates<T>, bool)) -> bool>(
+        &self,
+        start: Coordinates<T>,
+        end: Coordinates<T>,
+        pred: P,
+    ) -> Vec<Vec<Coordinates<T>>> {
+        let mut q = VecDeque::from([vec![start]]);
+        let mut explored = FxHashSet::default();
+
+        explored.insert(start);
+        let mut paths = vec![];
+
+        while let Some(path) = q.pop_front() {
+            let front = *path.last().unwrap();
+
+            if front == end {
+                paths.push(path);
+            } else {
+                for neighbor in front.neighbors() {
+                    if self.within_bounds(neighbor)
+                        && !explored.contains(&neighbor)
+                        && pred(
+                            (front, self.contains(&front)),
+                            (neighbor, self.contains(&neighbor)),
+                        )
+                    {
+                        explored.insert(neighbor);
+                        let mut path = path.clone();
+                        path.push(neighbor);
+                        q.push_back(path);
+                    }
+                }
+            }
+        }
+
+        paths
+    }
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct BoundedGrid<T, U> {
     grid: Grid<T, U>,

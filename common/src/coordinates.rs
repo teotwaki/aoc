@@ -2,7 +2,7 @@ use crate::Direction;
 use num_traits::{Float, NumCast, PrimInt, ToPrimitive};
 use std::ops::{Add, AddAssign, Range, RangeInclusive, Sub, SubAssign};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default, PartialOrd, Ord)]
 pub struct Coordinates<T> {
     x: T,
     y: T,
