@@ -365,6 +365,45 @@ impl<T> BooleanGrid<T>
 where
     T: Eq + Hash + Default + Copy + PartialOrd + PrimInt + SubAssign + AddAssign,
 {
+    pub fn bfs(
+        &self,
+        root: Coordinates<T>,
+        target: Coordinates<T>,
+        is_neighbor: bool,
+    ) -> Vec<Coordinates<T>> {
+        let mut q = VecDeque::from([root]);
+        let mut explored = FxHashSet::default();
+        let mut parents = FxHashMap::default();
+
+        explored.insert(root);
+
+        while let Some(v) = q.pop_front() {
+            if target == v {
+                let mut path = vec![v];
+                while let Some(&parent) = parents.get(path.last().unwrap()) {
+                    path.push(parent);
+                }
+
+                path.reverse();
+
+                return path;
+            } else {
+                for neighbor in v.neighbors() {
+                    if self.within_bounds(neighbor)
+                        && !explored.contains(&neighbor)
+                        && self.contains(&neighbor) == is_neighbor
+                    {
+                        parents.insert(neighbor, v);
+                        explored.insert(neighbor);
+                        q.push_back(neighbor);
+                    }
+                }
+            }
+        }
+
+        vec![]
+    }
+
     pub fn bfs_all<P: Fn((Coordinates<T>, bool), (Coordinates<T>, bool)) -> bool>(
         &self,
         start: Coordinates<T>,

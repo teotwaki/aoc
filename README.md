@@ -79,7 +79,7 @@ the average performance during that run.
 
 ## 2024
 
-**Note::* Day 15 is not implemented.
+**Note:** Day 15 is not implemented.
 
 | Day | Title                  | Step 1   | Step 2     | Links                                                                            |
 |-----|------------------------|----------|------------|----------------------------------------------------------------------------------|
@@ -99,7 +99,8 @@ the average performance during that run.
 | 14  | Restroom Redoubt       | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/14) / [solution](2024/14/src/lib.rs) |
 | 15  | Warehouse Woes         | n/a      | n/a        | [problem](https://adventofcode.com/2024/day/14)                                  |
 | 16  | Restroom Redoubt       | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/16) / [solution](2024/16/src/lib.rs) |
-| 17  | Chronospatial Computer | 7.0 us   | 203.2 us   | [problem](https://adventofcode.com/2024/day/17) / [solution](2024/17/src/lib.rs)   |
+| 17  | Chronospatial Computer | 7.0 us   | 203.2 us   | [problem](https://adventofcode.com/2024/day/17) / [solution](2024/17/src/lib.rs) |
+| 18  | RAM Run                | 266.2 us | 319.655 ms | [problem](https://adventofcode.com/2024/day/18) / [solution](2024/18/src/lib.rs) |
 
 # Improvements
 
