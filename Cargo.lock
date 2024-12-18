@@ -97,6 +97,7 @@ dependencies = [
  "y2015-d2",
  "y2015-d20",
  "y2015-d21",
+ "y2015-d22",
  "y2015-d3",
  "y2015-d4",
  "y2015-d5",
@@ -1026,6 +1027,13 @@ version = "0.1.0"
 dependencies = [
  "common",
  "itertools 0.13.0",
+]
+
+[[package]]
+name = "y2015-d22"
+version = "0.1.0"
+dependencies = [
+ "common",
 ]
 
 [[package]]
