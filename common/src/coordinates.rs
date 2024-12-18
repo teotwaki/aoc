@@ -1,6 +1,7 @@
 use crate::Direction;
 use num_traits::{Float, NumCast, PrimInt, ToPrimitive};
 use std::ops::{Add, AddAssign, Range, RangeInclusive, Sub, SubAssign};
+use thiserror::Error;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default, PartialOrd, Ord)]
 pub struct Coordinates<T> {
@@ -222,6 +223,34 @@ where
 {
     fn from(value: (U, V)) -> Self {
         Self::new(T::from(value.0).unwrap(), T::from(value.1).unwrap())
+    }
+}
+
+#[derive(Debug, Error)]
+pub enum TryFromStrError<E> {
+    #[error("not enough elements")]
+    NotEnoughElements,
+
+    #[error("couldn't convert element into target type")]
+    Parse(#[from] E),
+}
+
+impl<T> TryFrom<&str> for Coordinates<T>
+where
+    T: std::str::FromStr,
+{
+    type Error = TryFromStrError<<T as std::str::FromStr>::Err>;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        let mut parts = value.split(',');
+
+        let x = parts.next().ok_or(TryFromStrError::NotEnoughElements)?;
+        let y = parts.next().ok_or(TryFromStrError::NotEnoughElements)?;
+
+        let x = T::from_str(x)?;
+        let y = T::from_str(y)?;
+
+        Ok(Self::new(x, y))
     }
 }
 

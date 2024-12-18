@@ -9,6 +9,7 @@ doctest = false
 [dependencies]
 num-traits = "0.2"
 rustc-hash = "2.1"
+thiserror = "2.0.8"
 
 [dev-dependencies]
 criterion = { version = "0.5" }

@@ -142,6 +142,7 @@ dependencies = [
  "y2024-d14",
  "y2024-d16",
  "y2024-d17",
+ "y2024-d18",
  "y2024-d2",
  "y2024-d3",
  "y2024-d4",
@@ -256,6 +257,7 @@ dependencies = [
  "criterion",
  "num-traits",
  "rustc-hash",
+ "thiserror",
 ]
 
 [[package]]
@@ -714,18 +716,18 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "2.0.6"
+version = "2.0.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8fec2a1820ebd077e2b90c4df007bebf344cd394098a13c563957d0afc83ea47"
+checksum = "08f5383f3e0071702bf93ab5ee99b52d26936be9dedd9413067cbdcddcb6141a"
 dependencies = [
  "thiserror-impl",
 ]
 
 [[package]]
 name = "thiserror-impl"
-version = "2.0.6"
+version = "2.0.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d65750cab40f4ff1929fb1ba509e9914eb756131cef4210da8d5d700d26f6312"
+checksum = "f2f357fcec90b3caef6623a099691be676d033b40a058ac95d2a6ade6fa0c943"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1373,6 +1375,13 @@ dependencies = [
 
 [[package]]
 name = "y2024-d17"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "y2024-d18"
 version = "0.1.0"
 dependencies = [
  "common",
