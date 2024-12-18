@@ -21,6 +21,7 @@ where
     T: Eq + Hash + Default + Copy + PartialOrd + Num,
     U: Clone + Default,
 {
+    #[must_use]
     #[inline]
     pub fn new() -> Self {
         Self {
@@ -29,6 +30,7 @@ where
         }
     }
 
+    #[must_use]
     pub fn with_capacity(capacity: usize) -> Self {
         let mut hashmap = FxHashMap::default();
         hashmap.reserve(capacity);
@@ -58,23 +60,28 @@ where
         self.store_min_max(pos);
     }
 
+    #[must_use]
     pub fn get(&self, pos: &Coordinates<T>) -> Option<&U> {
         self.items.get(pos)
     }
 
+    #[must_use]
     pub fn get_mut(&mut self, pos: Coordinates<T>) -> &mut U {
         self.items.entry(pos).or_default()
     }
 
+    #[must_use]
     pub fn contains(&self, pos: &Coordinates<T>) -> bool {
         self.get(pos).is_some()
     }
 
+    #[must_use]
     #[inline]
     pub fn width(&self) -> T {
         self.max_x - self.min_x + T::one()
     }
 
+    #[must_use]
     #[inline]
     pub fn height(&self) -> T {
         self.max_y - self.min_y + T::one()
@@ -85,16 +92,19 @@ where
         self.items.iter()
     }
 
+    #[must_use]
     #[inline]
     pub fn len(&self) -> usize {
         self.items.len()
     }
 
+    #[must_use]
     #[inline]
     pub fn is_empty(&self) -> bool {
         self.items.is_empty()
     }
 
+    #[must_use]
     #[inline]
     pub fn within_bounds(&self, pos: Coordinates<T>) -> bool {
         pos.x() >= self.min_x
@@ -111,9 +121,26 @@ where
 
 impl<T, U> Grid<T, U>
 where
+    U: PartialEq + Eq,
+{
+    #[must_use]
+    pub fn find(&self, needle: &U) -> Option<&Coordinates<T>> {
+        for (pos, val) in self.items.iter() {
+            if val == needle {
+                return Some(pos);
+            }
+        }
+
+        None
+    }
+}
+
+impl<T, U> Grid<T, U>
+where
     T: Eq + Hash + Default + Copy + PartialOrd + PrimInt + SubAssign + AddAssign,
     U: Clone + Default,
 {
+    #[must_use]
     pub fn bfs<
         E: Fn(Coordinates<T>, &U) -> bool,
         P: Fn((Coordinates<T>, &U), (Coordinates<T>, &U)) -> bool,
@@ -159,6 +186,7 @@ where
         vec![]
     }
 
+    #[must_use]
     pub fn bfs_all<
         E: Fn(Coordinates<T>, &U) -> bool,
         P: Fn((Coordinates<T>, &U), (Coordinates<T>, &U)) -> bool,
@@ -206,6 +234,7 @@ where
         paths
     }
 
+    #[must_use]
     pub fn bfs_exhaustive<
         E: Fn(Coordinates<T>, &U) -> bool,
         P: Fn((Coordinates<T>, &U), (Coordinates<T>, &U)) -> bool,
@@ -249,6 +278,7 @@ where
         paths
     }
 
+    #[must_use]
     pub fn flood<P: Fn(&U, &U) -> bool>(
         &self,
         start: Coordinates<T>,
@@ -291,6 +321,7 @@ impl<T> BooleanGrid<T>
 where
     T: Eq + Hash + Default + Copy + PartialOrd + Num,
 {
+    #[must_use]
     #[inline]
     pub fn new() -> Self {
         Self {
@@ -318,15 +349,18 @@ where
         }
     }
 
+    #[must_use]
     pub fn contains(&self, pos: &Coordinates<T>) -> bool {
         self.items.contains(pos)
     }
 
+    #[must_use]
     #[inline]
     pub fn width(&self) -> T {
         self.max_x - self.min_x + T::one()
     }
 
+    #[must_use]
     #[inline]
     pub fn height(&self) -> T {
         self.max_y - self.min_y + T::one()
@@ -337,16 +371,19 @@ where
         self.items.iter()
     }
 
+    #[must_use]
     #[inline]
     pub fn len(&self) -> usize {
         self.items.len()
     }
 
+    #[must_use]
     #[inline]
     pub fn is_empty(&self) -> bool {
         self.items.is_empty()
     }
 
+    #[must_use]
     #[inline]
     pub fn within_bounds(&self, pos: Coordinates<T>) -> bool {
         pos.x() >= self.min_x
@@ -455,6 +492,7 @@ where
     T: Eq + Hash + Default + Copy + PartialOrd + Num,
     U: Clone + Default,
 {
+    #[must_use]
     #[inline]
     pub fn new(min: Coordinates<T>, max: Coordinates<T>) -> Self {
         Self {
@@ -473,23 +511,28 @@ where
         }
     }
 
+    #[must_use]
     pub fn get(&self, pos: &Coordinates<T>) -> Option<&U> {
         self.grid.get(pos)
     }
 
+    #[must_use]
     pub fn get_mut(&mut self, pos: Coordinates<T>) -> &mut U {
         self.grid.get_mut(pos)
     }
 
+    #[must_use]
     pub fn contains(&self, pos: &Coordinates<T>) -> bool {
         self.grid.get(pos).is_some()
     }
 
+    #[must_use]
     #[inline]
     pub fn width(&self) -> T {
         self.max.x() - self.min.x() + T::one()
     }
 
+    #[must_use]
     #[inline]
     pub fn height(&self) -> T {
         self.max.y() - self.min.y() + T::one()
@@ -500,16 +543,19 @@ where
         self.grid.iter()
     }
 
+    #[must_use]
     #[inline]
     pub fn len(&self) -> usize {
         self.grid.len()
     }
 
+    #[must_use]
     #[inline]
     pub fn is_empty(&self) -> bool {
         self.grid.is_empty()
     }
 
+    #[must_use]
     #[inline]
     pub fn within_bounds(&self, pos: Coordinates<T>) -> bool {
         pos.x() >= self.min.x()
@@ -535,6 +581,7 @@ impl<T> BooleanBoundedGrid<T>
 where
     T: Eq + Hash + Default + Copy + PartialOrd + Num,
 {
+    #[must_use]
     #[inline]
     pub fn new(min: Coordinates<T>, max: Coordinates<T>) -> Self {
         Self {
@@ -553,15 +600,18 @@ where
         }
     }
 
+    #[must_use]
     pub fn contains(&self, pos: &Coordinates<T>) -> bool {
         self.grid.contains(pos)
     }
 
+    #[must_use]
     #[inline]
     pub fn width(&self) -> T {
         self.max.x() - self.min.x() + T::one()
     }
 
+    #[must_use]
     #[inline]
     pub fn height(&self) -> T {
         self.max.y() - self.min.y() + T::one()
@@ -572,16 +622,19 @@ where
         self.grid.iter()
     }
 
+    #[must_use]
     #[inline]
     pub fn len(&self) -> usize {
         self.grid.len()
     }
 
+    #[must_use]
     #[inline]
     pub fn is_empty(&self) -> bool {
         self.grid.is_empty()
     }
 
+    #[must_use]
     #[inline]
     pub fn within_bounds(&self, pos: Coordinates<T>) -> bool {
         pos.x() >= self.min.x()
