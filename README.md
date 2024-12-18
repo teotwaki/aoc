@@ -79,8 +79,6 @@ the average performance during that run.
 
 ## 2024
 
-**Note:** Day 15 is not implemented.
-
 | Day | Title                  | Step 1   | Step 2     | Links                                                                            |
 |-----|------------------------|----------|------------|----------------------------------------------------------------------------------|
 | 1   | Historian Hysteria     | 55.2 us  | 182.0 us   | [problem](https://adventofcode.com/2024/day/1) / [solution](2024/01/src/lib.rs)  |
@@ -97,7 +95,7 @@ the average performance during that run.
 | 12  | Garden Groups          | 1.838 ms | 1.956 ms   | [problem](https://adventofcode.com/2024/day/12) / [solution](2024/12/src/lib.rs) |
 | 13  | Claw Contraption       | 65.7 us  | 65.7 us    | [problem](https://adventofcode.com/2024/day/13) / [solution](2024/13/src/lib.rs) |
 | 14  | Restroom Redoubt       | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/14) / [solution](2024/14/src/lib.rs) |
-| 15  | Warehouse Woes         | n/a      | n/a        | [problem](https://adventofcode.com/2024/day/14)                                  |
+| 15  | Warehouse Woes         | 860.1 us | 792.4 us   | [problem](https://adventofcode.com/2024/day/15) / [solution](2024/15/src/lib.rs) |
 | 16  | Restroom Redoubt       | 57.0 us  | 18.658 ms  | [problem](https://adventofcode.com/2024/day/16) / [solution](2024/16/src/lib.rs) |
 | 17  | Chronospatial Computer | 7.0 us   | 203.2 us   | [problem](https://adventofcode.com/2024/day/17) / [solution](2024/17/src/lib.rs) |
 | 18  | RAM Run                | 266.2 us | 319.655 ms | [problem](https://adventofcode.com/2024/day/18) / [solution](2024/18/src/lib.rs) |

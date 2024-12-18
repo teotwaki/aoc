@@ -43,4 +43,20 @@ impl Direction {
     pub fn turn_counterclockwise(&mut self) {
         *self = self.counterclockwise();
     }
+
+    #[inline]
+    #[must_use]
+    pub fn is_horizontal(&self) -> bool {
+        use Direction::*;
+
+        self == &Left || self == &Right
+    }
+
+    #[inline]
+    #[must_use]
+    pub fn is_vertical(&self) -> bool {
+        use Direction::*;
+
+        self == &Up || self == &Down
+    }
 }

@@ -33,20 +33,20 @@ where
 
 impl<T> Coordinates<T>
 where
-    Range<T>: Iterator<Item = T>,
+    Range<T>: DoubleEndedIterator<Item = T>,
     T: Copy,
 {
-    pub fn range(&self, rhs: Self) -> impl Iterator<Item = Self> + '_ {
+    pub fn range(&self, rhs: Self) -> impl DoubleEndedIterator<Item = Self> + '_ {
         (self.x..rhs.x).flat_map(move |x| (self.y..rhs.y).map(move |y| Coordinates::new(x, y)))
     }
 }
 
 impl<T> Coordinates<T>
 where
-    RangeInclusive<T>: Iterator<Item = T>,
+    RangeInclusive<T>: DoubleEndedIterator<Item = T>,
     T: Copy,
 {
-    pub fn range_inclusive(&self, rhs: Self) -> impl Iterator<Item = Self> + '_ {
+    pub fn range_inclusive(&self, rhs: Self) -> impl DoubleEndedIterator<Item = Self> + '_ {
         (self.x..=rhs.x).flat_map(move |x| (self.y..=rhs.y).map(move |y| Coordinates::new(x, y)))
     }
 }
@@ -175,6 +175,19 @@ where
         }
     }
 
+    pub fn move_next(&mut self, dir: Direction) -> &mut Self {
+        use Direction::*;
+
+        match dir {
+            Up => self.move_up(),
+            Right => self.move_right(),
+            Down => self.move_down(),
+            Left => self.move_left(),
+        };
+
+        self
+    }
+
     pub fn next(&self, dir: Direction) -> Self {
         use Direction::*;
 
@@ -184,6 +197,19 @@ where
             Down => self.down(),
             Left => self.left(),
         }
+    }
+
+    pub fn move_previous(&mut self, dir: Direction) -> &mut Self {
+        use Direction::*;
+
+        match dir {
+            Up => self.move_down(),
+            Right => self.move_left(),
+            Down => self.move_up(),
+            Left => self.move_right(),
+        };
+
+        self
     }
 
     pub fn previous(&self, dir: Direction) -> Self {
