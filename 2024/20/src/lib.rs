@@ -1,4 +1,5 @@
 use common::{distances::manhattan, Answer, BooleanGrid, Coordinates};
+use rayon::prelude::*;
 use rustc_hash::FxHashMap;
 
 type IntType = i16;
@@ -46,7 +47,7 @@ fn extended_neighbors(pos: Coords) -> Vec<Coords> {
 pub fn step1(s: &str) -> Answer {
     let (path, end) = parse(s);
 
-    path.iter()
+    path.par_iter()
         .filter(|(pos, _)| **pos != end)
         .map(|(pos, dist)| {
             extended_neighbors(*pos)
@@ -61,7 +62,7 @@ pub fn step1(s: &str) -> Answer {
 pub fn step2(s: &str) -> Answer {
     let (path, end) = parse(s);
 
-    path.iter()
+    path.par_iter()
         .filter(|(pos, _)| **pos != end)
         .map(|(pos, dist)| {
             path.iter()
