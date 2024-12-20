@@ -101,6 +101,7 @@ the average performance during that run.
 | 17  | Chronospatial Computer | 7.0 us    | 203.2 us   | [problem](https://adventofcode.com/2024/day/17) / [solution](2024/17/src/lib.rs) |
 | 18  | RAM Run                | 266.2 us  | 319.655 ms | [problem](https://adventofcode.com/2024/day/18) / [solution](2024/18/src/lib.rs) |
 | 19  | Linen Layout           | 25.916 ms | 25.919 ms  | [problem](https://adventofcode.com/2024/day/19) / [solution](2024/19/src/lib.rs) |
+| 20  | Race Condition         | 1.293 ms  | 271.110 ms | [problem](https://adventofcode.com/2024/day/20) / [solution](2024/20/src/lib.rs) |
 
 # Improvements
 
