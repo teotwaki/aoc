@@ -1,10 +1,11 @@
 use common::Answer;
+use rayon::prelude::*;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 type IntType = u64;
 
-fn parse(s: &str) -> impl Iterator<Item = IntType> + '_ {
-    s.lines().map(|l| l.parse::<IntType>().unwrap())
+fn parse(s: &str) -> Vec<IntType> {
+    s.lines().map(|l| l.parse::<IntType>().unwrap()).collect()
 }
 
 fn update_secret(mut i: IntType) -> IntType {
@@ -39,6 +40,7 @@ fn seller_changes(prices: &[i8]) -> Vec<i8> {
 
 pub fn step1(s: &str) -> Answer {
     parse(s)
+        .into_par_iter()
         .map(|i| nth_secret_number(i, 2000))
         .sum::<IntType>()
         .into()
@@ -46,7 +48,10 @@ pub fn step1(s: &str) -> Answer {
 
 pub fn step2(s: &str) -> Answer {
     let mut pattern_values: FxHashMap<(i8, i8, i8, i8), i16> = FxHashMap::default();
-    let vendor_prices = parse(s).map(|i| seller_prices(i, 2000)).collect::<Vec<_>>();
+    let vendor_prices = parse(s)
+        .into_par_iter()
+        .map(|i| seller_prices(i, 2000))
+        .collect::<Vec<_>>();
     let mut vendor_patterns = vec![FxHashSet::default(); vendor_prices.len()];
 
     vendor_prices
@@ -58,6 +63,7 @@ pub fn step2(s: &str) -> Answer {
                 .enumerate()
                 .for_each(|(i, changes)| {
                     let pattern = (changes[0], changes[1], changes[2], changes[3]);
+
                     if vendor_patterns[vendor].insert(pattern) {
                         *pattern_values.entry(pattern).or_default() +=
                             vendor_prices[vendor][i + 4] as i16;
