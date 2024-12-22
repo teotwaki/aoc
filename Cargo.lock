@@ -148,6 +148,7 @@ dependencies = [
  "y2024-d19",
  "y2024-d2",
  "y2024-d20",
+ "y2024-d21",
  "y2024-d3",
  "y2024-d4",
  "y2024-d5",
@@ -1427,6 +1428,13 @@ dependencies = [
  "common",
  "rayon",
  "rustc-hash",
+]
+
+[[package]]
+name = "y2024-d21"
+version = "0.1.0"
+dependencies = [
+ "common",
 ]
 
 [[package]]
