@@ -102,6 +102,7 @@ the average performance during that run.
 | 18  | RAM Run                | 266.2 us  | 319.655 ms | [problem](https://adventofcode.com/2024/day/18) / [solution](2024/18/src/lib.rs) |
 | 19  | Linen Layout           | 25.916 ms | 25.919 ms  | [problem](https://adventofcode.com/2024/day/19) / [solution](2024/19/src/lib.rs) |
 | 20  | Race Condition         | 1.035 ms  | 32.966 ms  | [problem](https://adventofcode.com/2024/day/20) / [solution](2024/20/src/lib.rs) |
+| 21  | Keypad Conundrum       | 7.8 us    | 17.6 us    | [problem](https://adventofcode.com/2024/day/21) / [solution](2024/21/src/lib.rs) |
 
 # Improvements
 

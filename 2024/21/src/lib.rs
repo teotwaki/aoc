@@ -1,7 +1,8 @@
 use common::Answer;
+use rustc_hash::FxHashMap;
 
-fn parse(s: &str) -> Vec<String> {
-    s.lines().map(|l| l.to_string()).collect()
+fn parse(s: &str) -> Vec<&str> {
+    s.lines().collect()
 }
 
 fn get_move(from: char, to: char) -> &'static str {
@@ -170,49 +171,57 @@ fn get_move(from: char, to: char) -> &'static str {
     }
 }
 
-fn transpose(mut code: String, n: usize) -> String {
-    let mut from = 'A';
+fn transpose<'a>(code: &'a str, n: usize, cache: &mut FxHashMap<(&'a str, usize), usize>) -> usize {
+    if let Some(&len) = cache.get(&(code, n)) {
+        len
+    } else if n == 0 {
+        code.len()
+    } else {
+        let mut from = 'A';
 
-    for _ in 0..n {
-        code = code
+        let len = code
             .chars()
             .map(|to| {
                 let m = get_move(from, to);
                 from = to;
 
-                m
+                transpose(m, n - 1, cache)
             })
-            .collect::<String>();
-    }
+            .sum();
 
-    code
+        cache.insert((code, n), len);
+
+        len
+    }
 }
 
-fn complexity(code: String, n: usize) -> usize {
-    let numeric_code = code
-        .chars()
-        .filter(|c| c.is_ascii_digit())
-        .collect::<String>()
-        .parse::<usize>()
-        .unwrap();
-
-    let instruction_length = transpose(code, n).len();
+fn complexity<'a>(
+    code: &'a str,
+    n: usize,
+    cache: &mut FxHashMap<(&'a str, usize), usize>,
+) -> usize {
+    let numeric_code = code[..3].parse::<usize>().unwrap();
+    let instruction_length = transpose(code, n, cache);
 
     instruction_length * numeric_code
 }
 
 pub fn step1(s: &str) -> Answer {
+    let mut cache = FxHashMap::default();
+
     parse(s)
         .into_iter()
-        .map(|code| complexity(code, 3))
+        .map(|code| complexity(code, 3, &mut cache))
         .sum::<usize>()
         .into()
 }
 
 pub fn step2(s: &str) -> Answer {
+    let mut cache = FxHashMap::default();
+
     parse(s)
         .into_iter()
-        .map(|code| complexity(code, 26))
+        .map(|code| complexity(code, 26, &mut cache))
         .sum::<usize>()
         .into()
 }
@@ -234,26 +243,37 @@ mod test {
 
     #[test]
     fn complexity_finds_29_code_complexity() {
-        assert_eq!(complexity("029A".to_string(), 3), 68 * 29);
+        let mut cache = FxHashMap::default();
+        assert_eq!(complexity("029A", 3, &mut cache), 68 * 29);
     }
 
     #[test]
     fn complexity_finds_980_code_complexity() {
-        assert_eq!(complexity("980A".to_string(), 3), 60 * 980);
+        let mut cache = FxHashMap::default();
+        assert_eq!(complexity("980A", 3, &mut cache), 60 * 980);
     }
 
     #[test]
     fn complexity_finds_179_code_complexity() {
-        assert_eq!(complexity("179A".to_string(), 3), 68 * 179);
+        let mut cache = FxHashMap::default();
+        assert_eq!(complexity("179A", 3, &mut cache), 68 * 179);
     }
 
     #[test]
     fn complexity_finds_456_code_complexity() {
-        assert_eq!(complexity("456A".to_string(), 3), 64 * 456);
+        let mut cache = FxHashMap::default();
+        assert_eq!(complexity("456A", 3, &mut cache), 64 * 456);
     }
 
     #[test]
     fn complexity_finds_379_code_complexity() {
-        assert_eq!(complexity("379A".to_string(), 3), 64 * 379);
+        let mut cache = FxHashMap::default();
+        assert_eq!(complexity("379A", 3, &mut cache), 64 * 379);
+    }
+
+    #[test]
+    fn transpose_character_is_fast_enough() {
+        let mut cache = FxHashMap::default();
+        assert_eq!(transpose("<", 26, &mut cache), 30331287706);
     }
 }
