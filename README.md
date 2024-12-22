@@ -103,6 +103,7 @@ the average performance during that run.
 | 19  | Linen Layout           | 25.916 ms | 25.919 ms  | [problem](https://adventofcode.com/2024/day/19) / [solution](2024/19/src/lib.rs) |
 | 20  | Race Condition         | 1.035 ms  | 32.966 ms  | [problem](https://adventofcode.com/2024/day/20) / [solution](2024/20/src/lib.rs) |
 | 21  | Keypad Conundrum       | 7.8 us    | 17.6 us    | [problem](https://adventofcode.com/2024/day/21) / [solution](2024/21/src/lib.rs) |
+| 22  | Monkey Market          | 6.752 ms  | 91.018 ms  | [problem](https://adventofcode.com/2024/day/22) / [solution](2024/22/src/lib.rs) |
 
 # Improvements
 
