@@ -1444,6 +1444,7 @@ name = "y2024-d22"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rayon",
  "rustc-hash",
 ]
 
