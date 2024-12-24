@@ -1,4 +1,5 @@
 use common::Answer;
+use rayon::prelude::*;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 fn parse(s: &str) -> Network {
@@ -23,10 +24,6 @@ struct Network<'a> {
 }
 
 impl<'a> Network<'a> {
-    fn nodes(&self) -> impl Iterator<Item = &&'a str> {
-        self.nodes.keys()
-    }
-
     fn is_neighbor_of(&self, a: &str, b: &str) -> bool {
         self.nodes.get(a).map(|n| n.contains(b)).unwrap_or(false)
     }
@@ -78,26 +75,31 @@ impl<'a> Network<'a> {
 
 pub fn step1(s: &str) -> Answer {
     let network = parse(s);
-    let mut triplets = FxHashSet::default();
+    let triplets = network
+        .nodes
+        .par_iter()
+        .filter_map(|(node, neighbors)| {
+            for neighbor in neighbors {
+                if let Some(indirect_neighbors) = network.neighbors_of(neighbor) {
+                    for indirect_neighbor in indirect_neighbors {
+                        if node != indirect_neighbor
+                            && (node.starts_with('t')
+                                || neighbor.starts_with('t')
+                                || indirect_neighbor.starts_with('t'))
+                            && network.is_neighbor_of(node, indirect_neighbor)
+                        {
+                            let mut triplet = [*node, *neighbor, *indirect_neighbor];
+                            triplet.sort();
 
-    for node in network.nodes() {
-        for neighbor in network.neighbors_of(node).unwrap() {
-            if let Some(indirect_neighbors) = network.neighbors_of(neighbor) {
-                for indirect_neighbor in indirect_neighbors {
-                    if node != indirect_neighbor
-                        && (node.starts_with('t')
-                            || neighbor.starts_with('t')
-                            || indirect_neighbor.starts_with('t'))
-                        && network.is_neighbor_of(node, indirect_neighbor)
-                    {
-                        let mut triplet = [*node, *neighbor, *indirect_neighbor];
-                        triplet.sort();
-                        triplets.insert((triplet[0], triplet[1], triplet[2]));
+                            return Some((triplet[0], triplet[1], triplet[2]));
+                        }
                     }
                 }
             }
-        }
-    }
+
+            None
+        })
+        .collect::<FxHashSet<_>>();
 
     triplets.len().into()
 }
@@ -105,15 +107,12 @@ pub fn step1(s: &str) -> Answer {
 pub fn step2(s: &str) -> Answer {
     let network = parse(s);
 
-    let longest_network = network.nodes().fold(vec![], |acc, node| {
-        let network = network.longest_network(node);
-
-        if network.len() > acc.len() {
-            network
-        } else {
-            acc
-        }
-    });
+    let longest_network = network
+        .nodes
+        .par_iter()
+        .map(|(node, _)| network.longest_network(node))
+        .max_by_key(|x| x.len())
+        .unwrap();
 
     longest_network.join(",").into()
 }

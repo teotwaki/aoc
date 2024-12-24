@@ -104,7 +104,7 @@ the average performance during that run.
 | 20  | Race Condition         | 1.035 ms  | 32.966 ms  | [problem](https://adventofcode.com/2024/day/20) / [solution](2024/20/src/lib.rs) |
 | 21  | Keypad Conundrum       | 7.8 us    | 17.6 us    | [problem](https://adventofcode.com/2024/day/21) / [solution](2024/21/src/lib.rs) |
 | 22  | Monkey Market          | 975.0 us  | 77.0 ms    | [problem](https://adventofcode.com/2024/day/22) / [solution](2024/22/src/lib.rs) |
-| 23  | LAN Party              | 1.395 ms  | 7.444 ms   | [problem](https://adventofcode.com/2024/day/23) / [solution](2024/23/src/lib.rs) |
+| 23  | LAN Party              | 492.1 us  | 1.790 ms   | [problem](https://adventofcode.com/2024/day/23) / [solution](2024/23/src/lib.rs) |
 
 # Improvements
 
