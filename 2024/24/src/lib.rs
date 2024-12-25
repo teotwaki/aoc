@@ -63,9 +63,29 @@ fn parse(s: &str) -> (Wires, Vec<(Gate, &str, &str, &str)>) {
     )
 }
 
-pub fn step1(s: &str) -> Answer {
-    let (mut wires, mut gates) = parse(s);
+fn parse_binary_wires(wires: &FxHashMap<&str, bool>, prefix: char) -> usize {
+    let mut keys = wires
+        .keys()
+        .filter(|s| s.starts_with(prefix))
+        .collect::<Vec<_>>();
+    keys.sort();
 
+    keys.iter()
+        .enumerate()
+        .filter_map(|(n, k)| {
+            if *wires.get(*k).unwrap_or(&false) {
+                Some(1 << n)
+            } else {
+                None
+            }
+        })
+        .sum()
+}
+
+fn calculate_output<'a>(
+    wires: &mut FxHashMap<&'a str, bool>,
+    mut gates: Vec<(Gate, &'a str, &'a str, &'a str)>,
+) -> usize {
     'w: while !gates.is_empty() {
         for i in 0..gates.len() {
             let (gate, a, b, c) = gates[i];
@@ -78,23 +98,16 @@ pub fn step1(s: &str) -> Answer {
         }
     }
 
-    wires.retain(|key, _| key.starts_with('z'));
-    let mut keys = wires.keys().collect::<Vec<_>>();
-    keys.sort();
+    parse_binary_wires(wires, 'z')
+}
 
-    keys.iter()
-        .enumerate()
-        .filter_map(|(n, k)| {
-            if *wires.get(*k).unwrap_or(&false) {
-                Some(1 << n)
-            } else {
-                None
-            }
-        })
-        .sum::<usize>()
-        .into()
+pub fn step1(s: &str) -> Answer {
+    let (mut wires, gates) = parse(s);
+
+    calculate_output(&mut wires, gates).into()
 }
 
 pub fn step2(_: &str) -> Answer {
-    ().into()
+    // Code version will come later
+    "Solved by hand, answer: dpg,kmb,mmf,tvp,vdk,z10,z15,z25".into()
 }
