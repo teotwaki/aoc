@@ -108,7 +108,7 @@ the average performance during that run.
 | 24  | Crossed Wires          | 158.1 us  | n/a        | [problem](https://adventofcode.com/2024/day/24) / [solution](2024/24/src/lib.rs) |
 | 25  | Code Chronicle         | 214.5 us  | n/a        | [problem](https://adventofcode.com/2024/day/25) / [solution](2024/25/src/lib.rs) |
 
-**Note**: There is no part 2 for day 25. It is automatically completed when all other days have two stars.
+**Note**: There is no part 2 for day 25. It is automatically completable when all other days have two stars.
 
 # Improvements
 
