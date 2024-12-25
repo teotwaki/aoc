@@ -8,4 +8,4 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
-rayon = "1.10.0"
+rayon = "1.10"
