@@ -80,6 +80,8 @@ the average performance during that run.
 
 ## 2024
 
+**Note**: Day 24 part 2 is not implemented (yet).
+
 | Day | Title                  | Step 1    | Step 2     | Links                                                                            |
 |-----|------------------------|-----------|------------|----------------------------------------------------------------------------------|
 | 1   | Historian Hysteria     | 55.2 us   | 182.0 us   | [problem](https://adventofcode.com/2024/day/1) / [solution](2024/01/src/lib.rs)  |
@@ -105,6 +107,7 @@ the average performance during that run.
 | 21  | Keypad Conundrum       | 7.8 us    | 17.6 us    | [problem](https://adventofcode.com/2024/day/21) / [solution](2024/21/src/lib.rs) |
 | 22  | Monkey Market          | 975.0 us  | 77.0 ms    | [problem](https://adventofcode.com/2024/day/22) / [solution](2024/22/src/lib.rs) |
 | 23  | LAN Party              | 492.1 us  | 1.790 ms   | [problem](https://adventofcode.com/2024/day/23) / [solution](2024/23/src/lib.rs) |
+| 24  | Crossed Wires          | 158.1 us  | n/a        | [problem](https://adventofcode.com/2024/day/24) / [solution](2024/24/src/lib.rs) |
 
 # Improvements
 
