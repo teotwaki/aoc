@@ -54,7 +54,7 @@ fn toggle(lights: &mut Lights, pos: Coords) {
 
 #[inline]
 fn count_lights(lights: &Lights) -> usize {
-    lights.iter().filter(|(_, &b)| b).count()
+    lights.iter().filter(|(_, b)| **b).count()
 }
 
 pub fn step1(s: &str) -> Answer {

@@ -70,7 +70,7 @@ pub fn step1(s: &str) -> Answer {
     let grid = parse(s);
 
     grid.iter()
-        .filter(|(_, &c)| c == 'X')
+        .filter(|(_, c)| **c == 'X')
         .flat_map(|(&pos, _)| {
             possibilities(pos)
                 .into_iter()
@@ -94,7 +94,7 @@ pub fn step2(s: &str) -> Answer {
     let grid = parse(s);
 
     grid.iter()
-        .filter(|(&pos, &c)| c == 'A' && pos.x() > 0 && pos.y() > 0 && validate_mas(&grid, pos))
+        .filter(|(pos, c)| **c == 'A' && pos.x() > 0 && pos.y() > 0 && validate_mas(&grid, **pos))
         .count()
         .into()
 }
