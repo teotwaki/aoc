@@ -1,4 +1,4 @@
-use common::{utils::number_length, Answer};
+use common::{Answer, utils::number_length};
 use num::Integer;
 use rustc_hash::FxHashMap;
 
@@ -21,7 +21,7 @@ fn blink(stones: &mut FxHashMap<Stone, usize>) {
             } else {
                 let len = number_length(stone);
 
-                if len % 2 == 0 {
+                if len.is_multiple_of(2) {
                     let (left, right) = stone.div_rem(&10u64.pow((len / 2) as u32));
                     *stones.entry(left).or_default() += count;
                     *stones.entry(right).or_default() += count;

@@ -93,13 +93,13 @@ fn to_elements(mut s: &str) -> Vec<&str> {
     let mut elements = vec![];
 
     while !s.is_empty() {
-        if let Some(second) = s.chars().nth(1) {
-            if second.is_lowercase() {
-                elements.push(&s[..2]);
-                s = &s[2..];
+        if let Some(second) = s.chars().nth(1)
+            && second.is_lowercase()
+        {
+            elements.push(&s[..2]);
+            s = &s[2..];
 
-                continue;
-            }
+            continue;
         }
 
         elements.push(&s[..1]);

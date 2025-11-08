@@ -63,14 +63,11 @@ impl FromStr for Map {
 
 impl Map {
     fn transpose(&self, value: u32) -> Option<u32> {
-        let v = self
-            .ranges
+        self.ranges
             .iter()
             .map(|r| r.transpose(value))
             .find(|v| v.is_some())
-            .unwrap_or(None);
-
-        v
+            .unwrap_or(None)
     }
 }
 
