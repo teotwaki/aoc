@@ -1,11 +1,11 @@
 use common::Answer;
 use nom::{
+    IResult,
     branch::alt,
     bytes::complete::tag,
     character::complete::{alpha1, u16 as parse_u16},
     multi::separated_list1,
     sequence::tuple,
-    IResult,
 };
 use rustc_hash::FxHashMap;
 
@@ -30,35 +30,35 @@ enum Operation<'a> {
     Not(Value<'a>, Wire<'a>),
 }
 
-fn parse_wire(s: &str) -> IResult<&str, Wire> {
+fn parse_wire(s: &str) -> IResult<&str, Wire<'_>> {
     let (s, w) = alpha1(s)?;
 
     Ok((s, Wire(w)))
 }
 
-fn parse_value_w(s: &str) -> IResult<&str, Value> {
+fn parse_value_w(s: &str) -> IResult<&str, Value<'_>> {
     let (s, wire) = parse_wire(s)?;
 
     Ok((s, Value::Wire(wire)))
 }
 
-fn parse_value_u16(s: &str) -> IResult<&str, Value> {
+fn parse_value_u16(s: &str) -> IResult<&str, Value<'_>> {
     let (s, val) = parse_u16(s)?;
 
     Ok((s, Value::Value(val)))
 }
 
-fn parse_value(s: &str) -> IResult<&str, Value> {
+fn parse_value(s: &str) -> IResult<&str, Value<'_>> {
     alt((parse_value_w, parse_value_u16))(s)
 }
 
-fn parse_assign(s: &str) -> IResult<&str, Operation> {
+fn parse_assign(s: &str) -> IResult<&str, Operation<'_>> {
     let (s, (value, _, dst)) = tuple((parse_value, tag(" -> "), parse_wire))(s)?;
 
     Ok((s, Operation::Assign(value, dst)))
 }
 
-fn parse_and(s: &str) -> IResult<&str, Operation> {
+fn parse_and(s: &str) -> IResult<&str, Operation<'_>> {
     let (s, (a, _, b, _, dst)) = tuple((
         parse_value,
         tag(" AND "),
@@ -70,7 +70,7 @@ fn parse_and(s: &str) -> IResult<&str, Operation> {
     Ok((s, Operation::And(a, b, dst)))
 }
 
-fn parse_or(s: &str) -> IResult<&str, Operation> {
+fn parse_or(s: &str) -> IResult<&str, Operation<'_>> {
     let (s, (a, _, b, _, dst)) = tuple((
         parse_value,
         tag(" OR "),
@@ -82,7 +82,7 @@ fn parse_or(s: &str) -> IResult<&str, Operation> {
     Ok((s, Operation::Or(a, b, dst)))
 }
 
-fn parse_lshift(s: &str) -> IResult<&str, Operation> {
+fn parse_lshift(s: &str) -> IResult<&str, Operation<'_>> {
     let (s, (src, _, shift, _, dst)) = tuple((
         parse_value,
         tag(" LSHIFT "),
@@ -94,7 +94,7 @@ fn parse_lshift(s: &str) -> IResult<&str, Operation> {
     Ok((s, Operation::Lshift(src, shift, dst)))
 }
 
-fn parse_rshift(s: &str) -> IResult<&str, Operation> {
+fn parse_rshift(s: &str) -> IResult<&str, Operation<'_>> {
     let (s, (src, _, shift, _, dst)) = tuple((
         parse_value,
         tag(" RSHIFT "),
@@ -106,13 +106,13 @@ fn parse_rshift(s: &str) -> IResult<&str, Operation> {
     Ok((s, Operation::Rshift(src, shift, dst)))
 }
 
-fn parse_not(s: &str) -> IResult<&str, Operation> {
+fn parse_not(s: &str) -> IResult<&str, Operation<'_>> {
     let (s, (_, src, _, dst)) = tuple((tag("NOT "), parse_value, tag(" -> "), parse_wire))(s)?;
 
     Ok((s, Operation::Not(src, dst)))
 }
 
-fn parse_operation(s: &str) -> IResult<&str, Operation> {
+fn parse_operation(s: &str) -> IResult<&str, Operation<'_>> {
     alt((
         parse_assign,
         parse_and,
@@ -123,11 +123,11 @@ fn parse_operation(s: &str) -> IResult<&str, Operation> {
     ))(s)
 }
 
-fn parse_operations(s: &str) -> IResult<&str, Vec<Operation>> {
+fn parse_operations(s: &str) -> IResult<&str, Vec<Operation<'_>>> {
     separated_list1(tag("\n"), parse_operation)(s)
 }
 
-fn parse(s: &str) -> Vec<Operation> {
+fn parse(s: &str) -> Vec<Operation<'_>> {
     let (_, operations) = parse_operations(s).unwrap();
 
     operations
@@ -213,7 +213,7 @@ impl<'a> Circuit<'a> {
     }
 }
 
-fn simulate(s: &str) -> Circuit {
+fn simulate(s: &str) -> Circuit<'_> {
     let mut circuit = Circuit::new();
     let mut operations = parse(s);
 

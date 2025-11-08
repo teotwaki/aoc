@@ -13,7 +13,7 @@ struct Distance(IntType);
 #[derive(Debug, Clone, Copy)]
 struct Route<'a>(Location<'a>, Location<'a>, Distance);
 
-fn parse(s: &str) -> impl Iterator<Item = Route> {
+fn parse(s: &str) -> impl Iterator<Item = Route<'_>> {
     s.lines().map(|l| {
         let mut parts = l.split_whitespace();
         let src = Location(parts.next().unwrap());
