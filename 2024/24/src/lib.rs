@@ -22,7 +22,7 @@ impl Gate {
     }
 }
 
-fn parse_wires(s: &str) -> Wires {
+fn parse_wires(s: &str) -> Wires<'_> {
     s.lines()
         .map(|line| {
             let mut parts = line.split(": ");
@@ -54,7 +54,7 @@ fn parse_gates(s: &str) -> Vec<(Gate, &str, &str, &str)> {
         .collect()
 }
 
-fn parse(s: &str) -> (Wires, Vec<(Gate, &str, &str, &str)>) {
+fn parse(s: &str) -> (Wires<'_>, Vec<(Gate, &str, &str, &str)>) {
     let mut parts = s.split("\n\n");
 
     (

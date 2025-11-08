@@ -5,7 +5,7 @@ use rustc_hash::FxHashMap;
 type IntType = i32;
 type Mapping<'a> = FxHashMap<&'a str, FxHashMap<&'a str, IntType>>;
 
-fn parse(s: &str) -> Mapping {
+fn parse(s: &str) -> Mapping<'_> {
     let mut mapping: Mapping = FxHashMap::default();
 
     s.lines().for_each(|l| {

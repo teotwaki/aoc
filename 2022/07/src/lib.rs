@@ -1,10 +1,10 @@
 use common::Answer;
 use nom::{
+    IResult,
     branch::alt,
     bytes::complete::tag,
     character::complete::{digit1, newline, not_line_ending, space1},
     sequence::{terminated, tuple},
-    IResult,
 };
 use rustc_hash::FxHashMap;
 
@@ -62,13 +62,13 @@ fn file<'a>(parent_dir: String) -> impl Fn(&'a str) -> IResult<&'a str, ParseOut
     }
 }
 
-fn dir(s: &str) -> IResult<&str, ParseOutput> {
+fn dir(s: &str) -> IResult<&str, ParseOutput<'_>> {
     let (s, _) = terminated(tuple((tag("dir "), not_line_ending)), newline)(s)?;
 
     Ok((s, ParseOutput::None))
 }
 
-fn ls_command(s: &str) -> IResult<&str, ParseOutput> {
+fn ls_command(s: &str) -> IResult<&str, ParseOutput<'_>> {
     let (s, _) = terminated(tag("$ ls"), newline)(s)?;
 
     Ok((s, ParseOutput::None))
@@ -110,7 +110,7 @@ fn parse_usize(s: &str) -> IResult<&str, usize> {
     })(s)
 }
 
-fn parse(input: &str) -> IResult<&str, Vec<File>> {
+fn parse(input: &str) -> IResult<&str, Vec<File<'_>>> {
     let mut files = vec![];
     let mut current_dir = String::new();
     let mut pos: usize = 0;

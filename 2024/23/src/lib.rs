@@ -2,7 +2,7 @@ use common::Answer;
 use rayon::prelude::*;
 use rustc_hash::{FxHashMap, FxHashSet};
 
-fn parse(s: &str) -> Network {
+fn parse(s: &str) -> Network<'_> {
     let mut nodes: FxHashMap<&str, FxHashSet<&str>> = FxHashMap::default();
 
     s.lines()
