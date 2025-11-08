@@ -54,7 +54,7 @@ impl Map {
                 candidates.push(pos + self.width);
             }
 
-            if pos % self.width != 0 {
+            if !pos.is_multiple_of(self.width) {
                 candidates.push(pos - 1);
             }
 
