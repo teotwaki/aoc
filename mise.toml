@@ -1,0 +1,5 @@
+[tasks]
+setup = "prek install && prek install-hooks"
+
+[tools]
+prek = "latest"
