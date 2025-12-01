@@ -46,7 +46,7 @@ impl Dial {
     }
 
     pub fn turn_left_simple(&mut self, count: IntType) {
-        self.value = (self.value - count) % 100;
+        self.value = ((self.value - count) + 100) % 100;
         self.update_ended_on_zero();
     }
 
