@@ -8,4 +8,4 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
-itertools = "0.13.0"
+itertools = { workspace = true }

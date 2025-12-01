@@ -7,12 +7,12 @@ edition.workspace = true
 doctest = false
 
 [dependencies]
-num-traits = "0.2"
-rustc-hash = "2.1"
-thiserror = "2.0.8"
+num-traits = { workspace = true }
+rustc-hash = { workspace = true }
+thiserror = { workspace = true }
 
 [dev-dependencies]
-criterion = { version = "0.5" }
+criterion = { workspace = true }
 
 [[bench]]
 name = "number_length"

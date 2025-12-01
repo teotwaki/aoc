@@ -8,4 +8,4 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
-nom = "7.1"
+nom = { workspace = true }

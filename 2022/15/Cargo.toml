@@ -8,5 +8,5 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
-itertools = "0.13"
-regex = "1.11"
+itertools = { workspace = true }
+regex = { workspace = true }
