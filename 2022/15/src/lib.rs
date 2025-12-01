@@ -1,4 +1,4 @@
-use common::{distances::manhattan, Answer, Coordinates};
+use common::{Answer, Coordinates, distances::manhattan};
 use itertools::Itertools;
 use regex::Regex;
 use std::{collections::HashSet, sync::LazyLock};

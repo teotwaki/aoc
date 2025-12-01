@@ -1,4 +1,4 @@
-use common::{utils::concat_numbers, Answer, DigitString};
+use common::{Answer, DigitString, utils::concat_numbers};
 
 #[derive(Debug, Clone, Copy, Default)]
 struct Digit {

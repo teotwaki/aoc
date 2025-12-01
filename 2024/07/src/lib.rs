@@ -1,4 +1,4 @@
-use common::{utils::concat_numbers, Answer};
+use common::{Answer, utils::concat_numbers};
 use itertools::Itertools;
 use rayon::prelude::*;
 use std::iter::repeat_n;

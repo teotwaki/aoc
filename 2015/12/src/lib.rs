@@ -1,5 +1,5 @@
 use common::Answer;
-use json::{object::Object, parse as parse_json, JsonValue};
+use json::{JsonValue, object::Object, parse as parse_json};
 
 type IntType = i32;
 
