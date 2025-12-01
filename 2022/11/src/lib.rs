@@ -1,12 +1,12 @@
 use common::Answer;
 use nom::{
+    IResult, Parser,
     branch::alt,
     bytes::complete::tag,
     character::complete::{digit1, newline},
     combinator::map,
     multi::separated_list1,
-    sequence::{terminated, tuple},
-    IResult,
+    sequence::terminated,
 };
 
 #[derive(Debug, Clone)]
@@ -78,64 +78,63 @@ impl Monkey {
 }
 
 fn parse_usize(s: &str) -> IResult<&str, usize> {
-    map(digit1, |i: &str| i.parse().expect("Invalid number"))(s)
+    map(digit1, |i: &str| i.parse().expect("Invalid number")).parse(s)
 }
 
 fn parse_i64(s: &str) -> IResult<&str, i64> {
-    map(digit1, |i: &str| i.parse().expect("Invalid number"))(s)
+    map(digit1, |i: &str| i.parse().expect("Invalid number")).parse(s)
 }
 
 fn monkey_header(s: &str) -> IResult<&str, ()> {
-    let (s, _) = terminated(tuple((tag("Monkey "), parse_usize, tag(":"))), newline)(s)?;
+    let (s, _) = terminated((tag("Monkey "), parse_usize, tag(":")), newline).parse(s)?;
     Ok((s, ()))
 }
 
 fn starting_items(s: &str) -> IResult<&str, Vec<i64>> {
     let (s, (_, items)) = terminated(
-        tuple((
+        (
             tag("  Starting items: "),
             separated_list1(tag(", "), parse_i64),
-        )),
+        ),
         newline,
-    )(s)?;
+    )
+    .parse(s)?;
 
     Ok((s, items))
 }
 
 fn operation(s: &str) -> IResult<&str, Operation> {
     let (s, (_, op)) = terminated(
-        tuple((
+        (
             tag("  Operation: new = old "),
             alt((
                 map(tag("* old"), |_| Operation::Square),
-                map(tuple((tag("* "), parse_i64)), |(_, i)| {
-                    Operation::Multiply(i)
-                }),
-                map(tuple((tag("+ "), parse_i64)), |(_, i)| Operation::Add(i)),
+                map((tag("* "), parse_i64), |(_, i)| Operation::Multiply(i)),
+                map((tag("+ "), parse_i64), |(_, i)| Operation::Add(i)),
             )),
-        )),
+        ),
         newline,
-    )(s)?;
+    )
+    .parse(s)?;
 
     Ok((s, op))
 }
 
 fn divisible_by(s: &str) -> IResult<&str, i64> {
     let (s, (_, divisible_by)) =
-        terminated(tuple((tag("  Test: divisible by "), parse_i64)), newline)(s)?;
+        terminated((tag("  Test: divisible by "), parse_i64), newline).parse(s)?;
 
     Ok((s, divisible_by))
 }
 
 fn forward_to(s: &str) -> IResult<&str, (usize, usize)> {
-    let (s, (_, true_monkey)) = terminated(
-        tuple((tag("    If true: throw to monkey "), parse_usize)),
-        newline,
-    )(s)?;
+    let (s, (_, true_monkey)) =
+        terminated((tag("    If true: throw to monkey "), parse_usize), newline).parse(s)?;
     let (s, (_, false_monkey)) = terminated(
-        tuple((tag("    If false: throw to monkey "), parse_usize)),
+        (tag("    If false: throw to monkey "), parse_usize),
         newline,
-    )(s)?;
+    )
+    .parse(s)?;
 
     Ok((s, (true_monkey, false_monkey)))
 }
@@ -160,7 +159,7 @@ fn parse_monkey(s: &str) -> IResult<&str, Monkey> {
 }
 
 fn monkeys(s: &str) -> IResult<&str, Vec<Monkey>> {
-    separated_list1(newline, parse_monkey)(s)
+    separated_list1(newline, parse_monkey).parse(s)
 }
 
 fn play_round(monkeys: &mut [Monkey], very_worried: bool, worry_divisor: i64) {

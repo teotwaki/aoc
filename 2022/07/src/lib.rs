@@ -1,10 +1,10 @@
 use common::Answer;
 use nom::{
-    IResult,
+    IResult, Parser,
     branch::alt,
     bytes::complete::tag,
     character::complete::{digit1, newline, not_line_ending, space1},
-    sequence::{terminated, tuple},
+    sequence::terminated,
 };
 use rustc_hash::FxHashMap;
 
@@ -44,7 +44,7 @@ impl<'a> File<'a> {
 fn file<'a>(parent_dir: String) -> impl Fn(&'a str) -> IResult<&'a str, ParseOutput<'a>> {
     move |s: &str| {
         let (s, (size, _, filename)) =
-            terminated(tuple((parse_usize, space1, not_line_ending)), newline)(s)?;
+            terminated((parse_usize, space1, not_line_ending), newline).parse(s)?;
 
         let path = match parent_dir.as_ref() {
             "/" => format!("/{}", filename),
@@ -63,20 +63,20 @@ fn file<'a>(parent_dir: String) -> impl Fn(&'a str) -> IResult<&'a str, ParseOut
 }
 
 fn dir(s: &str) -> IResult<&str, ParseOutput<'_>> {
-    let (s, _) = terminated(tuple((tag("dir "), not_line_ending)), newline)(s)?;
+    let (s, _) = terminated((tag("dir "), not_line_ending), newline).parse(s)?;
 
     Ok((s, ParseOutput::None))
 }
 
 fn ls_command(s: &str) -> IResult<&str, ParseOutput<'_>> {
-    let (s, _) = terminated(tag("$ ls"), newline)(s)?;
+    let (s, _) = terminated(tag("$ ls"), newline).parse(s)?;
 
     Ok((s, ParseOutput::None))
 }
 
 fn cd_command<'a>(current_dir: String) -> impl Fn(&'a str) -> IResult<&'a str, ParseOutput<'a>> {
     move |s: &str| {
-        let (s, (_, target_dir)) = terminated(tuple((tag("$ cd "), not_line_ending)), newline)(s)?;
+        let (s, (_, target_dir)) = terminated((tag("$ cd "), not_line_ending), newline).parse(s)?;
 
         let mut current_dir = current_dir.to_owned();
 
@@ -107,7 +107,8 @@ fn parse_usize(s: &str) -> IResult<&str, usize> {
 
     map(digit1, |i: &str| {
         i.parse::<usize>().expect("Invalid number")
-    })(s)
+    })
+    .parse(s)
 }
 
 fn parse(input: &str) -> IResult<&str, Vec<File<'_>>> {
@@ -118,7 +119,8 @@ fn parse(input: &str) -> IResult<&str, Vec<File<'_>>> {
     loop {
         let cd1 = current_dir.clone();
         let cd2 = current_dir.clone();
-        let (s, output) = alt((file(cd1), cd_command(cd2), ls_command, dir))(&input[pos..])?;
+        let (s, output) =
+            alt((file(cd1), cd_command(cd2), ls_command, dir)).parse(&input[pos..])?;
         pos = input.len() - s.len();
 
         match output {

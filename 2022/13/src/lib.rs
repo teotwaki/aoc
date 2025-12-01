@@ -1,12 +1,12 @@
 use common::Answer;
 use nom::{
+    IResult, Parser,
     branch::alt,
     bytes::complete::tag,
     character::complete::{digit1, newline},
     combinator::map,
     multi::{separated_list0, separated_list1},
-    sequence::{delimited, terminated, tuple},
-    IResult,
+    sequence::{delimited, terminated},
 };
 use std::cmp::Ordering;
 
@@ -60,7 +60,7 @@ impl PartialEq for Value {
 impl Eq for Value {}
 
 fn parse_i32(s: &str) -> IResult<&str, i32> {
-    map(digit1, |i: &str| i.parse().expect("Invalid number"))(s)
+    map(digit1, |i: &str| i.parse().expect("Invalid number")).parse(s)
 }
 
 fn parse_value(s: &str) -> IResult<&str, Value> {
@@ -71,20 +71,22 @@ fn parse_value(s: &str) -> IResult<&str, Value> {
             Value::List,
         ),
         tag("]"),
-    )(s)
+    )
+    .parse(s)
 }
 
 fn parse_pair(s: &str) -> IResult<&str, (Value, Value)> {
-    let (s, (v1, v2)) = tuple((
+    let (s, (v1, v2)) = (
         terminated(parse_value, newline),
         terminated(parse_value, newline),
-    ))(s)?;
+    )
+        .parse(s)?;
 
     Ok((s, (v1, v2)))
 }
 
 fn parse(s: &str) -> IResult<&str, Vec<(Value, Value)>> {
-    separated_list1(newline, parse_pair)(s)
+    separated_list1(newline, parse_pair).parse(s)
 }
 
 fn divider_packet(i: i32) -> Value {

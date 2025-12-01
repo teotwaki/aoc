@@ -1,11 +1,10 @@
 use common::Answer;
 use nom::{
-    IResult,
+    IResult, Parser,
     branch::alt,
     bytes::complete::tag,
     character::complete::{alpha1, u16 as parse_u16},
     multi::separated_list1,
-    sequence::tuple,
 };
 use rustc_hash::FxHashMap;
 
@@ -49,65 +48,69 @@ fn parse_value_u16(s: &str) -> IResult<&str, Value<'_>> {
 }
 
 fn parse_value(s: &str) -> IResult<&str, Value<'_>> {
-    alt((parse_value_w, parse_value_u16))(s)
+    alt((parse_value_w, parse_value_u16)).parse(s)
 }
 
 fn parse_assign(s: &str) -> IResult<&str, Operation<'_>> {
-    let (s, (value, _, dst)) = tuple((parse_value, tag(" -> "), parse_wire))(s)?;
+    let (s, (value, _, dst)) = (parse_value, tag(" -> "), parse_wire).parse(s)?;
 
     Ok((s, Operation::Assign(value, dst)))
 }
 
 fn parse_and(s: &str) -> IResult<&str, Operation<'_>> {
-    let (s, (a, _, b, _, dst)) = tuple((
+    let (s, (a, _, b, _, dst)) = (
         parse_value,
         tag(" AND "),
         parse_value,
         tag(" -> "),
         parse_wire,
-    ))(s)?;
+    )
+        .parse(s)?;
 
     Ok((s, Operation::And(a, b, dst)))
 }
 
 fn parse_or(s: &str) -> IResult<&str, Operation<'_>> {
-    let (s, (a, _, b, _, dst)) = tuple((
+    let (s, (a, _, b, _, dst)) = (
         parse_value,
         tag(" OR "),
         parse_value,
         tag(" -> "),
         parse_wire,
-    ))(s)?;
+    )
+        .parse(s)?;
 
     Ok((s, Operation::Or(a, b, dst)))
 }
 
 fn parse_lshift(s: &str) -> IResult<&str, Operation<'_>> {
-    let (s, (src, _, shift, _, dst)) = tuple((
+    let (s, (src, _, shift, _, dst)) = (
         parse_value,
         tag(" LSHIFT "),
         parse_u16,
         tag(" -> "),
         parse_wire,
-    ))(s)?;
+    )
+        .parse(s)?;
 
     Ok((s, Operation::Lshift(src, shift, dst)))
 }
 
 fn parse_rshift(s: &str) -> IResult<&str, Operation<'_>> {
-    let (s, (src, _, shift, _, dst)) = tuple((
+    let (s, (src, _, shift, _, dst)) = (
         parse_value,
         tag(" RSHIFT "),
         parse_u16,
         tag(" -> "),
         parse_wire,
-    ))(s)?;
+    )
+        .parse(s)?;
 
     Ok((s, Operation::Rshift(src, shift, dst)))
 }
 
 fn parse_not(s: &str) -> IResult<&str, Operation<'_>> {
-    let (s, (_, src, _, dst)) = tuple((tag("NOT "), parse_value, tag(" -> "), parse_wire))(s)?;
+    let (s, (_, src, _, dst)) = (tag("NOT "), parse_value, tag(" -> "), parse_wire).parse(s)?;
 
     Ok((s, Operation::Not(src, dst)))
 }
@@ -120,11 +123,12 @@ fn parse_operation(s: &str) -> IResult<&str, Operation<'_>> {
         parse_lshift,
         parse_rshift,
         parse_not,
-    ))(s)
+    ))
+    .parse(s)
 }
 
 fn parse_operations(s: &str) -> IResult<&str, Vec<Operation<'_>>> {
-    separated_list1(tag("\n"), parse_operation)(s)
+    separated_list1(tag("\n"), parse_operation).parse(s)
 }
 
 fn parse(s: &str) -> Vec<Operation<'_>> {
