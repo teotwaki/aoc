@@ -102,7 +102,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test {
+mod test_2015_15 {
     use super::*;
 
     const INPUT: &str = r#"Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
