@@ -1,4 +1,4 @@
-use common::{distances::manhattan, Answer, BooleanGrid, Coordinates};
+use common::{Answer, BooleanGrid, Coordinates, distances::manhattan};
 use rayon::prelude::*;
 use rustc_hash::FxHashMap;
 
