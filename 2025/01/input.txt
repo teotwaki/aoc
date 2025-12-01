@@ -1,0 +1,3 @@
+Create me with some variation of:
+
+  aoc download -I -y 2025 -d 1 -o -i ../2025/01/input.txt
