@@ -8,6 +8,6 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
-nom = "7.1"
-num = "0.4"
-rustc-hash = "2.1"
+nom = { workspace = true }
+num = { workspace = true }
+rustc-hash = { workspace = true }

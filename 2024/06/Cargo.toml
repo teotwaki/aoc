@@ -8,6 +8,6 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
-itertools = "0.13"
-rayon = "1.10"
-rustc-hash = "2.1"
+itertools = { workspace = true }
+rayon = { workspace = true }
+rustc-hash = { workspace = true }

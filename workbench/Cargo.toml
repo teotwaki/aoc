@@ -11,9 +11,9 @@ anyhow = "1.0"
 clap = { version = "4.5", features = ["derive"] }
 common = { path = "../common" }
 paste = "1.0"
-thiserror = "2.0"
+thiserror = { workspace = true }
 humantime = "2.1"
-rustc-hash = "2.1"
+rustc-hash = { workspace = true }
 
 y2015-d1 = { path = "../2015/01" }
 y2015-d2 = { path = "../2015/02" }

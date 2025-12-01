@@ -8,4 +8,4 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
-json = "0.12.4"
+json = { workspace = true }
