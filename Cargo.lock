@@ -301,7 +301,7 @@ dependencies = [
  "ciborium",
  "clap",
  "criterion-plot",
- "itertools",
+ "itertools 0.13.0",
  "num-traits",
  "oorandom",
  "page_size",
@@ -321,7 +321,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5de36c2bee19fba779808f92bf5d9b0fa5a40095c277aba10c458a12b35d21d6"
 dependencies = [
  "cast",
- "itertools",
+ "itertools 0.13.0",
 ]
 
 [[package]]
@@ -405,6 +405,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "itertools"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
+dependencies = [
+ "either",
+]
+
+[[package]]
 name = "itoa"
 version = "1.0.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -440,9 +449,9 @@ checksum = "a7a70ba024b9dc04c27ea2f0c0548feb474ec5c54bba33a7f72f873a39d07b24"
 
 [[package]]
 name = "md5"
-version = "0.7.0"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "490cc448043f947bae3cbee9c203358d62dbee0db12107a74be5c30ccfd09771"
+checksum = "ae960838283323069879657ca3de837e9f7bbb4c7bf6ea7f1b290d5e9476d2e0"
 
 [[package]]
 name = "memchr"
@@ -615,9 +624,9 @@ dependencies = [
 
 [[package]]
 name = "rayon"
-version = "1.10.0"
+version = "1.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b418a60154510ca1a002a752ca9714984e21e4241e804d32555251faf8b78ffa"
+checksum = "368f01d005bf8fd9b1206fb6fa653e6c4a81ceb1466406b81792d87c5677a58f"
 dependencies = [
  "either",
  "rayon-core",
@@ -625,9 +634,9 @@ dependencies = [
 
 [[package]]
 name = "rayon-core"
-version = "1.12.1"
+version = "1.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1465873a3dfdaa8ae7cb14b4383657caab0b3e8a0aa9ae8e04b044854c8dfce2"
+checksum = "22e18b0f0062d30d4230b2e85ff77fdfe4326feb054b9783a3460d8435c8ab91"
 dependencies = [
  "crossbeam-deque",
  "crossbeam-utils",
@@ -635,9 +644,9 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.11.1"
+version = "1.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b544ef1b4eac5dc2db33ea63606ae9ffcfac26c1416a2806ae0bf5f56b201191"
+checksum = "843bc0191f75f3e22651ae5f1e72939ab2f72a4bc30fa80a066bd66edefc24d4"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -647,9 +656,9 @@ dependencies = [
 
 [[package]]
 name = "regex-automata"
-version = "0.4.9"
+version = "0.4.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "809e8dc61f6de73b46c85f4c96486310fe304c434cfa43669d7b40f711150908"
+checksum = "5276caf25ac86c8d810222b3dbb938e512c55c6831a10f3e6ed1c93b84041f1c"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -992,7 +1001,7 @@ name = "y2015-d13"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
  "rustc-hash",
 ]
 
@@ -1008,7 +1017,7 @@ name = "y2015-d15"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
 ]
 
 [[package]]
@@ -1024,7 +1033,7 @@ name = "y2015-d17"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
 ]
 
 [[package]]
@@ -1061,7 +1070,7 @@ name = "y2015-d21"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
 ]
 
 [[package]]
@@ -1091,7 +1100,7 @@ name = "y2015-d5"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
 ]
 
 [[package]]
@@ -1123,7 +1132,7 @@ name = "y2015-d9"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
  "rustc-hash",
 ]
 
@@ -1179,7 +1188,7 @@ name = "y2022-d15"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
  "regex",
 ]
 
@@ -1263,7 +1272,7 @@ name = "y2023-d11"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
 ]
 
 [[package]]
@@ -1308,7 +1317,7 @@ name = "y2023-d3"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
 ]
 
 [[package]]
@@ -1533,7 +1542,7 @@ name = "y2024-d6"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
  "rayon",
  "rustc-hash",
 ]
@@ -1543,7 +1552,7 @@ name = "y2024-d7"
 version = "0.1.0"
 dependencies = [
  "common",
- "itertools",
+ "itertools 0.14.0",
  "rayon",
 ]
 

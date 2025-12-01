@@ -101,13 +101,13 @@ members = [
 
 [workspace.dependencies]
 criterion = "0.8"
-itertools = "0.13"
+itertools = "0.14"
 json = "0.12"
-md5 = "0.7"
+md5 = "0.8"
 nom = "7.1"
 num = "0.4"
 num-traits = "0.2"
-rayon = "1.10"
-regex = "1.11"
+rayon = "1.11"
+regex = "1.12"
 rustc-hash = "2.1"
 thiserror = "2"
