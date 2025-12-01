@@ -1,9 +1,9 @@
 use common::Answer;
 use nom::{
+    IResult, Parser,
     bytes::complete::tag,
     character::complete::alphanumeric1,
     sequence::{delimited, separated_pair},
-    IResult,
 };
 use num::integer::lcm;
 use rustc_hash::FxHashMap;
@@ -71,11 +71,12 @@ fn dst(s: &str) -> IResult<&str, (&str, &str)> {
         tag("("),
         separated_pair(coords, tag(", "), coords),
         tag(")"),
-    )(s)
+    )
+    .parse(s)
 }
 
 fn line(s: &str) -> IResult<&str, (&str, (&str, &str))> {
-    separated_pair(coords, tag(" = "), dst)(s)
+    separated_pair(coords, tag(" = "), dst).parse(s)
 }
 
 pub fn step1(s: &str) -> Answer {

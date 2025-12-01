@@ -1,11 +1,11 @@
 use common::Answer;
 use nom::{
+    IResult, Parser,
     branch::alt,
     bytes::complete::tag,
     character::complete::{anychar, digit1},
     multi::{many1, separated_list1},
-    sequence::{delimited, terminated, tuple},
-    IResult,
+    sequence::{delimited, terminated},
 };
 use std::collections::VecDeque;
 
@@ -59,28 +59,29 @@ impl Document {
 }
 
 fn parse_crate(s: &str) -> IResult<&str, Option<char>> {
-    let (s, c) = delimited(tag("["), anychar, tag("]"))(s)?;
+    let (s, c) = delimited(tag("["), anychar, tag("]")).parse(s)?;
     Ok((s, Some(c)))
 }
 
 fn parse_no_crate(s: &str) -> IResult<&str, Option<char>> {
-    let (s, _) = tuple((tag(" "), tag(" "), tag(" ")))(s)?;
+    let (s, _) = (tag(" "), tag(" "), tag(" ")).parse(s)?;
     Ok((s, None))
 }
 
 fn crate_line(s: &str) -> IResult<&str, Vec<Option<char>>> {
-    separated_list1(tag(" "), alt((parse_crate, parse_no_crate)))(s)
+    separated_list1(tag(" "), alt((parse_crate, parse_no_crate))).parse(s)
 }
 
 fn crate_lines(s: &str) -> IResult<&str, Vec<Vec<Option<char>>>> {
-    many1(terminated(crate_line, tag("\n")))(s)
+    many1(terminated(crate_line, tag("\n"))).parse(s)
 }
 
 fn parse_usize(s: &str) -> IResult<&str, usize> {
     use nom::combinator::map;
     map(digit1, |i: &str| {
         i.parse::<usize>().expect("Invalid number")
-    })(s)
+    })
+    .parse(s)
 }
 
 fn columns_line(s: &str) -> IResult<&str, Vec<usize>> {
@@ -91,18 +92,20 @@ fn columns_line(s: &str) -> IResult<&str, Vec<usize>> {
             tag(" "),
         ),
         tag("\n"),
-    )(s)
+    )
+    .parse(s)
 }
 
 fn instruction_line(s: &str) -> IResult<&str, Instruction> {
-    let (s, (_, count, _, from, _, to)) = tuple((
+    let (s, (_, count, _, from, _, to)) = (
         tag("move "),
         parse_usize,
         tag(" from "),
         parse_usize,
         tag(" to "),
         parse_usize,
-    ))(s)?;
+    )
+        .parse(s)?;
 
     Ok((
         s,
@@ -115,7 +118,7 @@ fn instruction_line(s: &str) -> IResult<&str, Instruction> {
 }
 
 fn instruction_lines(s: &str) -> IResult<&str, Vec<Instruction>> {
-    many1(terminated(instruction_line, tag("\n")))(s)
+    many1(terminated(instruction_line, tag("\n"))).parse(s)
 }
 
 fn transform_crates(column_count: usize, lines: &[Vec<Option<char>>]) -> Vec<VecDeque<char>> {

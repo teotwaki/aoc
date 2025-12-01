@@ -1,11 +1,10 @@
 use common::Answer;
 use nom::{
+    IResult, Parser,
     bytes::complete::tag,
     character::complete::{digit1, newline},
     combinator::map,
     multi::separated_list1,
-    sequence::tuple,
-    IResult,
 };
 use rustc_hash::FxHashMap;
 
@@ -160,21 +159,23 @@ struct Wall {
 }
 
 fn parse_i32(s: &str) -> IResult<&str, i32> {
-    map(digit1, |i: &str| i.parse().expect("Invalid number"))(s)
+    map(digit1, |i: &str| i.parse().expect("Invalid number")).parse(s)
 }
 
 fn parse_point(s: &str) -> IResult<&str, Point> {
-    let (s, (x, _, y)) = tuple((parse_i32, tag(","), parse_i32))(s)?;
+    let (s, (x, _, y)) = (parse_i32, tag(","), parse_i32).parse(s)?;
 
     Ok((s, Point { x, y }))
 }
 
 fn parse_line(s: &str) -> IResult<&str, Vec<Point>> {
-    separated_list1(tag(" -> "), parse_point)(s)
+    separated_list1(tag(" -> "), parse_point).parse(s)
 }
 
 fn parse(s: &str) -> Vec<Vec<Point>> {
-    let (_, lines) = separated_list1(newline, parse_line)(s).expect("Failed to parse lines");
+    let (_, lines) = separated_list1(newline, parse_line)
+        .parse(s)
+        .expect("Failed to parse lines");
 
     lines
 }

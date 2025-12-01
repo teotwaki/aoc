@@ -1,12 +1,11 @@
 use common::Answer;
 use nom::{
+    IResult, Parser,
     branch::alt,
     bytes::complete::tag,
     character::complete::{digit1, newline},
     combinator::map,
     multi::separated_list1,
-    sequence::tuple,
-    IResult,
 };
 use std::cmp::max;
 
@@ -62,33 +61,33 @@ impl Game {
 }
 
 fn parse_u8(s: &str) -> IResult<&str, u8> {
-    map(digit1, |i: &str| i.parse().expect("Invalid number"))(s)
+    map(digit1, |i: &str| i.parse().expect("Invalid number")).parse(s)
 }
 
 fn parse_red(s: &str) -> IResult<&str, Cubes> {
-    let (s, (n, _)) = tuple((parse_u8, tag(" red")))(s)?;
+    let (s, (n, _)) = (parse_u8, tag(" red")).parse(s)?;
 
     Ok((s, Cubes::Red(n)))
 }
 
 fn parse_green(s: &str) -> IResult<&str, Cubes> {
-    let (s, (n, _)) = tuple((parse_u8, tag(" green")))(s)?;
+    let (s, (n, _)) = (parse_u8, tag(" green")).parse(s)?;
 
     Ok((s, Cubes::Green(n)))
 }
 
 fn parse_blue(s: &str) -> IResult<&str, Cubes> {
-    let (s, (n, _)) = tuple((parse_u8, tag(" blue")))(s)?;
+    let (s, (n, _)) = (parse_u8, tag(" blue")).parse(s)?;
 
     Ok((s, Cubes::Blue(n)))
 }
 
 fn parse_cubes(s: &str) -> IResult<&str, Cubes> {
-    alt((parse_red, parse_green, parse_blue))(s)
+    alt((parse_red, parse_green, parse_blue)).parse(s)
 }
 
 fn parse_hand(s: &str) -> IResult<&str, Hand> {
-    let (s, presented_cubes) = separated_list1(tag(", "), parse_cubes)(s)?;
+    let (s, presented_cubes) = separated_list1(tag(", "), parse_cubes).parse(s)?;
     let mut h = Hand::default();
 
     for cubes in presented_cubes {
@@ -103,14 +102,16 @@ fn parse_hand(s: &str) -> IResult<&str, Hand> {
 }
 
 fn parse_game(s: &str) -> IResult<&str, Game> {
-    let (s, (_, game_id, _)) = tuple((tag("Game "), parse_u8, tag(": ")))(s)?;
-    let (s, hands) = separated_list1(tag("; "), parse_hand)(s)?;
+    let (s, (_, game_id, _)) = (tag("Game "), parse_u8, tag(": ")).parse(s)?;
+    let (s, hands) = separated_list1(tag("; "), parse_hand).parse(s)?;
 
     Ok((s, Game { id: game_id, hands }))
 }
 
 fn parse(s: &str) -> Vec<Game> {
-    let (_, games) = separated_list1(newline, parse_game)(s).expect("Failed to parse lines");
+    let (_, games) = separated_list1(newline, parse_game)
+        .parse(s)
+        .expect("Failed to parse lines");
 
     games
 }
