@@ -149,7 +149,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test {
+mod test_2022_15 {
     use super::*;
 
     const SMALL_INPUT: &str = r#"Sensor at x=2, y=18: closest beacon is at x=-2, y=15

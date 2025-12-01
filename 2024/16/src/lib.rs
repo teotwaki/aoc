@@ -214,7 +214,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test {
+mod test_2024_16 {
     use super::*;
 
     const FIRST_EXAMPLE: &str = r#"###############

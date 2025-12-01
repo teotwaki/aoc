@@ -94,7 +94,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test {
+mod test_2025_01 {
     use super::*;
 
     const INPUT: &str = "L18\nR5\nR20";

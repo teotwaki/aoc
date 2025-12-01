@@ -132,7 +132,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test {
+mod test_2024_09 {
     use super::*;
 
     const INPUT: &str = r#"2333133121414131402"#;
