@@ -110,6 +110,12 @@ the average performance during that run.
 
 **Note**: There is no part 2 for day 25. It is automatically completable when all other days have two stars.
 
+## 2025
+
+| Day | Title                  | Step 1    | Step 2     | Links                                                                            |
+|-----|------------------------|-----------|------------|----------------------------------------------------------------------------------|
+| 1   | Secret Entrance        | 69.4 us   | 82.2 us    | [problem](https://adventofcode.com/2025/day/1) / [solution](2025/01/src/lib.rs)  |
+
 # Improvements
 
 - Common data structures:
