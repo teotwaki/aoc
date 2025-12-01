@@ -1,4 +1,3 @@
-#[allow(dead_code)]
 use common::Answer;
 
 type IntType = i16;
