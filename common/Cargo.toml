@@ -7,6 +7,7 @@ edition.workspace = true
 doctest = false
 
 [dependencies]
+memoize = { workspace = true }
 num-traits = { workspace = true }
 rustc-hash = { workspace = true }
 thiserror = { workspace = true }

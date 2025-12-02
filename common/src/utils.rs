@@ -1,4 +1,5 @@
 use std::iter::successors;
+use memoize::memoize;
 
 pub fn number_length(n: u64) -> usize {
     (n as f64).log10().floor() as usize + 1
@@ -30,9 +31,42 @@ pub fn concat_numbers_u128_checked(a: u128, b: u128) -> Option<u128> {
         .and_then(|a| a.checked_add(b))
 }
 
+#[memoize]
+pub fn factors(n: u64) -> Vec<u64> {
+    let mut factors = vec![1, n];
+
+    let mut i = 2;
+
+    while i*i <= n {
+        if n % i == 0 {
+            factors.push(i);
+
+            if i*i != n {
+                factors.push(n / i);
+            }
+        }
+
+        i += 1;
+    }
+
+    factors.sort();
+    factors.dedup();
+
+    factors
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
+
+    #[test]
+    fn factors_finds_correct_factors() {
+        assert_eq!(factors(1), vec![1]);
+        assert_eq!(factors(6), vec![1, 2, 3, 6]);
+        assert_eq!(factors(28), vec![1, 2, 4, 7, 14, 28]);
+        assert_eq!(factors(49), vec![1, 7, 49]);
+        assert_eq!(factors(100), vec![1, 2, 4, 5, 10, 20, 25, 50, 100]);
+    }
 
     #[test]
     fn number_length_finds_correct_length() {
