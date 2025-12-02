@@ -1,5 +1,5 @@
-use std::iter::successors;
 use memoize::memoize;
+use std::iter::successors;
 
 pub fn number_length(n: u64) -> usize {
     (n as f64).log10().floor() as usize + 1
@@ -37,11 +37,11 @@ pub fn factors(n: u64) -> Vec<u64> {
 
     let mut i = 2;
 
-    while i*i <= n {
-        if n % i == 0 {
+    while i * i <= n {
+        if n.is_multiple_of(i) {
             factors.push(i);
 
-            if i*i != n {
+            if i * i != n {
                 factors.push(n / i);
             }
         }
