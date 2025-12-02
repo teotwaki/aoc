@@ -97,6 +97,7 @@ members = [
   "2024/25",
 
   "2025/01",
+  "2025/02",
 ]
 
 [workspace.dependencies]
