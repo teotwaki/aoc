@@ -2,6 +2,7 @@ use common::{
     Answer,
     utils::{factors, number_length},
 };
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 type IntType = u64;
 
@@ -46,7 +47,7 @@ fn is_valid_id(id: IntType) -> bool {
 pub fn step1(s: &str) -> Answer {
     Answer::Unsigned(
         parse(s)
-            .iter()
+            .par_iter()
             .flat_map(|r| r.0..=r.1)
             .filter(|id| !is_valid_id(*id))
             .sum(),
@@ -80,7 +81,7 @@ fn is_valid_complex_id(id: IntType) -> bool {
 pub fn step2(s: &str) -> Answer {
     Answer::Unsigned(
         parse(s)
-            .iter()
+            .par_iter()
             .flat_map(|r| r.0..=r.1)
             .filter(|id| !is_valid_complex_id(*id))
             .sum(),
