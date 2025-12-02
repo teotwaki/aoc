@@ -34,6 +34,7 @@ the average performance during that run.
 | 20  | Infinite Elves and Infinite Houses     | 45.557 ms  | 3.589 ms   | [problem](https://adventofcode.com/2015/day/20) / [solution](2015/20/src/lib.rs) |
 | 21  | RPG Simulator 20XX                     | 25.6 us    | 25.5 us    | [problem](https://adventofcode.com/2015/day/21) / [solution](2015/21/src/lib.rs) |
 | 22  | Wizard Simulator 20XX                  | 79.809 ms  | 501.886 ms | [problem](https://adventofcode.com/2015/day/22) / [solution](2015/22/src/lib.rs) |
+| 23  | Opening the Turing Lock                | 15.7 us    | 16.7 us    | [problem](https://adventofcode.com/2015/day/23) / [solution](2015/23/src/lib.rs) |
 
 ## 2022
 
