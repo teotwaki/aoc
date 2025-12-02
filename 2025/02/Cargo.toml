@@ -8,4 +8,5 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
+itertools = { workspace = true }
 rayon = { workspace = true }

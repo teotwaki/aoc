@@ -115,6 +115,7 @@ the average performance during that run.
 | Day | Title                  | Step 1    | Step 2     | Links                                                                            |
 |-----|------------------------|-----------|------------|----------------------------------------------------------------------------------|
 | 1   | Secret Entrance        | 69.4 us   | 82.2 us    | [problem](https://adventofcode.com/2025/day/1) / [solution](2025/01/src/lib.rs)  |
+| 2   | Gift Shop              | 6 ms      | 246.7 ms   | [problem](https://adventofcode.com/2025/day/2) / [solution](2025/02/src/lib.rs)  |
 
 # Improvements
 
