@@ -1,5 +1,5 @@
 use common::{DigitString, DigitStringU128};
-use criterion::{criterion_group, criterion_main, Criterion};
+use criterion::{Criterion, criterion_group, criterion_main};
 
 fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("digit_string_add", |b| {
