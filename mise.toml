@@ -3,4 +3,4 @@ setup = "prek install && prek install-hooks"
 
 [tools]
 prek = "latest"
-rust = "1.91.1"
+rust = { version = "1.91.1", components = "rust-analyzer" }
