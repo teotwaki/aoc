@@ -80,7 +80,6 @@ the average performance during that run.
 | 15  | Lens Library                    | 56.3 us   | 214.0 us   | [problem](https://adventofcode.com/2023/day/15) / [solution](2023/15/src/lib.rs) |
 | 16  | The Floor Will Be Lava          | 303.7 us  | 25.469 ms  | [problem](https://adventofcode.com/2023/day/16) / [solution](2023/16/src/lib.rs) |
 
-
 ## 2024
 
 | Day | Title                  | Step 1    | Step 2     | Links                                                                            |
@@ -120,6 +119,7 @@ the average performance during that run.
 | 1   | Secret Entrance        | 69.4 us   | 82.2 us    | [problem](https://adventofcode.com/2025/day/1) / [solution](2025/01/src/lib.rs)  |
 | 2   | Gift Shop              | 1.236 ms  | 35.083 ms  | [problem](https://adventofcode.com/2025/day/2) / [solution](2025/02/src/lib.rs)  |
 | 3   | Lobby                  | 61.3 us   | 77.4 us    | [problem](https://adventofcode.com/2025/day/3) / [solution](2025/03/src/lib.rs)  |
+| 4   | Printing Department    | 980.2 us  | 14.764 ms  | [problem](https://adventofcode.com/2025/day/4) / [solution](2025/04/src/lib.rs)  |
 
 # Improvements
 
