@@ -1721,5 +1721,4 @@ name = "y2025-d5"
 version = "0.1.0"
 dependencies = [
  "common",
- "rustc-hash",
 ]

@@ -49,24 +49,22 @@ pub fn step1(s: &str) -> Answer {
 }
 
 pub fn step2(s: &str) -> Answer {
-    let (ranges, _) = parse(s);
+    let (mut ranges, _) = parse(s);
     let mut processed: Vec<Range> = vec![];
 
+    ranges.sort_by_key(|r| r.0);
+
     ranges.iter().for_each(|r| {
-        println!("Processing {}-{}", r.0, r.1);
         let mut add = true;
 
         processed.iter_mut().for_each(|rp| {
-            println!("Comparing against {}-{}", rp.0, rp.1);
-
             if rp.contains(r.0) && !rp.contains(r.1) {
                 rp.1 = r.1;
                 add = false;
             } else if rp.contains(r.1) && !rp.contains(r.0) {
                 rp.0 = r.0;
                 add = false;
-            } else if rp.contains(r.1) && rp.contains(r.0) {
-                println!("No overlap, adding outright");
+            } else if rp.contains(r.0) && rp.contains(r.1) {
                 add = false;
             }
         });
@@ -76,7 +74,7 @@ pub fn step2(s: &str) -> Answer {
         }
     });
 
-    dbg!(processed)
+    processed
         .iter()
         .map(|r| r.1 - r.0 + 1)
         .sum::<IntType>()
