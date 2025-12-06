@@ -121,6 +121,7 @@ the average performance during that run.
 | 3   | Lobby                  | 61.3 us   | 77.4 us    | [problem](https://adventofcode.com/2025/day/3) / [solution](2025/03/src/lib.rs)  |
 | 4   | Printing Department    | 980.2 us  | 14.764 ms  | [problem](https://adventofcode.com/2025/day/4) / [solution](2025/04/src/lib.rs)  |
 | 5   | Cafeteria              | 85.8 us   | 51.5 us    | [problem](https://adventofcode.com/2025/day/5) / [solution](2025/05/src/lib.rs)  |
+| 6   | Trash Compactor        | 97.3 us   | 78.6 us    | [problem](https://adventofcode.com/2025/day/6) / [solution](2025/06/src/lib.rs)  |
 
 # Improvements
 
