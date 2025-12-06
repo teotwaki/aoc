@@ -84,14 +84,17 @@ impl<'a> CephTermReader<'a> {
     }
 
     fn at_end(&self) -> bool {
-        // TODO: There's a bug here that requires the input to have an extra space on each line,
-        // otherwise the last term is ignored.
-        // Modify the input.txt or fix the bug to run the benchmark :)
-        self.pos == (self.lines[0].len() - 1) || self.lines.iter().all(|l| l[self.pos] == ' ')
+        self.pos == self.lines[0].len()
+            || self
+                .lines
+                .iter()
+                .all(|l| l.get(self.pos).is_none_or(|&c| c == ' '))
     }
 
     fn read_digit(&self, i: usize) -> Option<IntType> {
-        self.lines[i][self.pos].to_digit(10).map(|i| i as IntType)
+        self.lines[i]
+            .get(self.pos)
+            .and_then(|c| c.to_digit(10).map(|i| i as IntType))
     }
 }
 
