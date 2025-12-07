@@ -50,9 +50,7 @@ fn dfs(
         return 1;
     }
 
-    let row_splitters = &splitters[row];
-
-    let res = if row_splitters.contains(&x) {
+    let res = if splitters[row].contains(&x) {
         let left = dfs(row + 1, x - 1, splitters, cache);
         let right = dfs(row + 1, x + 1, splitters, cache);
 
