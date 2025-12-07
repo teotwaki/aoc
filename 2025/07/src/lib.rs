@@ -68,11 +68,8 @@ fn dfs(
 
 pub fn step2(s: &str) -> Answer {
     let splitters = parse(s);
-    let start_x = splitters[0][0];
-
     let mut cache = FxHashMap::default();
-
-    let timelines = dfs(1, start_x, &splitters, &mut cache);
+    let timelines = dfs(1, splitters[0][0], &splitters, &mut cache);
 
     timelines.into()
 }
