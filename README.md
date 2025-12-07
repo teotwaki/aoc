@@ -122,6 +122,7 @@ the average performance during that run.
 | 4   | Printing Department    | 980.2 us  | 14.764 ms  | [problem](https://adventofcode.com/2025/day/4) / [solution](2025/04/src/lib.rs)  |
 | 5   | Cafeteria              | 85.8 us   | 51.5 us    | [problem](https://adventofcode.com/2025/day/5) / [solution](2025/05/src/lib.rs)  |
 | 6   | Trash Compactor        | 97.3 us   | 78.6 us    | [problem](https://adventofcode.com/2025/day/6) / [solution](2025/06/src/lib.rs)  |
+| 7   | Laboratories           | 57.4 us   | 178.7 us   | [problem](https://adventofcode.com/2025/day/7) / [solution](2025/07/src/lib.rs)  |
 
 # Improvements
 
