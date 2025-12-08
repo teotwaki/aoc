@@ -123,6 +123,7 @@ the average performance during that run.
 | 5   | Cafeteria              | 85.8 us   | 51.5 us    | [problem](https://adventofcode.com/2025/day/5) / [solution](2025/05/src/lib.rs)  |
 | 6   | Trash Compactor        | 97.3 us   | 78.6 us    | [problem](https://adventofcode.com/2025/day/6) / [solution](2025/06/src/lib.rs)  |
 | 7   | Laboratories           | 57.4 us   | 178.7 us   | [problem](https://adventofcode.com/2025/day/7) / [solution](2025/07/src/lib.rs)  |
+| 8   | Playground             | 16.719 ms | 17.486 ms  | [problem](https://adventofcode.com/2025/day/8) / [solution](2025/08/src/lib.rs)  |
 
 # Improvements
 

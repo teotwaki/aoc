@@ -190,6 +190,7 @@ dependencies = [
  "y2025-d5",
  "y2025-d6",
  "y2025-d7",
+ "y2025-d8",
 ]
 
 [[package]]
@@ -1734,6 +1735,14 @@ dependencies = [
 
 [[package]]
 name = "y2025-d7"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "rustc-hash",
+]
+
+[[package]]
+name = "y2025-d8"
 version = "0.1.0"
 dependencies = [
  "common",
