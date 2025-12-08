@@ -1,6 +1,5 @@
 use common::Answer;
 use rustc_hash::FxHashSet;
-use std::fmt::Display;
 
 type IntType = u32;
 
@@ -9,12 +8,6 @@ struct Xyz {
     x: IntType,
     y: IntType,
     z: IntType,
-}
-
-impl Display for Xyz {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{{{},{},{}}}", self.x, self.y, self.z)
-    }
 }
 
 fn distance(a: &Xyz, b: &Xyz) -> u64 {
