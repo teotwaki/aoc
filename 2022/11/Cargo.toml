@@ -9,3 +9,4 @@ doctest = false
 [dependencies]
 common = { path = "../../common" }
 nom = { workspace = true }
+itertools = { workspace = true }

@@ -1,4 +1,5 @@
 use common::Answer;
+use itertools::Itertools;
 use rustc_hash::FxHashMap;
 use std::{fmt::Display, fs::read_to_string, num::ParseIntError, str::FromStr};
 use thiserror::Error;
@@ -135,15 +136,15 @@ impl Registry {
     }
 
     pub fn latest_year(&self) -> Year {
-        let mut keys: Vec<_> = self.0.keys().collect();
-        keys.sort();
-        **keys.last().unwrap()
+        self.0.keys().sorted_unstable().last().copied().unwrap()
     }
 
     pub fn latest_day(&self, y: Year) -> Day {
-        let mut keys: Vec<_> = self.0.get(&y).unwrap().keys().collect();
-        keys.sort();
-        **keys.last().unwrap()
+        *self
+            .0
+            .get(&y)
+            .and_then(|days| days.keys().sorted().last())
+            .unwrap()
     }
 
     fn get_input(&self, y: Year, d: Day) -> Result<String, std::io::Error> {

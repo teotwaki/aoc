@@ -100,6 +100,7 @@ dependencies = [
  "clap",
  "common",
  "humantime",
+ "itertools 0.14.0",
  "paste",
  "rustc-hash",
  "thiserror",
@@ -1260,6 +1261,7 @@ name = "y2022-d1"
 version = "0.1.0"
 dependencies = [
  "common",
+ "itertools 0.14.0",
 ]
 
 [[package]]
@@ -1274,6 +1276,7 @@ name = "y2022-d11"
 version = "0.1.0"
 dependencies = [
  "common",
+ "itertools 0.14.0",
  "nom",
 ]
 
@@ -1621,6 +1624,7 @@ name = "y2024-d24"
 version = "0.1.0"
 dependencies = [
  "common",
+ "itertools 0.14.0",
  "rustc-hash",
 ]
 
@@ -1747,6 +1751,7 @@ name = "y2025-d8"
 version = "0.1.0"
 dependencies = [
  "common",
+ "itertools 0.14.0",
  "rustc-hash",
 ]
 

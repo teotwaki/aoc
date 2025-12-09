@@ -1,4 +1,5 @@
 use common::Answer;
+use itertools::Itertools;
 use nom::{
     IResult, Parser,
     branch::alt,
@@ -184,11 +185,14 @@ pub fn step1(s: &str) -> Answer {
         play_round(&mut monkeys, false, 3);
     }
 
-    let mut inspections: Vec<i64> = monkeys.iter().map(|m| m.total_inspections()).collect();
-    inspections.sort();
-    inspections.reverse();
-
-    (inspections[0] * inspections[1]).into()
+    monkeys
+        .iter()
+        .map(|m| m.total_inspections())
+        .sorted()
+        .rev()
+        .take(2)
+        .product::<i64>()
+        .into()
 }
 
 pub fn step2(s: &str) -> Answer {
@@ -199,9 +203,12 @@ pub fn step2(s: &str) -> Answer {
         play_round(&mut monkeys, true, gcd);
     }
 
-    let mut inspections: Vec<i64> = monkeys.iter().map(|m| m.total_inspections()).collect();
-    inspections.sort();
-    inspections.reverse();
-
-    (inspections[0] * inspections[1]).into()
+    monkeys
+        .iter()
+        .map(|m| m.total_inspections())
+        .sorted()
+        .rev()
+        .take(2)
+        .product::<i64>()
+        .into()
 }

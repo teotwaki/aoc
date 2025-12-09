@@ -1,4 +1,5 @@
 use common::Answer;
+use itertools::Itertools;
 use rustc_hash::FxHashMap;
 
 type Wires<'a> = FxHashMap<&'a str, bool>;
@@ -64,13 +65,10 @@ fn parse(s: &str) -> (Wires<'_>, Vec<(Gate, &str, &str, &str)>) {
 }
 
 fn parse_binary_wires(wires: &FxHashMap<&str, bool>, prefix: char) -> usize {
-    let mut keys = wires
+    wires
         .keys()
         .filter(|s| s.starts_with(prefix))
-        .collect::<Vec<_>>();
-    keys.sort();
-
-    keys.iter()
+        .sorted_unstable()
         .enumerate()
         .filter_map(|(n, k)| {
             if *wires.get(*k).unwrap_or(&false) {

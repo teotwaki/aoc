@@ -1,4 +1,5 @@
 use common::Answer;
+use itertools::Itertools;
 use rustc_hash::FxHashSet;
 
 type IntType = u32;
@@ -33,17 +34,12 @@ fn parse(s: &str) -> Vec<Xyz> {
 }
 
 fn measure_distances(boxes: &[Xyz]) -> Vec<(u64, usize, usize)> {
-    let mut distances = vec![];
-
-    for i in 0..boxes.len() {
-        for j in (i + 1)..boxes.len() {
-            distances.push((distance(&boxes[i], &boxes[j]), i, j))
-        }
-    }
-
-    distances.sort_by_key(|d| d.0);
-
-    distances
+    (0..boxes.len())
+        .flat_map(move |i| {
+            ((i + 1)..boxes.len()).map(move |j| (distance(&boxes[i], &boxes[j]), i, j))
+        })
+        .sorted_by_key(|d| d.0)
+        .collect()
 }
 
 fn merge_circuits(circuits: &mut Vec<FxHashSet<Xyz>>, a: Xyz, b: Xyz) {
@@ -92,10 +88,14 @@ fn connect_circuits(s: &str, n: usize) -> Answer {
         merge_circuits(&mut circuits, a, b);
     });
 
-    let mut lengths = circuits.iter().map(|c| c.len()).collect::<Vec<_>>();
-    lengths.sort();
-
-    lengths.iter().rev().take(3).product::<usize>().into()
+    circuits
+        .iter()
+        .map(|c| c.len())
+        .sorted_unstable()
+        .rev()
+        .take(3)
+        .product::<usize>()
+        .into()
 }
 
 pub fn step1(s: &str) -> Answer {
