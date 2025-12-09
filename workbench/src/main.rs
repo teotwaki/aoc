@@ -106,7 +106,7 @@ fn main() -> Result<()> {
                 registry.add(
                     aoc_workbench::Year::new($y)?,
                     aoc_workbench::Day::new($d)?,
-                    aoc_workbench::Solution::both([< y $y _d $d >]::step1, [< y $y _d $d >]::step2));
+                    aoc_workbench::Solution::new([< y $y _d $d >]::step1, [< y $y _d $d >]::step2));
             }
         };
         ($y:literal, $d:literal, $($days:literal),+) => {

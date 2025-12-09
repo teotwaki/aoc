@@ -91,21 +91,7 @@ pub struct Solution {
 }
 
 impl Solution {
-    pub fn first(s: Solver) -> Self {
-        Solution {
-            step1: Some(s),
-            step2: None,
-        }
-    }
-
-    pub fn second(s: Solver) -> Self {
-        Solution {
-            step1: None,
-            step2: Some(s),
-        }
-    }
-
-    pub fn both(first: Solver, second: Solver) -> Self {
+    pub fn new(first: Solver, second: Solver) -> Self {
         Solution {
             step1: Some(first),
             step2: Some(second),
