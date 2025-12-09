@@ -34,20 +34,30 @@ where
 impl<T> Coordinates<T>
 where
     Range<T>: DoubleEndedIterator<Item = T>,
-    T: Copy,
+    T: Copy + Ord,
 {
     pub fn range(&self, rhs: Self) -> impl DoubleEndedIterator<Item = Self> + '_ {
-        (self.x..rhs.x).flat_map(move |x| (self.y..rhs.y).map(move |y| Coordinates::new(x, y)))
+        let min_x = self.x.min(rhs.x);
+        let max_x = self.x.max(rhs.x);
+        let min_y = self.y.min(rhs.y);
+        let max_y = self.y.max(rhs.y);
+
+        (min_x..max_x).flat_map(move |x| (min_y..max_y).map(move |y| Coordinates::new(x, y)))
     }
 }
 
 impl<T> Coordinates<T>
 where
     RangeInclusive<T>: DoubleEndedIterator<Item = T>,
-    T: Copy,
+    T: Copy + Ord,
 {
     pub fn range_inclusive(&self, rhs: Self) -> impl DoubleEndedIterator<Item = Self> + '_ {
-        (self.x..=rhs.x).flat_map(move |x| (self.y..=rhs.y).map(move |y| Coordinates::new(x, y)))
+        let min_x = self.x.min(rhs.x);
+        let max_x = self.x.max(rhs.x);
+        let min_y = self.y.min(rhs.y);
+        let max_y = self.y.max(rhs.y);
+
+        (min_x..=max_x).flat_map(move |x| (min_y..=max_y).map(move |y| Coordinates::new(x, y)))
     }
 }
 
