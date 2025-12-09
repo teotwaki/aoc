@@ -1,0 +1,11 @@
+[package]
+name = "y2025-d9"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+itertools = { workspace = true }

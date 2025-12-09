@@ -191,6 +191,7 @@ dependencies = [
  "y2025-d6",
  "y2025-d7",
  "y2025-d8",
+ "y2025-d9",
 ]
 
 [[package]]
@@ -1747,4 +1748,12 @@ version = "0.1.0"
 dependencies = [
  "common",
  "rustc-hash",
+]
+
+[[package]]
+name = "y2025-d9"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "itertools 0.14.0",
 ]
