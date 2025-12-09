@@ -1,73 +1,45 @@
-use common::{Answer, Direction};
+use common::{Answer, Coordinates, Direction};
 use rustc_hash::FxHashSet;
 use std::str::FromStr;
 
-#[derive(Default)]
-struct Head {
-    x: i16,
-    y: i16,
-}
-
-impl Head {
-    fn up(&mut self) {
-        self.y -= 1;
-    }
-
-    fn down(&mut self) {
-        self.y += 1;
-    }
-
-    fn left(&mut self) {
-        self.x -= 1;
-    }
-
-    fn right(&mut self) {
-        self.x += 1;
-    }
-
-    fn move_towards(&mut self, dir: &Direction) -> (i16, i16) {
-        use Direction::*;
-
-        match dir {
-            Up => self.up(),
-            Down => self.down(),
-            Left => self.left(),
-            Right => self.right(),
-        }
-
-        (self.x, self.y)
-    }
-}
+type Coords = Coordinates<i16>;
 
 #[derive(Default, Clone)]
 struct Knot {
-    x: i16,
-    y: i16,
-    coords: FxHashSet<(i16, i16)>,
+    current: Coords,
+    coords: FxHashSet<Coords>,
 }
 
 impl Knot {
-    fn move_needed(&self, coords: (i16, i16)) -> bool {
-        (coords.0 - self.x).abs() == 2 || (coords.1 - self.y).abs() == 2
+    fn move_needed(&self, dest: Coords) -> bool {
+        dest.x().abs_diff(self.current.x()) == 2 || dest.y().abs_diff(self.current.y()) == 2
     }
 
-    fn move_towards(&mut self, dest: (i16, i16)) -> (i16, i16) {
+    fn move_towards(&mut self, dest: Coords) -> Coords {
         if self.move_needed(dest) {
-            match dest.0 - self.x {
-                2 | 1 => self.x += 1,
-                -2 | -1 => self.x -= 1,
+            match dest.x() - self.current.x() {
+                2 | 1 => {
+                    self.current.move_right();
+                }
+                -2 | -1 => {
+                    self.current.move_left();
+                }
                 _ => {}
             };
-            match dest.1 - self.y {
-                2 | 1 => self.y += 1,
-                -2 | -1 => self.y -= 1,
+            match dest.y() - self.current.y() {
+                2 | 1 => {
+                    self.current.move_down();
+                }
+                -2 | -1 => {
+                    self.current.move_up();
+                }
                 _ => {}
             };
         }
 
-        self.coords.insert((self.x, self.y));
+        self.coords.insert(self.current);
 
-        (self.x, self.y)
+        self.current
     }
 
     fn total_unique_locations(&self) -> usize {
@@ -102,14 +74,14 @@ impl FromStr for Motion {
 }
 
 fn calculate_knots(s: &str) -> Vec<Knot> {
-    let mut head: Head = Default::default();
+    let mut head: Coords = Default::default();
     let mut knots: Vec<Knot> = vec![Default::default(); 9];
 
     s.lines()
         .map(|l| l.parse().expect("Couldn't parse line as Motion"))
         .for_each(|m: Motion| {
             for _ in 0..m.count {
-                let mut coords = head.move_towards(&m.direction);
+                let mut coords = *head.move_next(m.direction);
                 coords = knots[0].move_towards(coords);
                 knots
                     .iter_mut()

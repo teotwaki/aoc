@@ -131,4 +131,4 @@ the average performance during that run.
 - Common data structures:
   - Map/Grid (2022/08, 2022/14)
   - Path (2022/09)
-  - Coordinates (2022/09, 2022/14)
+  - Coordinates (2022/14)
