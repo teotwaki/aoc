@@ -163,29 +163,25 @@ impl Registry {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
-    #[test]
-    fn year_can_be_initialised() {
-        assert!(Year::new(2015).is_ok());
-        assert!(Year::new(2030).is_ok());
+    #[parameterized(input = { 2015, 2030 })]
+    fn year_can_be_initialised(input: u16) {
+        assert!(Year::new(input).is_ok());
     }
 
-    #[test]
-    fn year_rejects_invalid_values() {
-        assert!(Year::new(0).is_err());
-        assert!(Year::new(2014).is_err());
-        assert!(Year::new(2031).is_err());
+    #[parameterized(input = { 0, 2014, 2031 })]
+    fn year_rejects_invalid_values(input: u16) {
+        assert!(Year::new(input).is_err());
     }
 
-    #[test]
-    fn day_can_be_initialised() {
-        assert!(Day::new(1).is_ok());
-        assert!(Day::new(25).is_ok());
+    #[parameterized(input = { 1, 25 })]
+    fn day_can_be_initialised(input: u8) {
+        assert!(Day::new(input).is_ok());
     }
 
-    #[test]
-    fn day_rejects_invalid_values() {
-        assert!(Day::new(0).is_err());
-        assert!(Day::new(26).is_err());
+    #[parameterized(input = { 0, 26 })]
+    fn day_rejects_invalid_values(input: u8) {
+        assert!(Day::new(input).is_err());
     }
 }

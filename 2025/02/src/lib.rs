@@ -89,6 +89,7 @@ pub fn step2(s: &str) -> Answer {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
     const INPUT: &str = r#"11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124"#;
 
@@ -107,42 +108,25 @@ mod test {
         assert_eq!(step2(INPUT), Answer::Unsigned(4174379265));
     }
 
-    #[test]
-    fn is_valid_id_identifies_correct_values() {
-        assert!(is_valid_id(123));
-        assert!(is_valid_id(124));
-        assert!(is_valid_id(1244));
-        assert!(is_valid_id(332994));
+    #[parameterized(input = { 123, 124, 1244, 332994 })]
+    fn is_valid_id_identifies_correct_values(input: IntType) {
+        assert!(is_valid_id(input));
     }
 
-    #[test]
-    fn is_valid_id_identifies_incorrect_values() {
-        assert!(!is_valid_id(1212));
-        assert!(!is_valid_id(22));
-        assert!(!is_valid_id(123123));
+    #[parameterized(input = { 1212, 22, 123123 })]
+    fn is_valid_id_identifies_incorrect_values(input: IntType) {
+        assert!(!is_valid_id(input));
     }
 
-    #[test]
-    fn is_valid_complex_id_identifies_correct_values() {
-        assert!(is_valid_complex_id(12));
-        assert!(is_valid_complex_id(13));
-        assert!(is_valid_complex_id(998));
-        assert!(is_valid_complex_id(998));
-        assert!(is_valid_complex_id(2121212118));
+    #[parameterized(input = { 12, 13, 998, 2121212118 })]
+    fn is_valid_complex_id_identifies_correct_values(input: IntType) {
+        assert!(is_valid_complex_id(input));
     }
 
-    #[test]
-    fn is_valid_complex_id_identifies_incorrect_values() {
-        assert!(!is_valid_complex_id(11));
-        assert!(!is_valid_complex_id(22));
-        assert!(!is_valid_complex_id(999));
-        assert!(!is_valid_complex_id(1010));
-        assert!(!is_valid_complex_id(1188511885));
-        assert!(!is_valid_complex_id(222222));
-        assert!(!is_valid_complex_id(446446));
-        assert!(!is_valid_complex_id(38593859));
-        assert!(!is_valid_complex_id(565656));
-        assert!(!is_valid_complex_id(824824824));
-        assert!(!is_valid_complex_id(2121212121));
+    #[parameterized(
+        input = { 11, 22, 999, 1010, 1188511885, 222222, 446446, 38593859, 565656, 824824824, 2121212121 }
+    )]
+    fn is_valid_complex_id_identifies_incorrect_values(input: IntType) {
+        assert!(!is_valid_complex_id(input));
     }
 }

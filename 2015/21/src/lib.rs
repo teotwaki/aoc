@@ -155,17 +155,28 @@ pub fn step2(_: &str) -> Answer {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
-    #[test]
-    fn rounds_determines_correct_winner_example() {
-        assert_eq!(rounds(8, 7, 5), 4);
-        assert_eq!(rounds(12, 5, 2), 4);
+    #[parameterized(
+        input1 = { 8, 12 },
+        input2 = { 7, 5 },
+        input3 = { 5, 2 },
+        result = { 4, 4 },
+    )]
+    fn rounds_determines_correct_winner_example(
+        input1: IntType,
+        input2: IntType,
+        input3: IntType,
+        result: IntType,
+    ) {
+        assert_eq!(rounds(input1, input2, input3), result);
     }
 
-    #[test]
-    fn rounds_handles_edge_cases() {
-        assert_eq!(rounds(100, 10, 500), 100);
-        assert_eq!(rounds(100, 10, 10), 100);
-        assert_eq!(rounds(100, 10, 0), 10);
+    #[parameterized(
+        input = {(100, 10, 500), (100, 10, 10), (100, 10, 0)},
+        output = {100, 100, 10},
+    )]
+    fn rounds_handles_edge_cases(input: (IntType, IntType, IntType), output: IntType) {
+        assert_eq!(rounds(input.0, input.1, input.2), output);
     }
 }

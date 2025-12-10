@@ -28,12 +28,19 @@ pub fn step2(s: &str) -> Answer {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
-    #[test]
-    fn is_really_nice_handles_test_data() {
-        assert!(is_really_nice("qjhvhtzxzqqjkmpb"));
-        assert!(is_really_nice("xxyxx"));
-        assert!(!is_really_nice("uurcxstgmygtbstg"));
-        assert!(!is_really_nice("ieodomkazucvgmuy"));
+    #[parameterized(
+        input = { "qjhvhtzxzqqjkmpb", "xxyxx" },
+    )]
+    fn is_really_nice_handles_test_data(input: &str) {
+        assert!(is_really_nice(input));
+    }
+
+    #[parameterized(
+        input = { "uurcxstgmygtbstg", "ieodomkazucvgmuy" },
+    )]
+    fn is_really_nice_handles_invalid_test_data(input: &str) {
+        assert!(!is_really_nice(input));
     }
 }

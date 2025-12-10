@@ -16,6 +16,9 @@ humantime = "2.1"
 rustc-hash = { workspace = true }
 itertools = { workspace = true }
 
+[dev-dependencies]
+parameterized = { workspace = true }
+
 y2015-d1 = { path = "../2015/01" }
 y2015-d2 = { path = "../2015/02" }
 y2015-d3 = { path = "../2015/03" }

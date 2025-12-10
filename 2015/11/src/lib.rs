@@ -119,13 +119,17 @@ pub fn step2(s: &str) -> Answer {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
+
+    #[parameterized(
+        input = { "hijklmmn", "abbceffg", "abbcegjk", "ghijklmn" },
+    )]
+    fn validate_can_invalidate_passwords(input: &str) {
+        assert!(!Password::from(input).is_valid());
+    }
 
     #[test]
     fn validate_can_validate_passwords() {
-        assert!(!Password::from("hijklmmn").is_valid());
-        assert!(!Password::from("abbceffg").is_valid());
-        assert!(!Password::from("abbcegjk").is_valid());
-        assert!(!Password::from("ghijklmn").is_valid());
         assert!(Password::from("ghjaabcc").is_valid());
     }
 }

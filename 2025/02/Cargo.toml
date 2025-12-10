@@ -10,3 +10,6 @@ doctest = false
 common = { path = "../../common" }
 itertools = { workspace = true }
 rayon = { workspace = true }
+
+[dev-dependencies]
+parameterized = { workspace = true }

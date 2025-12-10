@@ -8,3 +8,6 @@ doctest = false
 
 [dependencies]
 common = { path = "../../common" }
+
+[dev-dependencies]
+parameterized = { workspace = true }

@@ -47,30 +47,21 @@ pub fn step2(s: &str) -> Answer {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
-    #[test]
-    fn step1_finds_correct_values() {
-        assert_eq!(step1("[1,2,3]"), Answer::Signed(6));
-        assert_eq!(step1(r#"{"a":2,"b":4}"#), Answer::Signed(6));
-
-        assert_eq!(step1("[[[3]]]"), Answer::Signed(3));
-        assert_eq!(step1(r#"{"a":{"b":4},"c":-1}"#), Answer::Signed(3));
-
-        assert_eq!(step1(r#"{"a":[-1,1]}"#), Answer::Signed(0));
-        assert_eq!(step1(r#"[-1,{"a":1}]"#), Answer::Signed(0));
-
-        assert_eq!(step1("[]"), Answer::Signed(0));
-        assert_eq!(step1("{}"), Answer::Signed(0));
+    #[parameterized(
+        input = { "[1,2,3]", r#"{"a":2,"b":4}"#, "[[[3]]]", r#"{"a":{"b":4},"c":-1}"#, r#"{"a":[-1,1]}"#, r#"[-1,{"a":1}]"#, "[]", "{}" },
+        output = { 6, 6, 3, 3, 0, 0, 0, 0 }
+    )]
+    fn step1_finds_correct_values(input: &str, output: i64) {
+        assert_eq!(step1(input), Answer::Signed(output));
     }
 
-    #[test]
-    fn step2_finds_correct_values() {
-        assert_eq!(step2("[1,2,3]"), Answer::Signed(6));
-        assert_eq!(step2(r#"[1,{"c":"red","b":2},3]"#), Answer::Signed(4));
-        assert_eq!(
-            step2(r#"{"d":"red","e":[1,2,3,4],"f":5}"#),
-            Answer::Signed(0)
-        );
-        assert_eq!(step2(r#"[1,"red",5]"#), Answer::Signed(6));
+    #[parameterized(
+        input = { "[1,2,3]", r#"[1,{"c":"red","b":2},3]"#, r#"{"d":"red","e":[1,2,3,4],"f":5}"#, r#"[1,"red",5]"# },
+        output = { 6, 4, 0, 6 }
+    )]
+    fn step2_finds_correct_values(input: &str, output: i64) {
+        assert_eq!(step2(input), Answer::Signed(output));
     }
 }

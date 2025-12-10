@@ -242,6 +242,7 @@ pub fn step2(s: &str) -> Answer {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
     const INPUT: &str = r#"Register A: 729
 Register B: 0
@@ -268,16 +269,12 @@ Program: 0,1,5,4,3,0"#;
         );
     }
 
-    #[test]
-    fn combooperands_provide_correct_values() {
-        assert_eq!(ComboOperand(0).value(&COMPUTER), 0);
-        assert_eq!(ComboOperand(1).value(&COMPUTER), 1);
-        assert_eq!(ComboOperand(2).value(&COMPUTER), 2);
-        assert_eq!(ComboOperand(3).value(&COMPUTER), 3);
-
-        assert_eq!(ComboOperand(4).value(&COMPUTER), 10);
-        assert_eq!(ComboOperand(5).value(&COMPUTER), 20);
-        assert_eq!(ComboOperand(6).value(&COMPUTER), 30);
+    #[parameterized(
+        input = { 0, 1, 2, 3, 4, 5, 6 },
+        result = { 0, 1, 2, 3, 10, 20, 30 }
+    )]
+    fn combooperands_provide_correct_values(input: u8, result: Register) {
+        assert_eq!(ComboOperand(input).value(&COMPUTER), result);
     }
 
     #[test]

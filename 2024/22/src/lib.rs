@@ -77,14 +77,15 @@ pub fn step2(s: &str) -> Answer {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
-    #[test]
-    fn verify_math() {
-        assert_eq!(nth_secret_number(123, 10), 5908254);
-        assert_eq!(nth_secret_number(1, 2000), 8685429);
-        assert_eq!(nth_secret_number(10, 2000), 4700978);
-        assert_eq!(nth_secret_number(100, 2000), 15273692);
-        assert_eq!(nth_secret_number(2024, 2000), 8667524);
+    #[parameterized(
+        input1 = { 123, 1, 10, 100, 2024 },
+        input2 = { 10, 2000, 2000, 2000, 2000 },
+        result = { 5908254, 8685429, 4700978, 15273692, 8667524 },
+    )]
+    fn verify_math(input1: IntType, input2: usize, result: IntType) {
+        assert_eq!(nth_secret_number(input1, input2), result);
     }
 
     #[test]

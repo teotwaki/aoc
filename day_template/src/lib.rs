@@ -17,6 +17,7 @@ pub fn step2(_: &str) -> Answer {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
     const INPUT: &str = r#""#;
 
