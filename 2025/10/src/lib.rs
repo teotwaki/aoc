@@ -45,9 +45,19 @@ fn parse(s: &str) -> Vec<(IntType, Vec<IntType>)> {
 
 pub fn step1(s: &str) -> Answer {
     let machines = parse(s);
-    dbg!(machines);
 
-    ().into()
+    machines
+        .iter()
+        .map(|(target, buttons)| {
+            buttons
+                .iter()
+                .powerset()
+                .find(|set| set.iter().fold(u16::MAX, |a, b| a ^ **b) == *target)
+                .map(|set| set.len())
+                .unwrap()
+        })
+        .sum::<usize>()
+        .into()
 }
 
 pub fn step2(_: &str) -> Answer {
