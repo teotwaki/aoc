@@ -14,6 +14,7 @@ thiserror = { workspace = true }
 
 [dev-dependencies]
 criterion = { workspace = true }
+parameterized = { workspace = true }
 
 [[bench]]
 name = "number_length"

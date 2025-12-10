@@ -5,6 +5,10 @@ pub fn number_length(n: u64) -> usize {
     (n as f64).log10().floor() as usize + 1
 }
 
+pub fn number_length_binary(n: u64) -> usize {
+    64 - n.leading_zeros() as usize
+}
+
 pub fn number_length_u128(n: u128) -> usize {
     (n as f64).log10().floor() as usize + 1
 }
@@ -58,32 +62,38 @@ pub fn factors(n: u64) -> Vec<u64> {
 #[cfg(test)]
 mod test {
     use super::*;
+    use parameterized::parameterized;
 
-    #[test]
-    fn factors_finds_correct_factors() {
-        assert_eq!(factors(1), vec![1]);
-        assert_eq!(factors(6), vec![1, 2, 3, 6]);
-        assert_eq!(factors(28), vec![1, 2, 4, 7, 14, 28]);
-        assert_eq!(factors(49), vec![1, 7, 49]);
-        assert_eq!(factors(100), vec![1, 2, 4, 5, 10, 20, 25, 50, 100]);
+    #[parameterized(
+        input = { 0, 1, 2, 3, 4, 15, 16, 255, 256, u64::MAX },
+        result = { 0, 1, 2, 2, 3, 4, 5, 8, 9, 64 }
+    )]
+    fn number_length_binary_finds_correct_length(input: u64, result: usize) {
+        assert_eq!(number_length_binary(input), result);
     }
 
-    #[test]
-    fn number_length_finds_correct_length() {
-        assert_eq!(number_length(0), 1);
-        assert_eq!(number_length(1000), 4);
-        assert_eq!(number_length(1_000_000_000), 10);
-        assert_eq!(number_length(10_000_000_000_000_000_000), 20);
-        assert_eq!(number_length(u64::MAX), 20);
+    #[parameterized(
+        input = { 1, 6, 28, 49, 100 },
+        result = { vec![1], vec![1, 2, 3, 6], vec![1, 2, 4, 7, 14, 28], vec![1, 7, 49], vec![1, 2, 4, 5, 10, 20, 25, 50, 100] }
+    )]
+    fn factors_finds_correct_factors(input: u64, result: Vec<u64>) {
+        assert_eq!(factors(input), result);
     }
 
-    #[test]
-    fn number_length_successors_finds_correct_length() {
-        assert_eq!(number_length_successors(0), 1);
-        assert_eq!(number_length_successors(1000), 4);
-        assert_eq!(number_length_successors(1_000_000_000), 10);
-        assert_eq!(number_length_successors(10_000_000_000_000_000_000), 20);
-        assert_eq!(number_length_successors(u64::MAX), 20);
+    #[parameterized(
+        input = {0, 1_000, 1_000_000_000, 10_000_000_000_000_000_000, u64::MAX },
+        result = { 1, 4, 10, 20, 20 }
+    )]
+    fn number_length_finds_correct_length(input: u64, result: usize) {
+        assert_eq!(number_length(input), result);
+    }
+
+    #[parameterized(
+        input = {0, 1_000, 1_000_000_000, 10_000_000_000_000_000_000, u64::MAX },
+        result = { 1, 4, 10, 20, 20 }
+    )]
+    fn number_length_successors_finds_correct_length(input: u64, result: usize) {
+        assert_eq!(number_length_successors(input), result);
     }
 
     #[test]
