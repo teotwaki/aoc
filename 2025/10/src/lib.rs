@@ -1,4 +1,5 @@
-use common::{Answer, utils::number_length};
+use common::{Answer, utils::number_length_binary};
+use itertools::Itertools;
 
 type IntType = u16;
 
@@ -21,7 +22,7 @@ fn parse_button(s: &str, target_length: usize) -> IntType {
 
     s.split(',')
         .map(|c| c.parse::<usize>().unwrap())
-        .for_each(|i| val += 1 << (target_length.saturating_sub(i + 1)));
+        .for_each(|i| val += 1 << target_length.saturating_sub(i));
 
     val
 }
@@ -32,7 +33,7 @@ fn parse_line(s: &str) -> (IntType, Vec<IntType>) {
     let target = parse_target(parts[0]);
     let buttons = parts[1..parts.len() - 1]
         .iter()
-        .map(|s| parse_button(s, number_length(target.into())))
+        .map(|s| parse_button(s, number_length_binary(target.into())))
         .collect();
 
     (target, buttons)
@@ -78,7 +79,7 @@ mod test_2025_10 {
 
     #[test]
     fn step1_computes_expected_sample_result() {
-        assert_eq!(step1(INPUT), Answer::Unsigned(5));
+        assert_eq!(step1(INPUT), Answer::Unsigned(7));
     }
 
     /*

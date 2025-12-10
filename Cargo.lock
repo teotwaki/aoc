@@ -1758,6 +1758,7 @@ name = "y2025-d10"
 version = "0.1.0"
 dependencies = [
  "common",
+ "itertools 0.14.0",
 ]
 
 [[package]]
