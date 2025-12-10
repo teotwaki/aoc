@@ -1,0 +1,90 @@
+use common::{Answer, utils::number_length};
+
+type IntType = u16;
+
+fn parse_target(s: &str) -> IntType {
+    let s = &s[1..s.len() - 1];
+    let mut val = 0;
+
+    s.chars()
+        .rev()
+        .enumerate()
+        .filter(|(_, c)| *c == '#')
+        .for_each(|(i, _)| val += 1 << i);
+
+    val
+}
+
+fn parse_button(s: &str, target_length: usize) -> IntType {
+    let s = &s[1..s.len() - 1];
+    let mut val = 0;
+
+    s.split(',')
+        .map(|c| c.parse::<usize>().unwrap())
+        .for_each(|i| val += 1 << (target_length.saturating_sub(i + 1)));
+
+    val
+}
+
+fn parse_line(s: &str) -> (IntType, Vec<IntType>) {
+    let parts = s.split_whitespace().collect::<Vec<_>>();
+
+    let target = parse_target(parts[0]);
+    let buttons = parts[1..parts.len() - 1]
+        .iter()
+        .map(|s| parse_button(s, number_length(target.into())))
+        .collect();
+
+    (target, buttons)
+}
+
+fn parse(s: &str) -> Vec<(IntType, Vec<IntType>)> {
+    s.lines().map(parse_line).collect()
+}
+
+pub fn step1(s: &str) -> Answer {
+    let machines = parse(s);
+    dbg!(machines);
+
+    ().into()
+}
+
+pub fn step2(_: &str) -> Answer {
+    ().into()
+}
+
+#[cfg(test)]
+mod test_2025_10 {
+    use super::*;
+
+    #[test]
+    fn parse_target_finds_correct_value() {
+        assert_eq!(parse_target("[.##.]"), 6);
+    }
+
+    #[test]
+    fn parse_button_finds_correct_value() {
+        assert_eq!(parse_button("(1,2)", 3), 6);
+    }
+
+    const INPUT: &str = r#"[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}
+[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}
+[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}"#;
+
+    #[test]
+    fn parse_extracts_correct_number_of_lines() {
+        assert_eq!(parse(INPUT).len(), 3);
+    }
+
+    #[test]
+    fn step1_computes_expected_sample_result() {
+        assert_eq!(step1(INPUT), Answer::Unsigned(5));
+    }
+
+    /*
+    #[test]
+    fn step2_computes_expected_sample_result() {
+        assert_eq!(step2(INPUT), Answer::Unsigned(5));
+    }
+    */
+}
