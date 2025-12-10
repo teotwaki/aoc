@@ -40,7 +40,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test_2024_18 {
+mod test {
     use super::*;
 
     const INPUT: &str = r#"5,4

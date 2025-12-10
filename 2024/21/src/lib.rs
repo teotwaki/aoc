@@ -227,7 +227,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test_2024_21 {
+mod test {
     use super::*;
 
     static INPUT: &str = r#"029A

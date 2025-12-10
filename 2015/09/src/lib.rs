@@ -77,7 +77,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test_2015_09 {
+mod test {
     use super::*;
 
     const INPUT: &str = r#"London to Dublin = 464

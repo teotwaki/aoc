@@ -181,7 +181,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test_2025_06 {
+mod test {
     use super::*;
 
     const INPUT: &str = r#"123 328  51 64

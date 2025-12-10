@@ -110,7 +110,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test_2024_12 {
+mod test {
     use super::*;
 
     const INPUT: &str = r#"RRRRIICCFF

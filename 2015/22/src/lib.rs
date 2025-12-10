@@ -298,7 +298,7 @@ pub fn step2(_: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test_2015_22 {
+mod test {
     use super::*;
 
     #[test]

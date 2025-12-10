@@ -75,7 +75,7 @@ pub fn step2(s: &str) -> Answer {
 }
 
 #[cfg(test)]
-mod test_2024_22 {
+mod test {
     use super::*;
 
     #[test]
