@@ -6,6 +6,9 @@ edition.workspace = true
 [lib]
 doctest = false
 
+[dev-dependencies]
+parameterized = { workspace = true }
+
 [dependencies]
 anyhow = "1.0"
 clap = { version = "4.5", features = ["derive"] }
@@ -15,9 +18,6 @@ thiserror = { workspace = true }
 humantime = "2.1"
 rustc-hash = { workspace = true }
 itertools = { workspace = true }
-
-[dev-dependencies]
-parameterized = { workspace = true }
 
 y2015-d1 = { path = "../2015/01" }
 y2015-d2 = { path = "../2015/02" }
