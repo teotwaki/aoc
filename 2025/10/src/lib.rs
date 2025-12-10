@@ -59,7 +59,42 @@ pub fn step1(s: &str) -> Answer {
         .into()
 }
 
-pub fn step2(_: &str) -> Answer {
+fn parse_joltages(s: &str) -> Vec<u16> {
+    let s = &s[1..s.len() - 1];
+
+    s.split(',').map(|x| x.parse::<u16>().unwrap()).collect()
+}
+
+fn parse_button_indices(s: &str) -> Vec<usize> {
+    let s = &s[1..s.len() - 1];
+
+    if s.is_empty() {
+        return Vec::new();
+    }
+
+    s.split(',').map(|x| x.parse::<usize>().unwrap()).collect()
+}
+
+fn parse_line_part2(s: &str) -> (Vec<Vec<usize>>, Vec<u16>) {
+    let parts: Vec<_> = s.split_whitespace().collect();
+
+    let buttons = parts[1..parts.len() - 1]
+        .iter()
+        .map(|p| parse_button_indices(p))
+        .collect();
+
+    let target = parse_joltages(parts[parts.len() - 1]);
+
+    (buttons, target)
+}
+
+fn parse_part2(s: &str) -> Vec<(Vec<Vec<usize>>, Vec<u16>)> {
+    s.lines().map(parse_line_part2).collect()
+}
+
+pub fn step2(s: &str) -> Answer {
+    let _machines = parse_part2(s);
+
     ().into()
 }
 
@@ -99,7 +134,7 @@ mod test {
     /*
     #[test]
     fn step2_computes_expected_sample_result() {
-        assert_eq!(step2(INPUT), Answer::Unsigned(5));
+        assert_eq!(step2(INPUT), Answer::Unsigned(33));
     }
     */
 }
