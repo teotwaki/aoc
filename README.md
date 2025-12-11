@@ -125,7 +125,8 @@ the average performance during that run.
 | 7   | Laboratories           | 57.4 us   | 178.7 us   | [problem](https://adventofcode.com/2025/day/7) / [solution](2025/07/src/lib.rs)  |
 | 8   | Playground             | 16.719 ms | 17.486 ms  | [problem](https://adventofcode.com/2025/day/8) / [solution](2025/08/src/lib.rs)  |
 | 9   | Movie Theatre          | 2.683 ms  | 11.933 ms  | [problem](https://adventofcode.com/2025/day/9) / [solution](2025/09/src/lib.rs)  |
-| 10  | Factory                | 501.8 us  | n/a        | [problem](https://adventofcode.com/2025/day/10) / [solution](2025/10/src/lib.rs)  |
+| 10  | Factory                | 501.8 us  | n/a        | [problem](https://adventofcode.com/2025/day/10) / [solution](2025/10/src/lib.rs) |
+| 11  | Reactor                | 1.267 ms  | 1.349 ms   | [problem](https://adventofcode.com/2025/day/11) / [solution](2025/11/src/lib.rs) |
 
 **Note**: I wasn't able to solve day 10 step 2. I didn't feel like adding some random code I don't understand that uses
 an ILP solver.

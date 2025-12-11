@@ -1,0 +1,14 @@
+[package]
+name = "y2025-d11"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+rustc-hash = { workspace = true }
+
+[dev-dependencies]
+parameterized = { workspace = true }
