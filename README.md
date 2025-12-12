@@ -114,19 +114,20 @@ the average performance during that run.
 
 ## 2025
 
-| Day | Title                  | Step 1    | Step 2     | Links                                                                            |
-|-----|------------------------|-----------|------------|----------------------------------------------------------------------------------|
-| 1   | Secret Entrance        | 69.4 us   | 82.2 us    | [problem](https://adventofcode.com/2025/day/1) / [solution](2025/01/src/lib.rs)  |
-| 2   | Gift Shop              | 1.236 ms  | 35.083 ms  | [problem](https://adventofcode.com/2025/day/2) / [solution](2025/02/src/lib.rs)  |
-| 3   | Lobby                  | 61.3 us   | 77.4 us    | [problem](https://adventofcode.com/2025/day/3) / [solution](2025/03/src/lib.rs)  |
-| 4   | Printing Department    | 980.2 us  | 14.764 ms  | [problem](https://adventofcode.com/2025/day/4) / [solution](2025/04/src/lib.rs)  |
-| 5   | Cafeteria              | 85.8 us   | 51.5 us    | [problem](https://adventofcode.com/2025/day/5) / [solution](2025/05/src/lib.rs)  |
-| 6   | Trash Compactor        | 97.3 us   | 78.6 us    | [problem](https://adventofcode.com/2025/day/6) / [solution](2025/06/src/lib.rs)  |
-| 7   | Laboratories           | 57.4 us   | 178.7 us   | [problem](https://adventofcode.com/2025/day/7) / [solution](2025/07/src/lib.rs)  |
-| 8   | Playground             | 16.719 ms | 17.486 ms  | [problem](https://adventofcode.com/2025/day/8) / [solution](2025/08/src/lib.rs)  |
-| 9   | Movie Theatre          | 2.683 ms  | 11.933 ms  | [problem](https://adventofcode.com/2025/day/9) / [solution](2025/09/src/lib.rs)  |
-| 10  | Factory                | 501.8 us  | n/a        | [problem](https://adventofcode.com/2025/day/10) / [solution](2025/10/src/lib.rs) |
-| 11  | Reactor                | 1.267 ms  | 1.349 ms   | [problem](https://adventofcode.com/2025/day/11) / [solution](2025/11/src/lib.rs) |
+| Day | Title               | Step 1    | Step 2     | Links                                                                            |
+|-----|---------------------|-----------|------------|----------------------------------------------------------------------------------|
+| 1   | Secret Entrance     | 69.4 us   | 82.2 us    | [problem](https://adventofcode.com/2025/day/1) / [solution](2025/01/src/lib.rs)  |
+| 2   | Gift Shop           | 1.236 ms  | 35.083 ms  | [problem](https://adventofcode.com/2025/day/2) / [solution](2025/02/src/lib.rs)  |
+| 3   | Lobby               | 61.3 us   | 77.4 us    | [problem](https://adventofcode.com/2025/day/3) / [solution](2025/03/src/lib.rs)  |
+| 4   | Printing Department | 980.2 us  | 14.764 ms  | [problem](https://adventofcode.com/2025/day/4) / [solution](2025/04/src/lib.rs)  |
+| 5   | Cafeteria           | 85.8 us   | 51.5 us    | [problem](https://adventofcode.com/2025/day/5) / [solution](2025/05/src/lib.rs)  |
+| 6   | Trash Compactor     | 97.3 us   | 78.6 us    | [problem](https://adventofcode.com/2025/day/6) / [solution](2025/06/src/lib.rs)  |
+| 7   | Laboratories        | 57.4 us   | 178.7 us   | [problem](https://adventofcode.com/2025/day/7) / [solution](2025/07/src/lib.rs)  |
+| 8   | Playground          | 16.719 ms | 17.486 ms  | [problem](https://adventofcode.com/2025/day/8) / [solution](2025/08/src/lib.rs)  |
+| 9   | Movie Theatre       | 2.683 ms  | 11.933 ms  | [problem](https://adventofcode.com/2025/day/9) / [solution](2025/09/src/lib.rs)  |
+| 10  | Factory             | 501.8 us  | n/a        | [problem](https://adventofcode.com/2025/day/10) / [solution](2025/10/src/lib.rs) |
+| 11  | Reactor             | 1.267 ms  | 1.349 ms   | [problem](https://adventofcode.com/2025/day/11) / [solution](2025/11/src/lib.rs) |
+| 12  | Christmas Tree Farm | 133.2 us  | n/a        | [problem](https://adventofcode.com/2025/day/12) / [solution](2025/12/src/lib.rs) |
 
 **Note**: I wasn't able to solve day 10 step 2. I didn't feel like adding some random code I don't understand that uses
 an ILP solver.
