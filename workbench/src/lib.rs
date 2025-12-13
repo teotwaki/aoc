@@ -134,7 +134,7 @@ impl Registry {
     }
 
     fn get_input(&self, y: Year, d: Day) -> Result<String, std::io::Error> {
-        read_to_string(format!("../{y}/{:02}/input.txt", d))
+        read_to_string(format!("{y}/{:02}/input.txt", d))
     }
 
     pub fn run_step1(&self, y: Year, d: Day) -> Result<Answer, RunError> {
