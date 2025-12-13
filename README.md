@@ -8,77 +8,25 @@ benchmarking solution built into the workbench. Each solution is run for 1 secon
 and then the solution is run for 10 seconds and timings are recorded. The tables below indicate
 the average performance during that run.
 
-## 2015
+## 2025
 
-| Day | Title                                  | Step 1     | Step 2     | Links                                                                            |
-|-----|----------------------------------------|------------|------------|----------------------------------------------------------------------------------|
-| 1   | Not Quite Lisp                         | 16.2 us    | 8.6 us     | [problem](https://adventofcode.com/2015/day/1) / [solution](2015/01/src/lib.rs)  |
-| 2   | I Was Told There Would Be No Math      | 69.1 us    | 96.1 us    | [problem](https://adventofcode.com/2015/day/2) / [solution](2015/02/src/lib.rs)  |
-| 3   | Perfectly Spherical Houses in a Vacuum | 209.1 us   | 220.5 us   | [problem](https://adventofcode.com/2015/day/3) / [solution](2015/03/src/lib.rs)  |
-| 4   | The Ideal Stocking Stuffer             | 54.593 ms  | 1.826 s    | [problem](https://adventofcode.com/2015/day/4) / [solution](2015/04/src/lib.rs)  |
-| 5   | Doesn't He Have Intern-Elves For This? | 72.5 us    | 114.5 us   | [problem](https://adventofcode.com/2015/day/5) / [solution](2015/05/src/lib.rs)  |
-| 6   | Probably a Fire Hazard                 | 419.436 ms | 358.320 ms | [problem](https://adventofcode.com/2015/day/6) / [solution](2015/06/src/lib.rs)  |
-| 7   | Some Assembly Required                 | 200.3 us   | 426.5 us   | [problem](https://adventofcode.com/2015/day/7) / [solution](2015/07/src/lib.rs)  |
-| 8   | Matchsticks                            | 182.9 us   | 51.9 us    | [problem](https://adventofcode.com/2015/day/8) / [solution](2015/08/src/lib.rs)  |
-| 9   | All in a Single Night                  | 5.038 ms   | 5.042 ms   | [problem](https://adventofcode.com/2015/day/9) / [solution](2015/09/src/lib.rs)  |
-| 10  | Elves Look, Elves Say                  | 16.079 ms  | 233.832 ms | [problem](https://adventofcode.com/2015/day/10) / [solution](2015/10/src/lib.rs) |
-| 11  | Corporate Policy                       | 261.0 us   | 11.540 ms  | [problem](https://adventofcode.com/2015/day/11) / [solution](2015/11/src/lib.rs) |
-| 12  | JSAbacusFramework.io                   | 113.3 us   | 202.6 us   | [problem](https://adventofcode.com/2015/day/12) / [solution](2015/12/src/lib.rs) |
-| 13  | Knights of the Dinner Table            | 8.977 ms   | 90.641 ms  | [problem](https://adventofcode.com/2015/day/13) / [solution](2015/13/src/lib.rs) |
-| 14  | Reindeer Olympics                      | 8.0 us     | 105.5 us   | [problem](https://adventofcode.com/2015/day/14) / [solution](2015/14/src/lib.rs) |
-| 15  | Science for Hungry People              | 2.446 s    | 2.436 s    | [problem](https://adventofcode.com/2015/day/15) / [solution](2015/15/src/lib.rs) |
-| 16  | Aunt Sue                               | 58.3 us    | 44.4 us    | [problem](https://adventofcode.com/2015/day/16) / [solution](2015/16/src/lib.rs) |
-| 17  | No Such Thing as Too Much              | 32.990 ms  | 34.028 ms  | [problem](https://adventofcode.com/2015/day/17) / [solution](2015/17/src/lib.rs) |
-| 18  | Like a GIF For Your Yard               | 137.584 ms | 136.544 ms | [problem](https://adventofcode.com/2015/day/18) / [solution](2015/18/src/lib.rs) |
-| 19  | Medicine for Rudolph                   | 3.455 ms   | 8.8 us     | [problem](https://adventofcode.com/2015/day/19) / [solution](2015/19/src/lib.rs) |
-| 20  | Infinite Elves and Infinite Houses     | 45.557 ms  | 3.589 ms   | [problem](https://adventofcode.com/2015/day/20) / [solution](2015/20/src/lib.rs) |
-| 21  | RPG Simulator 20XX                     | 25.6 us    | 25.5 us    | [problem](https://adventofcode.com/2015/day/21) / [solution](2015/21/src/lib.rs) |
-| 22  | Wizard Simulator 20XX                  | 79.809 ms  | 501.886 ms | [problem](https://adventofcode.com/2015/day/22) / [solution](2015/22/src/lib.rs) |
-| 23  | Opening the Turing Lock                | 15.7 us    | 16.7 us    | [problem](https://adventofcode.com/2015/day/23) / [solution](2015/23/src/lib.rs) |
-| 24  | It Hangs in the Balance                | 18.869 ms  | 3.873 ms   | [problem](https://adventofcode.com/2015/day/24) / [solution](2015/24/src/lib.rs) |
-| 25  | Let It Snow                            | 12.7 us    | n/a        | [problem](https://adventofcode.com/2015/day/25) / [solution](2015/25/src/lib.rs) |
+| Day | Title               | Step 1    | Step 2     | Links                                                                            |
+|-----|---------------------|-----------|------------|----------------------------------------------------------------------------------|
+| 1   | Secret Entrance     | 69.4 us   | 82.2 us    | [problem](https://adventofcode.com/2025/day/1) / [solution](2025/01/src/lib.rs)  |
+| 2   | Gift Shop           | 1.236 ms  | 35.083 ms  | [problem](https://adventofcode.com/2025/day/2) / [solution](2025/02/src/lib.rs)  |
+| 3   | Lobby               | 61.3 us   | 77.4 us    | [problem](https://adventofcode.com/2025/day/3) / [solution](2025/03/src/lib.rs)  |
+| 4   | Printing Department | 980.2 us  | 14.764 ms  | [problem](https://adventofcode.com/2025/day/4) / [solution](2025/04/src/lib.rs)  |
+| 5   | Cafeteria           | 85.8 us   | 51.5 us    | [problem](https://adventofcode.com/2025/day/5) / [solution](2025/05/src/lib.rs)  |
+| 6   | Trash Compactor     | 97.3 us   | 78.6 us    | [problem](https://adventofcode.com/2025/day/6) / [solution](2025/06/src/lib.rs)  |
+| 7   | Laboratories        | 57.4 us   | 178.7 us   | [problem](https://adventofcode.com/2025/day/7) / [solution](2025/07/src/lib.rs)  |
+| 8   | Playground          | 16.719 ms | 17.486 ms  | [problem](https://adventofcode.com/2025/day/8) / [solution](2025/08/src/lib.rs)  |
+| 9   | Movie Theatre       | 2.683 ms  | 11.933 ms  | [problem](https://adventofcode.com/2025/day/9) / [solution](2025/09/src/lib.rs)  |
+| 10  | Factory             | 501.8 us  | n/a        | [problem](https://adventofcode.com/2025/day/10) / [solution](2025/10/src/lib.rs) |
+| 11  | Reactor             | 1.267 ms  | 1.349 ms   | [problem](https://adventofcode.com/2025/day/11) / [solution](2025/11/src/lib.rs) |
+| 12  | Christmas Tree Farm | 133.2 us  | n/a        | [problem](https://adventofcode.com/2025/day/12) / [solution](2025/12/src/lib.rs) |
 
-## 2022
-
-| Day | Title                   | Step 1     | Step 2     | Links                                                                            |
-|-----|-------------------------|------------|------------|----------------------------------------------------------------------------------|
-| 1   | Calorie Counting        | 38.1 us    | 38.0 us    | [problem](https://adventofcode.com/2022/day/1) / [solution](2022/01/src/lib.rs)  |
-| 2   | Rock Paper Scissors     | 53.9 us    | 53.3 us    | [problem](https://adventofcode.com/2022/day/2) / [solution](2022/02/src/lib.rs)  |
-| 3   | Rucksack Reorganization | 38.7 us    | 29.4 us    | [problem](https://adventofcode.com/2022/day/3) / [solution](2022/03/src/lib.rs)  |
-| 4   | Camp Cleanup            | 133.2 us   | 132.3 us   | [problem](https://adventofcode.com/2022/day/4) / [solution](2022/04/src/lib.rs)  |
-| 5   | Supply Stacks           | 39.1 us    | 59.5 us    | [problem](https://adventofcode.com/2022/day/5) / [solution](2022/05/src/lib.rs)  |
-| 6   | Tuning Trouble          | 76.9 us    | 292.7 us   | [problem](https://adventofcode.com/2022/day/6) / [solution](2022/06/src/lib.rs)  |
-| 7   | No Space Left On Device | 175.6 us   | 175.9 us   | [problem](https://adventofcode.com/2022/day/7) / [solution](2022/07/src/lib.rs)  |
-| 8   | Treetop Tree House      | 177.8 us   | 234.7 us   | [problem](https://adventofcode.com/2022/day/8) / [solution](2022/08/src/lib.rs)  |
-| 9   | Rope Bridge             | 1.282 ms   | 1.279 ms   | [problem](https://adventofcode.com/2022/day/9) / [solution](2022/09/src/lib.rs)  |
-| 10  | Cathode-Ray Tube        | 16.0 us    | 16.6 us    | [problem](https://adventofcode.com/2022/day/10) / [solution](2022/10/src/lib.rs) |
-| 11  | Monkey in the Middle    | 18.1 us    | 4.969 ms   | [problem](https://adventofcode.com/2022/day/11) / [solution](2022/11/src/lib.rs) |
-| 12  | Hill Climbing Algorithm | 19.051 ms  | 19.723 ms  | [problem](https://adventofcode.com/2022/day/12) / [solution](2022/12/src/lib.rs) |
-| 13  | Distress Signal         | 381.4 us   | 620.3 us   | [problem](https://adventofcode.com/2022/day/13) / [solution](2022/13/src/lib.rs) |
-| 14  | Regolith Reservoir      | 899.4 us   | 29.490 ms  | [problem](https://adventofcode.com/2022/day/14) / [solution](2022/14/src/lib.rs) |
-| 15  | Beacon Exclusion Zone   | 666.804 ms | 421.006 ms | [problem](https://adventofcode.com/2022/day/15) / [solution](2022/15/src/lib.rs) |
-
-## 2023
-
-**Note**: Day 12 is not implemented.
-
-| Day | Title                           | Step 1    | Step 2     | Links                                                                            |
-|-----|---------------------------------|-----------|------------|----------------------------------------------------------------------------------|
-| 1   | Trebuchet?!                     | 41.0 us   | 221.4 us   | [problem](https://adventofcode.com/2023/day/1) / [solution](2023/01/src/lib.rs)  |
-| 2   | Cube Conundrum                  | 50.4 us   | 50.7 us    | [problem](https://adventofcode.com/2023/day/2) / [solution](2023/02/src/lib.rs)  |
-| 3   | Gear Ratios                     | 5.276 ms  | 754.365 ms | [problem](https://adventofcode.com/2023/day/3) / [solution](2023/03/src/lib.rs)  |
-| 4   | Scratchcards                    | 163.5 us  | 164.3 us   | [problem](https://adventofcode.com/2023/day/4) / [solution](2023/04/src/lib.rs)  |
-| 5   | If You Give A Seed A Fertilizer | 39.3 us   | 23.859 s   | [problem](https://adventofcode.com/2023/day/5) / [solution](2023/05/src/lib.rs)  |
-| 6   | Wait For It                     | 7.2 us    | 39.156 ms  | [problem](https://adventofcode.com/2023/day/6) / [solution](2023/06/src/lib.rs)  |
-| 7   | Camel Cards                     | 226.8 us  | 227.4 us   | [problem](https://adventofcode.com/2023/day/7) / [solution](2023/07/src/lib.rs)  |
-| 8   | Haunted Wasteland               | 428.3 us  | 1.778 ms   | [problem](https://adventofcode.com/2023/day/8) / [solution](2023/08/src/lib.rs)  |
-| 9   | Mirage Maintenance              | 205.6 us  | 205.6 us   | [problem](https://adventofcode.com/2023/day/9) / [solution](2023/09/src/lib.rs)  |
-| 10  | Pipe Maze                       | 82.433 ms | 82.464 ms  | [problem](https://adventofcode.com/2023/day/10) / [solution](2023/10/src/lib.rs) |
-| 11  | Cosmic Expansion                | 3.303 ms  | 3.299 ms   | [problem](https://adventofcode.com/2023/day/11) / [solution](2023/11/src/lib.rs) |
-| 13  | Point of Incidence              | 135.4 us  | 134.9 us   | [problem](https://adventofcode.com/2023/day/13) / [solution](2023/13/src/lib.rs) |
-| 14  | Parabolic Reflector Dish        | 37.2 us   | 36.229 ms  | [problem](https://adventofcode.com/2023/day/14) / [solution](2023/14/src/lib.rs) |
-| 15  | Lens Library                    | 56.3 us   | 214.0 us   | [problem](https://adventofcode.com/2023/day/15) / [solution](2023/15/src/lib.rs) |
-| 16  | The Floor Will Be Lava          | 303.7 us  | 25.469 ms  | [problem](https://adventofcode.com/2023/day/16) / [solution](2023/16/src/lib.rs) |
+**Note**: I wasn't able to solve day 10 step 2. I didn't feel like adding some random code I don't understand that uses
+an ILP solver.
 
 ## 2024
 
@@ -112,25 +60,77 @@ the average performance during that run.
 
 **Note**: There is no part 2 for day 25. It is automatically completable when all other days have two stars.
 
-## 2025
+## 2023
 
-| Day | Title               | Step 1    | Step 2     | Links                                                                            |
-|-----|---------------------|-----------|------------|----------------------------------------------------------------------------------|
-| 1   | Secret Entrance     | 69.4 us   | 82.2 us    | [problem](https://adventofcode.com/2025/day/1) / [solution](2025/01/src/lib.rs)  |
-| 2   | Gift Shop           | 1.236 ms  | 35.083 ms  | [problem](https://adventofcode.com/2025/day/2) / [solution](2025/02/src/lib.rs)  |
-| 3   | Lobby               | 61.3 us   | 77.4 us    | [problem](https://adventofcode.com/2025/day/3) / [solution](2025/03/src/lib.rs)  |
-| 4   | Printing Department | 980.2 us  | 14.764 ms  | [problem](https://adventofcode.com/2025/day/4) / [solution](2025/04/src/lib.rs)  |
-| 5   | Cafeteria           | 85.8 us   | 51.5 us    | [problem](https://adventofcode.com/2025/day/5) / [solution](2025/05/src/lib.rs)  |
-| 6   | Trash Compactor     | 97.3 us   | 78.6 us    | [problem](https://adventofcode.com/2025/day/6) / [solution](2025/06/src/lib.rs)  |
-| 7   | Laboratories        | 57.4 us   | 178.7 us   | [problem](https://adventofcode.com/2025/day/7) / [solution](2025/07/src/lib.rs)  |
-| 8   | Playground          | 16.719 ms | 17.486 ms  | [problem](https://adventofcode.com/2025/day/8) / [solution](2025/08/src/lib.rs)  |
-| 9   | Movie Theatre       | 2.683 ms  | 11.933 ms  | [problem](https://adventofcode.com/2025/day/9) / [solution](2025/09/src/lib.rs)  |
-| 10  | Factory             | 501.8 us  | n/a        | [problem](https://adventofcode.com/2025/day/10) / [solution](2025/10/src/lib.rs) |
-| 11  | Reactor             | 1.267 ms  | 1.349 ms   | [problem](https://adventofcode.com/2025/day/11) / [solution](2025/11/src/lib.rs) |
-| 12  | Christmas Tree Farm | 133.2 us  | n/a        | [problem](https://adventofcode.com/2025/day/12) / [solution](2025/12/src/lib.rs) |
+**Note**: Day 12 is not implemented.
 
-**Note**: I wasn't able to solve day 10 step 2. I didn't feel like adding some random code I don't understand that uses
-an ILP solver.
+| Day | Title                           | Step 1    | Step 2     | Links                                                                            |
+|-----|---------------------------------|-----------|------------|----------------------------------------------------------------------------------|
+| 1   | Trebuchet?!                     | 41.0 us   | 221.4 us   | [problem](https://adventofcode.com/2023/day/1) / [solution](2023/01/src/lib.rs)  |
+| 2   | Cube Conundrum                  | 50.4 us   | 50.7 us    | [problem](https://adventofcode.com/2023/day/2) / [solution](2023/02/src/lib.rs)  |
+| 3   | Gear Ratios                     | 5.276 ms  | 754.365 ms | [problem](https://adventofcode.com/2023/day/3) / [solution](2023/03/src/lib.rs)  |
+| 4   | Scratchcards                    | 163.5 us  | 164.3 us   | [problem](https://adventofcode.com/2023/day/4) / [solution](2023/04/src/lib.rs)  |
+| 5   | If You Give A Seed A Fertilizer | 39.3 us   | 23.859 s   | [problem](https://adventofcode.com/2023/day/5) / [solution](2023/05/src/lib.rs)  |
+| 6   | Wait For It                     | 7.2 us    | 39.156 ms  | [problem](https://adventofcode.com/2023/day/6) / [solution](2023/06/src/lib.rs)  |
+| 7   | Camel Cards                     | 226.8 us  | 227.4 us   | [problem](https://adventofcode.com/2023/day/7) / [solution](2023/07/src/lib.rs)  |
+| 8   | Haunted Wasteland               | 428.3 us  | 1.778 ms   | [problem](https://adventofcode.com/2023/day/8) / [solution](2023/08/src/lib.rs)  |
+| 9   | Mirage Maintenance              | 205.6 us  | 205.6 us   | [problem](https://adventofcode.com/2023/day/9) / [solution](2023/09/src/lib.rs)  |
+| 10  | Pipe Maze                       | 82.433 ms | 82.464 ms  | [problem](https://adventofcode.com/2023/day/10) / [solution](2023/10/src/lib.rs) |
+| 11  | Cosmic Expansion                | 3.303 ms  | 3.299 ms   | [problem](https://adventofcode.com/2023/day/11) / [solution](2023/11/src/lib.rs) |
+| 13  | Point of Incidence              | 135.4 us  | 134.9 us   | [problem](https://adventofcode.com/2023/day/13) / [solution](2023/13/src/lib.rs) |
+| 14  | Parabolic Reflector Dish        | 37.2 us   | 36.229 ms  | [problem](https://adventofcode.com/2023/day/14) / [solution](2023/14/src/lib.rs) |
+| 15  | Lens Library                    | 56.3 us   | 214.0 us   | [problem](https://adventofcode.com/2023/day/15) / [solution](2023/15/src/lib.rs) |
+| 16  | The Floor Will Be Lava          | 303.7 us  | 25.469 ms  | [problem](https://adventofcode.com/2023/day/16) / [solution](2023/16/src/lib.rs) |
+
+## 2022
+
+| Day | Title                   | Step 1     | Step 2     | Links                                                                            |
+|-----|-------------------------|------------|------------|----------------------------------------------------------------------------------|
+| 1   | Calorie Counting        | 38.1 us    | 38.0 us    | [problem](https://adventofcode.com/2022/day/1) / [solution](2022/01/src/lib.rs)  |
+| 2   | Rock Paper Scissors     | 53.9 us    | 53.3 us    | [problem](https://adventofcode.com/2022/day/2) / [solution](2022/02/src/lib.rs)  |
+| 3   | Rucksack Reorganization | 38.7 us    | 29.4 us    | [problem](https://adventofcode.com/2022/day/3) / [solution](2022/03/src/lib.rs)  |
+| 4   | Camp Cleanup            | 133.2 us   | 132.3 us   | [problem](https://adventofcode.com/2022/day/4) / [solution](2022/04/src/lib.rs)  |
+| 5   | Supply Stacks           | 39.1 us    | 59.5 us    | [problem](https://adventofcode.com/2022/day/5) / [solution](2022/05/src/lib.rs)  |
+| 6   | Tuning Trouble          | 76.9 us    | 292.7 us   | [problem](https://adventofcode.com/2022/day/6) / [solution](2022/06/src/lib.rs)  |
+| 7   | No Space Left On Device | 175.6 us   | 175.9 us   | [problem](https://adventofcode.com/2022/day/7) / [solution](2022/07/src/lib.rs)  |
+| 8   | Treetop Tree House      | 177.8 us   | 234.7 us   | [problem](https://adventofcode.com/2022/day/8) / [solution](2022/08/src/lib.rs)  |
+| 9   | Rope Bridge             | 1.282 ms   | 1.279 ms   | [problem](https://adventofcode.com/2022/day/9) / [solution](2022/09/src/lib.rs)  |
+| 10  | Cathode-Ray Tube        | 16.0 us    | 16.6 us    | [problem](https://adventofcode.com/2022/day/10) / [solution](2022/10/src/lib.rs) |
+| 11  | Monkey in the Middle    | 18.1 us    | 4.969 ms   | [problem](https://adventofcode.com/2022/day/11) / [solution](2022/11/src/lib.rs) |
+| 12  | Hill Climbing Algorithm | 19.051 ms  | 19.723 ms  | [problem](https://adventofcode.com/2022/day/12) / [solution](2022/12/src/lib.rs) |
+| 13  | Distress Signal         | 381.4 us   | 620.3 us   | [problem](https://adventofcode.com/2022/day/13) / [solution](2022/13/src/lib.rs) |
+| 14  | Regolith Reservoir      | 899.4 us   | 29.490 ms  | [problem](https://adventofcode.com/2022/day/14) / [solution](2022/14/src/lib.rs) |
+| 15  | Beacon Exclusion Zone   | 666.804 ms | 421.006 ms | [problem](https://adventofcode.com/2022/day/15) / [solution](2022/15/src/lib.rs) |
+
+## 2015
+
+| Day | Title                                  | Step 1     | Step 2     | Links                                                                            |
+|-----|----------------------------------------|------------|------------|----------------------------------------------------------------------------------|
+| 1   | Not Quite Lisp                         | 16.2 us    | 8.6 us     | [problem](https://adventofcode.com/2015/day/1) / [solution](2015/01/src/lib.rs)  |
+| 2   | I Was Told There Would Be No Math      | 69.1 us    | 96.1 us    | [problem](https://adventofcode.com/2015/day/2) / [solution](2015/02/src/lib.rs)  |
+| 3   | Perfectly Spherical Houses in a Vacuum | 209.1 us   | 220.5 us   | [problem](https://adventofcode.com/2015/day/3) / [solution](2015/03/src/lib.rs)  |
+| 4   | The Ideal Stocking Stuffer             | 54.593 ms  | 1.826 s    | [problem](https://adventofcode.com/2015/day/4) / [solution](2015/04/src/lib.rs)  |
+| 5   | Doesn't He Have Intern-Elves For This? | 72.5 us    | 114.5 us   | [problem](https://adventofcode.com/2015/day/5) / [solution](2015/05/src/lib.rs)  |
+| 6   | Probably a Fire Hazard                 | 419.436 ms | 358.320 ms | [problem](https://adventofcode.com/2015/day/6) / [solution](2015/06/src/lib.rs)  |
+| 7   | Some Assembly Required                 | 200.3 us   | 426.5 us   | [problem](https://adventofcode.com/2015/day/7) / [solution](2015/07/src/lib.rs)  |
+| 8   | Matchsticks                            | 182.9 us   | 51.9 us    | [problem](https://adventofcode.com/2015/day/8) / [solution](2015/08/src/lib.rs)  |
+| 9   | All in a Single Night                  | 5.038 ms   | 5.042 ms   | [problem](https://adventofcode.com/2015/day/9) / [solution](2015/09/src/lib.rs)  |
+| 10  | Elves Look, Elves Say                  | 16.079 ms  | 233.832 ms | [problem](https://adventofcode.com/2015/day/10) / [solution](2015/10/src/lib.rs) |
+| 11  | Corporate Policy                       | 261.0 us   | 11.540 ms  | [problem](https://adventofcode.com/2015/day/11) / [solution](2015/11/src/lib.rs) |
+| 12  | JSAbacusFramework.io                   | 113.3 us   | 202.6 us   | [problem](https://adventofcode.com/2015/day/12) / [solution](2015/12/src/lib.rs) |
+| 13  | Knights of the Dinner Table            | 8.977 ms   | 90.641 ms  | [problem](https://adventofcode.com/2015/day/13) / [solution](2015/13/src/lib.rs) |
+| 14  | Reindeer Olympics                      | 8.0 us     | 105.5 us   | [problem](https://adventofcode.com/2015/day/14) / [solution](2015/14/src/lib.rs) |
+| 15  | Science for Hungry People              | 2.446 s    | 2.436 s    | [problem](https://adventofcode.com/2015/day/15) / [solution](2015/15/src/lib.rs) |
+| 16  | Aunt Sue                               | 58.3 us    | 44.4 us    | [problem](https://adventofcode.com/2015/day/16) / [solution](2015/16/src/lib.rs) |
+| 17  | No Such Thing as Too Much              | 32.990 ms  | 34.028 ms  | [problem](https://adventofcode.com/2015/day/17) / [solution](2015/17/src/lib.rs) |
+| 18  | Like a GIF For Your Yard               | 137.584 ms | 136.544 ms | [problem](https://adventofcode.com/2015/day/18) / [solution](2015/18/src/lib.rs) |
+| 19  | Medicine for Rudolph                   | 3.455 ms   | 8.8 us     | [problem](https://adventofcode.com/2015/day/19) / [solution](2015/19/src/lib.rs) |
+| 20  | Infinite Elves and Infinite Houses     | 45.557 ms  | 3.589 ms   | [problem](https://adventofcode.com/2015/day/20) / [solution](2015/20/src/lib.rs) |
+| 21  | RPG Simulator 20XX                     | 25.6 us    | 25.5 us    | [problem](https://adventofcode.com/2015/day/21) / [solution](2015/21/src/lib.rs) |
+| 22  | Wizard Simulator 20XX                  | 79.809 ms  | 501.886 ms | [problem](https://adventofcode.com/2015/day/22) / [solution](2015/22/src/lib.rs) |
+| 23  | Opening the Turing Lock                | 15.7 us    | 16.7 us    | [problem](https://adventofcode.com/2015/day/23) / [solution](2015/23/src/lib.rs) |
+| 24  | It Hangs in the Balance                | 18.869 ms  | 3.873 ms   | [problem](https://adventofcode.com/2015/day/24) / [solution](2015/24/src/lib.rs) |
+| 25  | Let It Snow                            | 12.7 us    | n/a        | [problem](https://adventofcode.com/2015/day/25) / [solution](2015/25/src/lib.rs) |
 
 # Improvements
 
