@@ -148,6 +148,7 @@ dependencies = [
  "y2023-d1",
  "y2023-d10",
  "y2023-d11",
+ "y2023-d12",
  "y2023-d13",
  "y2023-d14",
  "y2023-d15",
@@ -1454,6 +1455,16 @@ version = "0.1.0"
 dependencies = [
  "common",
  "itertools 0.14.0",
+]
+
+[[package]]
+name = "y2023-d12"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "itertools 0.14.0",
+ "parameterized",
+ "rustc-hash",
 ]
 
 [[package]]

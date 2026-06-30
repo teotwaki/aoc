@@ -1,0 +1,15 @@
+[package]
+name = "y2023-d12"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+doctest = false
+
+[dependencies]
+common = { path = "../../common" }
+itertools = { workspace = true }
+rustc-hash = { workspace = true }
+
+[dev-dependencies]
+parameterized = { workspace = true }

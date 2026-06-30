@@ -62,8 +62,6 @@ an ILP solver.
 
 ## 2023
 
-**Note**: Day 12 is not implemented.
-
 | Day | Title                           | Step 1    | Step 2     | Links                                                                            |
 |-----|---------------------------------|-----------|------------|----------------------------------------------------------------------------------|
 | 1   | Trebuchet?!                     | 41.0 us   | 221.4 us   | [problem](https://adventofcode.com/2023/day/1) / [solution](2023/01/src/lib.rs)  |
@@ -77,6 +75,7 @@ an ILP solver.
 | 9   | Mirage Maintenance              | 205.6 us  | 205.6 us   | [problem](https://adventofcode.com/2023/day/9) / [solution](2023/09/src/lib.rs)  |
 | 10  | Pipe Maze                       | 82.433 ms | 82.464 ms  | [problem](https://adventofcode.com/2023/day/10) / [solution](2023/10/src/lib.rs) |
 | 11  | Cosmic Expansion                | 3.303 ms  | 3.299 ms   | [problem](https://adventofcode.com/2023/day/11) / [solution](2023/11/src/lib.rs) |
+| 12  | Hot Springs                     | 770.3 us  | 10.454 ms  | [problem](https://adventofcode.com/2023/day/12) / [solution](2023/12/src/lib.rs) |
 | 13  | Point of Incidence              | 135.4 us  | 134.9 us   | [problem](https://adventofcode.com/2023/day/13) / [solution](2023/13/src/lib.rs) |
 | 14  | Parabolic Reflector Dish        | 37.2 us   | 36.229 ms  | [problem](https://adventofcode.com/2023/day/14) / [solution](2023/14/src/lib.rs) |
 | 15  | Lens Library                    | 56.3 us   | 214.0 us   | [problem](https://adventofcode.com/2023/day/15) / [solution](2023/15/src/lib.rs) |
