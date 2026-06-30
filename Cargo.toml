@@ -114,15 +114,15 @@ members = [
 
 [workspace.dependencies]
 criterion = "0.8"
-itertools = "0.14"
+itertools = "0.15"
 json = "0.12"
 md5 = "0.8"
-memoize = "0.5.1"
+memoize = "0.6.0"
 nom = "8.0"
 num = "0.4"
 num-traits = "0.2"
 parameterized = "2.1"
-rayon = "1.11"
+rayon = "1.12"
 regex = "1.12"
 rustc-hash = "2.1"
 thiserror = "2"
